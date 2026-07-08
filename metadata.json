@@ -1,0 +1,6 @@
+{
+  "name": "Konoha Tech",
+  "description": "Landing page de altíssima conversão e design premium para a Konoha Tech, apresentando soluções digitais inovadoras com estética moderna estilo Stripe e Vercel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
