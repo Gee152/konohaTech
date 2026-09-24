@@ -9,9 +9,15 @@ export default defineConfig(() => {
     base: '/konohaTech/', // <-- Adicionado o base path para o GitHub Pages
     plugins: [react(), tailwindcss()],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '.'),
-      },
+      alias: [
+        { find: '@/components/ui', replacement: path.resolve(__dirname, './src/components/ui') },
+        { find: '@/lib', replacement: path.resolve(__dirname, './src/lib') },
+        { find: '@/hooks', replacement: path.resolve(__dirname, './src/hooks') },
+        { find: '@/components', replacement: path.resolve(__dirname, './src/components') },
+        { find: '@/utils', replacement: path.resolve(__dirname, './src/utils') },
+        { find: '@/data', replacement: path.resolve(__dirname, './src/data') },
+        { find: '@', replacement: path.resolve(__dirname, './src') },
+      ],
     },
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',

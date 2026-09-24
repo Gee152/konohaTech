@@ -8,32 +8,15 @@ const defaultProps = {
   onOpenBudgetModal: vi.fn(),
 }
 
-describe('ContactForm', () => {
-  it('renders the CTA section with heading', () => {
+describe('ContactForm Modal', () => {
+  it('does not render the modal by default when isBudgetModalOpen is false', () => {
     render(<ContactForm {...defaultProps} />)
-    expect(screen.getByText('Pronto para tirar sua ideia do papel?')).toBeInTheDocument()
+    expect(screen.queryByText('Estime o escopo do seu projeto')).not.toBeInTheDocument()
   })
 
-  it('renders the "Solicitar orçamento" button', () => {
-    render(<ContactForm {...defaultProps} />)
-    expect(screen.getByText('Solicitar orçamento')).toBeInTheDocument()
-  })
-
-  it('renders the contact form section', () => {
-    render(<ContactForm {...defaultProps} />)
-    expect(screen.getByText('Enviar mensagem comercial')).toBeInTheDocument()
-  })
-
-  it('renders "Falar no WhatsApp" link', () => {
-    render(<ContactForm {...defaultProps} />)
-    expect(screen.getByText('Falar no WhatsApp')).toBeInTheDocument()
-  })
-
-  it('calls onOpenBudgetModal when "Solicitar orçamento" is clicked', () => {
-    const onOpen = vi.fn()
-    render(<ContactForm {...defaultProps} onOpenBudgetModal={onOpen} />)
-    fireEvent.click(screen.getByText('Solicitar orçamento'))
-    expect(onOpen).toHaveBeenCalledTimes(1)
+  it('renders the modal container when isBudgetModalOpen is true', () => {
+    render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
+    expect(screen.getByText('Estime o escopo do seu projeto')).toBeInTheDocument()
   })
 })
 

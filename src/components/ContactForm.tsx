@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Phone, Mail, MapPin, Send, Check, Sparkles, ArrowRight, ChevronRight, MessageSquare, Clock, Briefcase, LucideClosedCaption, X } from 'lucide-react'
+import { Check, ArrowRight, ChevronRight, X } from 'lucide-react';
 import { DATA } from '../data';
 
 interface ContactFormProps {
@@ -10,15 +10,6 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onOpenBudgetModal }: ContactFormProps) {
-
-  // Standard contact form state
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formLoading, setFormLoading] = useState(false);
-
   // Dynamic budget wizard state inside modal
   const [wizardStep, setWizardStep] = useState(1);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -28,6 +19,7 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
   const [wizardPhone, setWizardPhone] = useState('');
   const [wizardMessage, setWizardMessage] = useState('');
   const [wizardSubmitted, setWizardSubmitted] = useState(false);
+  const [wizardLoading, setWizardLoading] = useState(false);
 
   // Services list mapping for budget picker
   const budgetServices = [
@@ -71,24 +63,6 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
 
   const currentEstimate = calculateEstimate();
 
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name || !email || !message) {
-      alert('Por favor, preencha todos os campos obrigatórios.');
-      return;
-    }
-    setFormLoading(true);
-    setTimeout(() => {
-      setFormLoading(false);
-      setFormSubmitted(true);
-      // Clear fields
-      setName('');
-      setEmail('');
-      setPhone('');
-      setMessage('');
-    }, 1200);
-  };
-
   const handleWizardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!wizardName || !wizardEmail || !wizardPhone) {
@@ -121,9 +95,9 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
     const phone = DATA[0]?.socialMedia?.whatsapp || '558187772234';
     const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
 
-    setFormLoading(true);
+    setWizardLoading(true);
     setTimeout(() => {
-      setFormLoading(false);
+      setWizardLoading(false);
       setWizardSubmitted(true);
       window.open(url, '_blank');
     }, 500);
@@ -142,251 +116,8 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
   };
 
   return (
-    <>
-      {/* FINAL CHAMADA PARA AÇÃO (CTA) */}
-      <section className="relative py-24 overflow-hidden bg-gradient-to-r from-red-950 via-[#120204] to-zinc-950 border-t border-brand-red/35">
-
-        {/* Background mesh grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(223,37,49,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(223,37,49,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
-        <div className="absolute left-[30%] top-[-50%] w-[600px] h-[600px] rounded-full bg-brand-red/10 blur-[130px] pointer-events-none" />
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
-            {/* Tag */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-red/20 border border-brand-red/40 text-xs text-white font-semibold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-brand-red animate-pulse" />
-              Impulsione sua operação
-            </span>
-
-            {/* Title */}
-            <h2 className="font-display font-extrabold text-4xl sm:text-5xl tracking-[-0.04em] text-white max-w-3xl mx-auto leading-tight">
-              Pronto para tirar sua ideia do papel?
-            </h2>
-
-            {/* Subtext */}
-            <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Vamos construir juntos uma solução sob medida de altíssima performance para acelerar as vendas e otimizar o fluxo de crescimento do seu negócio.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto pt-4">
-              <button
-                onClick={onOpenBudgetModal}
-                className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold bg-white text-zinc-950 hover:bg-zinc-200 transition-all font-display duration-200 shadow-2xl active:scale-[0.98] cursor-pointer"
-              >
-                Solicitar orçamento
-              </button>
-              <a
-                href={`https://api.whatsapp.com/send?phone=${DATA[0]?.socialMedia?.whatsapp}&text=Ol%C3%A1%20Konoha%20Tech!%20Gostaria%20de%20conversar%20sobre%20um%20projeto.`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold glass-panel border border-white/10 hover:border-white/20 text-white hover:bg-white/5 transition-all flex items-center justify-center gap-2 duration-200 active:scale-[0.98]"
-              >
-                <MessageSquare className="w-4 h-4 text-brand-red shrink-0" />
-                Falar no WhatsApp
-              </a>
-            </div>
-
-            {/* Live stats */}
-            <div className="pt-8 flex flex-wrap items-center justify-center gap-8 text-xs text-zinc-400 font-mono">
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-brand-red" />
-                Retorno comercial em até 2 horas
-              </span>
-              <span className="w-1 h-1 rounded-full bg-zinc-700 hidden sm:block" />
-              <span className="flex items-center gap-1.5">
-                <Briefcase className="w-4 h-4 text-brand-red" />
-                Consultoria técnica cortesia inicial
-              </span>
-            </div>
-
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CONTATO INTEGRAL COM FORMULÁRIO */}
-      <section id="contato" className="relative py-24 lg:py-32 overflow-hidden bg-[#09090b] border-t border-white/5">
-
-        {/* Soft background glow */}
-        <div className="absolute right-[5%] bottom-[10%] w-[350px] h-[350px] rounded-full bg-brand-red/5 blur-[100px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-
-            {/* Left Column: Coordinates & Information */}
-            <div className="lg:col-span-5 space-y-8">
-              <div>
-                <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-                  Meios de Contato
-                </span>
-                <h3 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-[-0.04em] mb-6">
-                  Vamos criar algo lendário. Estamos prontos para ouvir.
-                </h3>
-                <p className="text-white/60 text-sm sm:text-base leading-relaxed">
-                  Tem uma ideia de sistema ou precisa automatizar seus fluxos corporativos? Envie-nos uma mensagem e descubra como a Konoha Tech impulsionará seus lucros operacionais.
-                </p>
-              </div>
-
-              {/* Information Row Items */}
-              <div className="space-y-6 pt-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-brand-red shrink-0">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h5 className="font-sans font-semibold text-sm text-zinc-300">Telefone / WhatsApp</h5>
-                    <p className="text-zinc-500 text-sm">+55 (11) 99999-9999</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-brand-red shrink-0">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h5 className="font-sans font-semibold text-sm text-zinc-300">E-mail Comercial</h5>
-                    <p className="text-zinc-500 text-sm hover:text-white transition-colors">{DATA[0].email}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-brand-red shrink-0">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h5 className="font-sans font-semibold text-sm text-zinc-300">Escritório Central</h5>
-                    <p className="text-zinc-500 text-sm">Av. Marucio de Nassau, 130 - Iputiga - Recife, PE</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Response Time Guarantee */}
-              <div className="p-4 rounded-xl bg-[#df2531]/5 border border-[#df2531]/10 text-xs text-zinc-400 flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-brand-red animate-ping shrink-0" />
-                <span>Nossa taxa média de resposta comercial é de apenas 45 minutos.</span>
-              </div>
-            </div>
-
-            {/* Right Column: Physical Contact Form */}
-            <div className="lg:col-span-7">
-              <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-white/5 relative">
-
-                {/* Visual Glow Header */}
-                <div className="absolute top-0 right-10 -translate-y-1/2 bg-zinc-950 px-4 py-1.5 rounded-full border border-white/10 font-mono text-[10px] text-zinc-500">
-                  Formulário Exclusivo
-                </div>
-
-                <AnimatePresence mode="wait">
-                  {!formSubmitted ? (
-                    <motion.form
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleContactSubmit}
-                      className="space-y-6"
-                    >
-                      <div className="grid sm:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label htmlFor="user-name" className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block">Seu Nome *</label>
-                          <input
-                            type="text"
-                            id="user-name"
-                            required
-                            placeholder="Ex: Gabriel Victor"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full bg-zinc-900 border border-white/5 focus:border-brand-red/50 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:ring-0 transition-colors"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label htmlFor="user-phone" className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block">Celular / WhatsApp</label>
-                          <input
-                            type="text"
-                            id="user-phone"
-                            placeholder="Ex: (11) 99999-9999"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            className="w-full bg-zinc-900 border border-white/5 focus:border-brand-red/50 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:ring-0 transition-colors"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label htmlFor="user-email" className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block">E-mail Corporativo *</label>
-                        <input
-                          type="email"
-                          id="user-email"
-                          required
-                          placeholder="contatokonohatech@gmail.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-zinc-900 border border-white/5 focus:border-brand-red/50 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:ring-0 transition-colors"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <label htmlFor="user-message" className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block">Descreva seu projeto ou gargalo *</label>
-                        <textarea
-                          id="user-message"
-                          required
-                          rows={4}
-                          placeholder="Quais sistemas ou processos manuais sua empresa gostaria de automatizar/desenvolver?"
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                          className="w-full bg-zinc-900 border border-white/5 focus:border-brand-red/50 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:ring-0 transition-colors resize-none"
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={formLoading}
-                        className={`w-full py-4 rounded-xl text-center font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${formLoading
-                            ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-                            : 'bg-brand-red hover:bg-brand-red-hover text-white sm:hover:scale-[1.01] duration-150'
-                          }`}
-                      >
-                        {formLoading ? 'Enviando dados...' : 'Enviar mensagem comercial'}
-                        <Send className="w-4 h-4" />
-                      </button>
-                    </motion.form>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12 space-y-6"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto shadow-2xl">
-                        <Check className="w-8 h-8" />
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="font-display font-medium text-2xl text-white">Contato Recebido!</h4>
-                        <p className="text-zinc-400 text-sm max-w-sm mx-auto leading-relaxed">
-                          Sua mensagem foi enviada com sucesso para nossa engenharia comercial. Retornaremos em menos de 45 minutos.
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => setFormSubmitted(false)}
-                        className="text-xs text-brand-red uppercase font-bold tracking-widest hover:underline cursor-pointer"
-                      >
-                        Enviar outro formulário
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SOLID BUDGET CALCULATOR WIZARD MODAL */}
-      <AnimatePresence>
-        {isBudgetModalOpen && (
+    <AnimatePresence>
+      {isBudgetModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
 
             {/* Backdrop Filter */}
@@ -707,6 +438,5 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
           </div>
         )}
       </AnimatePresence>
-    </>
   );
 }

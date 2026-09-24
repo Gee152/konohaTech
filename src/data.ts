@@ -1,7 +1,8 @@
-import { Service, PortfolioProject, Testimonial, WorkflowStep, TechBadge, Data } from './types'
+import { Service, PortfolioProject, Testimonial, WorkflowStep, TechBadge, Data, BioProfileConfig, BioLinkItem } from './types'
 import logoSrc from './assets/img/heron.webp'
 import eaoliveira from './assets/img/eaoliveira.webp'
 import anaCarolina from './assets/img/anaCarolina.png'
+import konohaLogo from './assets/img/8987bd130641623.6184473f5678a.png'
 
 const logo = logoSrc;
 const eaOliveira = eaoliveira;
@@ -15,13 +16,84 @@ export const DATA: Data[] = [
     socialMedia: {
       linkedin: 'https://www.linkedin.com/in/gabriel-alves-7967641b1',
       github: 'https://github.com/gee152',
-    whatsapp: '558187772234',
-    instagram: 'https://www.instagram.com/konoha.tech/',
-    tiktok: '@konohatech'
-  },
-  about: 'asd',
+      whatsapp: '558187772234',
+      instagram: 'https://www.instagram.com/konoha.tech/',
+      tiktok: '@konohatech'
+    },
+    about: 'Desenvolvemos tecnologia de estado da arte para estruturar, otimizar e escalar operações de empresas modernas de ponta. Código puro, entregas blindadas.',
   }
 ]
+
+export const profileConfig: BioProfileConfig = {
+  name: "KonohaTech",
+  tagline: "Engenharia de software de ponta, sistemas escaláveis e automações inteligentes.",
+  handle: "@konoha.tech",
+  handleUrl: DATA[0].socialMedia.instagram,
+  avatarSrc: konohaLogo,
+  badgeStatus: "Disponível para Novos Projetos",
+  location: `${DATA[0].address} • Atendimento Global`,
+  phone: DATA[0].phone,
+  whatsappNumber: DATA[0].socialMedia.whatsapp,
+  urgencyBanner: {
+    enabled: true,
+    title: "Slots de Desenvolvimento — Q2/2026",
+    subtitle: "Apenas 2 vagas disponíveis para início imediato este trimestre.",
+    ctaText: "Garantir Vaga",
+    whatsappMessage: "Olá KonohaTech! Gostaria de consultar a disponibilidade de vagas para iniciar um novo projeto."
+  }
+};
+
+export const bioLinksData: BioLinkItem[] = [
+  {
+    id: "whatsapp-budget",
+    title: "Solicitar Orçamento de Projeto",
+    subtitle: "Fale com nossos engenheiros diretamente pelo WhatsApp",
+    icon: "MessageCircle",
+    highlight: true,
+    badge: "Mais Rápido",
+    badgeColor: "bg-[#df2531] text-white shadow-[0_0_12px_rgba(223,37,49,0.5)]",
+    type: "whatsapp",
+    whatsappMessage: "Olá! Vim pelos links da bio da KonohaTech e gostaria de solicitar um orçamento para meu projeto."
+  },
+  {
+    id: "budget-estimator-modal",
+    title: "Simular Estimativa de Projeto",
+    subtitle: "Calcule uma estimativa de investimento e escopo em 1 min",
+    icon: "Sparkles",
+    highlight: false,
+    badge: "Interativo",
+    badgeColor: "bg-white/10 text-zinc-300 border border-white/10",
+    type: "modal"
+  },
+  {
+    id: "portfolio-cases",
+    title: "Casos Reais & Portfólio",
+    subtitle: "Veja os projetos em produção: Psicologia, Saúde e Seguros",
+    icon: "Briefcase",
+    highlight: false,
+    badge: "Casos Reais",
+    badgeColor: "bg-zinc-800 text-zinc-300 border border-zinc-700",
+    type: "modal"
+  },
+  {
+    id: "instagram-social",
+    title: "Acompanhar no Instagram",
+    subtitle: "Bastidores de código, insights de tech e novidades",
+    icon: "Instagram",
+    highlight: false,
+    type: "external",
+    url: DATA[0].socialMedia.instagram
+  },
+  {
+    id: "linkedin-social",
+    title: "LinkedIn Institucional",
+    subtitle: "Conexões profissionais e atualizações técnicas",
+    icon: "Linkedin",
+    highlight: false,
+    type: "external",
+    url: DATA[0].socialMedia.linkedin
+  }
+];
 
 export const SERVICES: Service[] = [
   {

@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DATA, PORTFOLIO } from '../data';
 import { PortfolioProject } from '../types';
-import { X, ExternalLink, Cpu, ShieldCheck, Zap, Layers, BarChart } from 'lucide-react';
+import {
+  X,
+  ExternalLink,
+  ShieldCheck,
+  Zap,
+  Layers,
+  BarChart
+} from 'lucide-react';
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Simulated Case Metrics to populate the details modal with realistic data
   const projectMetrics: Record<string, { uptime: string; latency?: string; conversion?: string; speed?: string; highlights: string[], url?: string }> = {
@@ -18,7 +27,7 @@ export default function Portfolio() {
         'Dashboards analíticos avançados para gestores regionais',
         'Alertas automatizados em tempo real no Telegram e Slack'
       ],
-      url:'https://heronpsicologo.com'
+      url: 'https://heronpsicologo.com'
     },
     'chrono-flow': {
       uptime: '99.98%',
@@ -46,120 +55,195 @@ export default function Portfolio() {
     }
   };
 
+  // Movimentação automática a cada 15 segundos (pausa ao passar o mouse)
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PORTFOLIO.length);
+    }, 15000);
+
+    return () => clearInterval(timer);
+  }, [isHovered]);
+
+  // Card no Modelo com Maior Visibilidade da Imagem/Site e Bloco de Texto Compacto
+  const renderCard = (project: PortfolioProject, idx: number) => {
+    const glowColors = [
+      "bg-brand-red",
+      "bg-orange-500",
+      "bg-zinc-400"
+    ];
+    const borderColors = [
+      "via-brand-red",
+      "via-orange-500",
+      "via-zinc-400"
+    ];
+    
+    const glowColor = glowColors[idx % glowColors.length];
+    const borderColor = borderColors[idx % borderColors.length];
+
+    return (
+      <div
+        onClick={() => setSelectedProject(project)}
+        className="group cursor-pointer h-full px-1 py-1"
+      >
+        {/* Outer Wrapper: Formato quase losango (paralelepípedo inclinado) + Borda Glow Neon */}
+        <div className="relative rounded-3xl overflow-hidden transform -skew-x-[6deg] max-sm:transform-none border border-brand-red/70 hover:border-brand-red ring-1 ring-brand-red/30 shadow-[0_0_25px_rgba(223,37,49,0.25)] hover:shadow-[0_0_35px_rgba(223,37,49,0.5)] transition-all duration-500 group-hover:scale-[1.02] flex flex-col h-full bg-[#0d111a]/95">
+          
+          {/* Glowing Bottom & Atmospheric Effects */}
+          <div className={`absolute -bottom-[30%] left-0 right-0 h-[70%] ${glowColor} blur-[90px] opacity-15 group-hover:opacity-35 transition-opacity duration-700 pointer-events-none z-0`} />
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-red/15 rounded-full blur-2xl group-hover:bg-brand-red/35 transition-all duration-500 pointer-events-none" />
+          <div className={`absolute bottom-0 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent ${borderColor} to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-700 z-0`} />
+          
+          {/* Image Showcase Ampliada - Muito mais visibilidade ao mockup do site */}
+          <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden border-b border-white/10 z-10 bg-zinc-950">
+            <img
+              src={project.image}
+              alt={project.title}
+              referrerPolicy="no-referrer"
+              className="object-cover object-top w-full h-full scale-105 transition-transform duration-500 group-hover:scale-110"
+            />
+            {/* Subtle dark gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d111a] via-black/20 to-transparent" />
+            
+            {/* Category Pill (Desinclinada para leitura perfeita) */}
+            <div className="absolute top-4 left-5 z-10 transform skew-x-[6deg] max-sm:transform-none">
+              <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/75 backdrop-blur-md text-white border border-white/20 shadow-md">
+                {project.category}
+              </span>
+            </div>
+          </div>
+
+          {/* Info block compacto (Menor espaço ocupado para valorizar a imagem) */}
+          <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow z-10 transform skew-x-[6deg] max-sm:transform-none">
+            <div>
+              {/* Project Title */}
+              <h3 className="font-display font-bold text-base sm:text-lg text-white mb-1 leading-snug group-hover:text-brand-red transition-colors">
+                {project.title}
+              </h3>
+
+              {/* Short Description compacta */}
+              <p className="text-zinc-400 text-xs leading-relaxed mb-3 font-normal line-clamp-2">
+                {project.description}
+              </p>
+            </div>
+
+            <div>
+              {/* Technology tags */}
+              <div className="flex flex-wrap gap-1 mb-3">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="font-mono text-[9px] sm:text-[10px] bg-white/10 px-2 py-0.5 rounded-md text-zinc-300 border border-white/10">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Interactive Action Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedProject(project);
+                }}
+                className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-brand-red border border-white/10 hover:border-brand-red text-white text-xs font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-md group-hover:shadow-[0_0_15px_rgba(223,37,49,0.4)]"
+              >
+                <span>Ver detalhes do projeto</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section id="portfolio" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Background radial effects */}
-      <div className="absolute right-[10%] bottom-[30%] w-[400px] h-[400px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
+      <div className="absolute right-[10%] bottom-[30%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[140px] pointer-events-none" />
+      <div className="absolute left-[5%] top-[20%] w-[350px] h-[350px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
-        {/* Title */}
-        <div className="max-w-3xl mb-16 lg:mb-24 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            Cases de Sucesso
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
+        {/* Header Centralizado */}
+        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
+            <span className="font-mono text-xs text-brand-red font-semibold tracking-wider uppercase">
+              Cases de Sucesso
+            </span>
+          </div>
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-4">
             Projetos que transformam negócios
           </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
+          <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Conheça algumas soluções de ponta desenvolvidas pela Konoha Tech. Arquitetura impecável, design envolvente e foco total em conversão e usabilidade.
           </p>
         </div>
 
-        {/* Portfolio Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PORTFOLIO.map((project, idx) => {
-            // Varied glow colors adhering to the project palette
-            const glowColors = [
-              "bg-brand-red",
-              "bg-orange-500",
-              "bg-zinc-400"
-            ];
-            const borderColors = [
-              "via-brand-red",
-              "via-orange-500",
-              "via-zinc-400"
-            ];
-            
-            const glowColor = glowColors[idx % glowColors.length];
-            const borderColor = borderColors[idx % borderColors.length];
+        {/* Slide Carousel Track - Cards 100% Íntegros e sem cortes */}
+        <div 
+          className="relative w-full max-w-6xl mx-auto overflow-hidden pb-4"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <motion.div
+            className="flex w-full"
+            animate={{ x: `-${activeIndex * 100}%` }}
+            transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
+          >
+            {PORTFOLIO.map((project, idx) => {
+              const nextProject = PORTFOLIO[(idx + 1) % PORTFOLIO.length];
 
-            return (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group cursor-pointer h-full"
-                onClick={() => setSelectedProject(project)}
-              >
-                {/* Outer Wrapper for Hover Scale & Glow */}
-                <div className="relative rounded-2xl overflow-hidden glass-panel border border-white/5 transition-all duration-500 group-hover:scale-[1.03] flex flex-col h-full bg-[#121214]/80 shadow-xl">
-                  
-                  {/* Glowing Bottom Effects based on the reference image */}
-                  <div className={`absolute -bottom-[30%] left-0 right-0 h-[70%] ${glowColor} blur-[90px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />
-                  <div className={`absolute bottom-0 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent ${borderColor} to-transparent opacity-20 group-hover:opacity-80 transition-opacity duration-700 z-0`} />
-                  
-                  {/* Image Showcase */}
-                  <div className="relative aspect-video w-full overflow-hidden border-b border-white/5 z-10">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      referrerPolicy="no-referrer"
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    />
-                    {/* Subtle dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                    
-                    {/* Category Pill */}
-                    <span className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-950/80 text-white border border-white/10">
-                      {project.category}
-                    </span>
-                  </div>
+              return (
+                <div
+                  key={project.id}
+                  className="w-full min-w-full px-2 sm:px-4"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                    {/* Card Principal do Slide */}
+                    {renderCard(project, idx)}
 
-                  {/* Info block */}
-                  <div className="p-6 flex flex-col justify-between flex-grow z-10">
-                    <div>
-                      {/* Project Title */}
-                      <h3 className="font-display font-bold text-xl text-white mb-2 leading-tight group-hover:text-white transition-colors">
-                        {project.title}
-                      </h3>
-
-                      {/* Short Description */}
-                      <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
-                        {project.description}
-                      </p>
+                    {/* Card Lado a Lado (visível no desktop) */}
+                    <div className="hidden md:block">
+                      {renderCard(nextProject, (idx + 1) % PORTFOLIO.length)}
                     </div>
-
-                    <div>
-                      {/* Technology tags */}
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        {project.tags.map((tag) => (
-                          <span key={tag} className="font-mono text-[10px] bg-white/5 px-2.5 py-1 rounded-lg text-zinc-300 border border-white/5">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Interactive Action Button */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedProject(project);
-                        }}
-                        className="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 text-white text-xs font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5"
-                      >
-                        Ver detalhes do projeto
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-
                   </div>
-
                 </div>
-              </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* Indicadores de Slide com Barra de Progresso de 15s */}
+        <div className="flex justify-center items-center gap-3 mt-6">
+          {PORTFOLIO.map((project, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <button
+                key={project.id}
+                onClick={() => setActiveIndex(i)}
+                aria-label={`Ir para slide ${i + 1}`}
+                className={`relative h-2 rounded-full transition-all duration-300 overflow-hidden cursor-pointer ${
+                  isActive
+                    ? 'w-14 bg-white/10 ring-1 ring-brand-red/50 shadow-[0_0_12px_rgba(223,37,49,0.4)]'
+                    : 'w-3 bg-white/20 hover:bg-white/40'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    key={`progress-${activeIndex}`}
+                    initial={{ width: '0%' }}
+                    animate={{ width: '100%' }}
+                    transition={{
+                      duration: 15,
+                      ease: 'linear'
+                    }}
+                    className="h-full bg-brand-red rounded-full"
+                  />
+                )}
+              </button>
             );
           })}
         </div>

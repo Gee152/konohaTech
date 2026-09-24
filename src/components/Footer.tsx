@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#09090b] border-t border-white/5 pt-16 pb-8 overflow-hidden">
+    <footer id="contato" className="relative bg-[#09090b] border-t border-white/5 pt-16 pb-8 overflow-hidden">
 
       {/* Absolute linear dark-red glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-[#df2531]/30 to-transparent pointer-events-none" />
@@ -26,26 +26,29 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Directory Links */}
-        <div className="md:col-span-3 space-y-4">
-          <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Navegação</h5>
-          <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
-            <li><a href="#problema" className="hover:text-brand-red transition-colors">O Problema</a></li>
-            <li><a href="#solucao" className="hover:text-brand-red transition-colors">A Solução</a></li>
-            <li><a href="#beneficios" className="hover:text-brand-red transition-colors">Benefícios</a></li>
-            <li><a href="#servicos" className="hover:text-brand-red transition-colors">Serviços</a></li>
-          </ul>
-        </div>
+        {/* Links: 2 colunas no mobile (grid-cols-2) e distribuídos no desktop */}
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 md:col-span-7 md:gap-12">
+          {/* Directory Links */}
+          <div className="space-y-4">
+            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Navegação</h5>
+            <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
+              <li><a href="#problema" className="hover:text-brand-red transition-colors">O Problema</a></li>
+              <li><a href="#solucao" className="hover:text-brand-red transition-colors">A Solução</a></li>
+              <li><a href="#beneficios" className="hover:text-brand-red transition-colors">Benefícios</a></li>
+              <li><a href="#servicos" className="hover:text-brand-red transition-colors">Serviços</a></li>
+            </ul>
+          </div>
 
-        {/* Support Links */}
-        <div className="md:col-span-2 space-y-4">
-          <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos</h5>
-          <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
-            <li><a href="#portfolio" className="hover:text-brand-red transition-colors">Casos de Sucesso</a></li>
-            <li><a href="#processo" className="hover:text-brand-red transition-colors">Processo de Trabalho</a></li>
-            <li><a href="#depoimentos" className="hover:text-brand-red transition-colors">Depoimentos</a></li>
-            <li><a href="#contato" className="hover:text-brand-red transition-colors">Contato Comercial</a></li>
-          </ul>
+          {/* Support Links */}
+          <div className="space-y-4">
+            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos</h5>
+            <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
+              <li><a href="#portfolio" className="hover:text-brand-red transition-colors">Nossos clientes</a></li>
+              <li><a href="#processo" className="hover:text-brand-red transition-colors">Processo de Trabalho</a></li>
+              <li><a href="#depoimentos" className="hover:text-brand-red transition-colors">Depoimentos</a></li>
+              <li><a href="#contato" className="hover:text-brand-red transition-colors">Contato Comercial</a></li>
+            </ul>
+          </div>
         </div>
 
         {/* Legal Column 

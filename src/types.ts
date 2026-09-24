@@ -49,3 +49,38 @@ export interface  Data {
   };
   about: string;
 }
+
+export type BioLinkActionType = 'whatsapp' | 'anchor' | 'modal' | 'external';
+
+export interface BioLinkItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  highlight?: boolean;
+  badge?: string;
+  badgeColor?: string;
+  type: BioLinkActionType;
+  url?: string;
+  targetAnchorId?: string;
+  whatsappMessage?: string;
+}
+
+export interface BioProfileConfig {
+  name: string;
+  tagline: string;
+  handle: string;
+  handleUrl: string;
+  avatarSrc: string;
+  badgeStatus: string;
+  location: string;
+  phone: string;
+  whatsappNumber: string;
+  urgencyBanner: {
+    enabled: boolean;
+    title: string;
+    subtitle: string;
+    ctaText: string;
+    whatsappMessage: string;
+  };
+}

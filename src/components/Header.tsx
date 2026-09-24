@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png'
+import {
+  AlertCircle,
+  Lightbulb,
+  ShieldCheck,
+  Cpu,
+  Briefcase,
+  Workflow,
+  MessageSquare,
+  Sparkles,
+  ArrowUpRight,
+} from 'lucide-react';
+import { CircularCommandMenu, CommandItem } from '@/components/ui/circular-command-menu';
+import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
 
 interface HeaderProps {
   onOpenBudgetModal: () => void;
@@ -9,7 +19,6 @@ interface HeaderProps {
 
 export default function Header({ onOpenBudgetModal }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +32,13 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navLinks = [
     { name: 'Problema', href: '#problema' },
     { name: 'Solução', href: '#solucao' },
@@ -33,11 +49,71 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
     { name: 'Depoimentos', href: '#depoimentos' },
   ];
 
+  // Itens do Circular Command Menu respeitando a identidade visual e os nomes como tooltips
+  const commandMenuItems: CommandItem[] = [
+    {
+      id: 'problema',
+      label: 'Problema',
+      icon: <AlertCircle className="w-5 h-5 text-red-400" />,
+      shortcut: '1',
+      onClick: () => scrollToSection('#problema'),
+    },
+    {
+      id: 'solucao',
+      label: 'Solução',
+      icon: <Lightbulb className="w-5 h-5 text-amber-400" />,
+      shortcut: '2',
+      onClick: () => scrollToSection('#solucao'),
+    },
+    {
+      id: 'beneficios',
+      label: 'Benefícios',
+      icon: <ShieldCheck className="w-5 h-5 text-emerald-400" />,
+      shortcut: '3',
+      onClick: () => scrollToSection('#beneficios'),
+    },
+    {
+      id: 'servicos',
+      label: 'Serviços',
+      icon: <Cpu className="w-5 h-5 text-cyan-400" />,
+      shortcut: '4',
+      onClick: () => scrollToSection('#servicos'),
+    },
+    {
+      id: 'portfolio',
+      label: 'Casos Reais',
+      icon: <Briefcase className="w-5 h-5 text-purple-400" />,
+      shortcut: '5',
+      onClick: () => scrollToSection('#portfolio'),
+    },
+    {
+      id: 'processo',
+      label: 'Metodologia',
+      icon: <Workflow className="w-5 h-5 text-orange-400" />,
+      shortcut: '6',
+      onClick: () => scrollToSection('#processo'),
+    },
+    {
+      id: 'depoimentos',
+      label: 'Depoimentos',
+      icon: <MessageSquare className="w-5 h-5 text-blue-400" />,
+      shortcut: '7',
+      onClick: () => scrollToSection('#depoimentos'),
+    },
+    {
+      id: 'orcamento',
+      label: 'Solicitar Orçamento',
+      icon: <Sparkles className="w-5 h-5 text-[#df2531]" />,
+      shortcut: '8',
+      onClick: onOpenBudgetModal,
+    },
+  ];
+
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'py-3 bg-dark-bg/75 border-b border-white/5 shadow-2xl'
+          ? 'py-3 bg-dark-bg/85 backdrop-blur-md border-b border-white/5 shadow-2xl'
           : 'py-5 bg-transparent'
       }`}
     >
@@ -55,7 +131,7 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -68,69 +144,33 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-4">
-            <button
-              onClick={onOpenBudgetModal}
-              className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-red hover:bg-brand-red-hover transition-all duration-200 shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)] group overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-1">
-                Solicitar orçamento
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </span>
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-gradient-to-r from-red-500 to-brand-red transition-transform duration-300 -z-10" />
-            </button>
-          </div>
+          {/* Actions & Menu Buttons */}
+          <div className="flex items-center gap-3">
+            {/* CTA Button (Desktop) */}
+            <div className="hidden lg:flex items-center">
+              <button
+                onClick={onOpenBudgetModal}
+                className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-red hover:bg-brand-red-hover transition-all duration-200 shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)] group overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-1">
+                  Solicitar orçamento
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-gradient-to-r from-red-500 to-brand-red transition-transform duration-300 -z-10" />
+              </button>
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex lg:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Circular Command Menu integrado: acessível em Desktop e Mobile */}
+            <CircularCommandMenu
+              items={commandMenuItems}
+              centerOnOpen={true}
+              radius={130}
+              triggerClassName="h-10 w-10 sm:h-11 sm:w-11"
+              aria-label="Abrir menu de comando circular"
+            />
           </div>
         </div>
       </div>
-
-      {/* Mobile Nav Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full inset-x-0 z-50 p-4 mx-4 mt-2 rounded-2xl glass-panel border border-white/10 shadow-2xl lg:hidden"
-          >
-            <div className="flex flex-col gap-4 py-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-lg text-base font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <hr className="border-white/5 my-1" />
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBudgetModal();
-                }}
-                className="w-full py-3 rounded-xl bg-brand-red hover:bg-brand-red-hover text-white text-center font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-1.5"
-              >
-                Solicitar orçamento
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
