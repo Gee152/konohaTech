@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'motion/react';
 import { Compass, Layers, Code, ShieldCheck, Rocket, ChevronRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
@@ -51,9 +52,9 @@ const SOLUTION_BORDER_COLORS = [
   "via-orange-500"
 ];
 
-export default function Solution() {
+function Solution() {
   return (
-    <section id="solucao" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50 content-visibility-auto">
+    <section id="solucao" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
       
       {/* Background radial soft light */}
       <div className="absolute left-[8%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -82,10 +83,10 @@ export default function Solution() {
               return (
                 <motion.div
                   key={step.label}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  viewport={{ once: true, margin: '80px 0px 0px 0px' }}
+                  transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.05, 0.15) }}
                   className="w-[90vw] max-w-[330px] shrink-0 lg:w-auto snap-start group flex flex-col items-start lg:items-center text-left lg:text-center p-7 lg:p-4 rounded-2xl bg-zinc-950/80 border border-white/5 hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
                 >
                   {/* Glowing Bottom Effects based on the reference image */}
@@ -126,3 +127,5 @@ export default function Solution() {
     </section>
   );
 }
+
+export default memo(Solution);

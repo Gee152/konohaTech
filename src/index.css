@@ -118,11 +118,6 @@
   animation: cursor-blink 0.9s ease-in-out infinite;
 }
 
-/* Content visibility optimization for below-the-fold components on mobile & desktop */
-.content-visibility-auto {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 650px;
-}
 
 /* Scrollbar oculto para carrossel e swipes horizontais */
 .no-scrollbar::-webkit-scrollbar {

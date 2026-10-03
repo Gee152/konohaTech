@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import gabrielImg from '../assets/img/gabriel.webp';
@@ -150,7 +150,7 @@ interface HeroProps {
   onOpenBudgetModal: () => void;
 }
 
-export default function Hero({ onOpenBudgetModal }: HeroProps) {
+function Hero({ onOpenBudgetModal }: HeroProps) {
 
   return (
     <section id="hero" className="relative pt-16 pb-6 sm:pt-24 sm:pb-12 lg:min-h-screen lg:pt-36 lg:pb-24 flex flex-col justify-center overflow-hidden">
@@ -196,9 +196,9 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
 
             {/* Title - Mais compacto no mobile */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
               className="font-display font-extrabold text-[28px] xs:text-[30px] sm:text-5xl lg:text-[58px] tracking-tight text-white leading-[1.1]"
             >
               Transformamos ideias {' '}
@@ -210,9 +210,9 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
 
             {/* Subtitle - Mais compacto no mobile */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.25, ease: 'easeOut', delay: 0.04 }}
               className="text-zinc-200 text-xs sm:text-base lg:text-lg max-w-xl leading-relaxed"
             >
               Crio sites e sistemas web e desenvolvo estratégias de marketing digital para empresas de todo o Brasil
@@ -222,7 +222,7 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.25, ease: 'easeOut', delay: 0.08 }}
               className="flex items-center justify-between sm:justify-start gap-2.5 sm:gap-8 mt-1.5 sm:mt-4 border-t border-white/5 pt-2.5 sm:pt-4"
             >
               <div>
@@ -297,15 +297,6 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
                 />
               </div>
 
-              {/* Secondary glowing aura of the silhouette */}
-              <div className="absolute inset-0 z-[1] pointer-events-none flex items-end justify-center transform scale-110 opacity-15 filter blur-xl">
-                <img
-                  src={gabrielImg}
-                  alt=""
-                  aria-hidden="true"
-                  className="w-full h-full object-cover object-top filter sepia-[1] saturate-[10] hue-rotate-[320deg] brightness-[1.1]"
-                />
-              </div>
 
               {/* FOREGROUND: Gabriel Portrait Image with background removed */}
               <div className="relative z-[2] w-full h-full flex items-end justify-center">
@@ -356,3 +347,5 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
     </section>
   );
 }
+
+export default memo(Hero);

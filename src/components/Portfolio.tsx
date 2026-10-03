@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DATA, PORTFOLIO } from '../data';
 import { PortfolioProject } from '../types';
@@ -56,7 +56,7 @@ const PROJECT_METRICS: Record<string, { uptime: string; latency?: string; conver
 const PORTFOLIO_GLOW_COLORS = ["bg-brand-red", "bg-orange-500", "bg-zinc-400"];
 const PORTFOLIO_BORDER_COLORS = ["via-brand-red", "via-orange-500", "via-zinc-400"];
 
-export default function Portfolio() {
+function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -167,7 +167,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40 content-visibility-auto">
+    <section id="portfolio" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Background radial effects */}
       <div className="absolute right-[10%] bottom-[30%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[140px] pointer-events-none" />
@@ -400,3 +400,5 @@ export default function Portfolio() {
     </section>
   );
 }
+
+export default memo(Portfolio);

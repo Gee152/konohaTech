@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Instagram, Mail, ShieldCheck, Cookie } from 'lucide-react';
 import { DATA } from '../data';
 import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
@@ -5,7 +6,7 @@ import WhatsAppIcon from './ui/WhatsAppIcon';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 import { openCookiePreferencesModal, openPrivacyPolicyModal } from '../utils/cookieConsent';
 
-export default function Footer() {
+function Footer() {
   const currentYear = new Date().getFullYear();
   const whatsappUrl = getWhatsAppUrl(
     DATA[0]?.socialMedia?.whatsapp,
@@ -13,7 +14,7 @@ export default function Footer() {
   );
 
   return (
-    <footer id="contato" className="relative bg-[#09090b]/80 border-t border-white/5 pt-16 pb-8 overflow-hidden content-visibility-auto">
+    <footer id="contato" className="relative bg-[#09090b]/80 border-t border-white/5 pt-16 pb-8 overflow-hidden">
 
       {/* Absolute linear dark-red glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-[#df2531]/30 to-transparent pointer-events-none" />
@@ -182,3 +183,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default memo(Footer);

@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { motion } from 'motion/react';
 import { PROCESS_STEPS } from '../data';
 import { Check, Clipboard, Calendar, Hammer, HelpCircle, Send } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
-export default function Process() {
+function Process() {
   // Simple helper to fetch representative step icons
   const getStepIcon = (num: number) => {
     switch (num) {
@@ -23,7 +24,7 @@ export default function Process() {
   };
 
   return (
-    <section id="processo" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40 content-visibility-auto">
+    <section id="processo" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Decorative side lights */}
       <div className="absolute right-[-10%] top-[40%] w-[380px] h-[380px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -46,10 +47,10 @@ export default function Process() {
             {PROCESS_STEPS.map((step, index) => (
               <motion.div
                 key={step.stepNumber}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: '80px 0px 0px 0px' }}
+                transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(index * 0.04, 0.12) }}
                 className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.11] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
               >
                 {/* Step badge overlay */}
@@ -82,3 +83,5 @@ export default function Process() {
     </section>
   );
 }
+
+export default memo(Process);

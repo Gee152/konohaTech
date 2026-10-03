@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'motion/react';
 import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
@@ -15,9 +16,9 @@ const TESTIMONIAL_BORDER_COLORS = [
   "via-zinc-400"
 ];
 
-export default function Testimonials() {
+function Testimonials() {
   return (
-    <section id="depoimentos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50 content-visibility-auto">
+    <section id="depoimentos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
     {/* Background glow shadow */}
       <div className="absolute left-[5%] top-[10%] w-[450px] h-[450px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
 
@@ -38,10 +39,10 @@ export default function Testimonials() {
             return (
             <motion.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '80px 0px 0px 0px' }}
+              transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.04, 0.12) }}
               className={`w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 glass-panel border border-white/5 hover:border-brand-red/25 transition-all duration-300 flex flex-col justify-between`}>
     {/* Outer light glow behind the card on hover */}
               <div className={`absolute inset-0 rounded-2xl bg-brand-red/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
@@ -99,5 +100,7 @@ export default function Testimonials() {
         </div>
       </div>
     </section>
-  )
+  );
 }
+
+export default memo(Testimonials);
