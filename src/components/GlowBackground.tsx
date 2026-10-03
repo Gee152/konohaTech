@@ -97,11 +97,15 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
 
   // Smooth video scrubbing synchronized with page scroll
   useEffect(() => {
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
     let lastSeekTimestamp = 0;
-    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    let isLoopRunning = false;
+    let cachedTotalScrollable = 1;
 
-    const handleScroll = () => {
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const isSlowConnection = typeof navigator !== 'undefined' && ('connection' in navigator) && (Boolean((navigator as any).connection?.saveData) || ['2g', '3g'].includes((navigator as any).connection?.effectiveType));
+
+    const calculateScrollable = () => {
       const docHeight = Math.max(
         document.body.scrollHeight,
         document.documentElement.scrollHeight,
@@ -111,9 +115,23 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
         document.documentElement.clientHeight
       );
       const winHeight = window.innerHeight || 1;
-      const totalScrollable = Math.max(docHeight - winHeight, 1);
+      cachedTotalScrollable = Math.max(docHeight - winHeight, 1);
+    };
+
+    const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-      targetProgressRef.current = Math.min(Math.max(scrollY / totalScrollable, 0), 1);
+      targetProgressRef.current = Math.min(Math.max(scrollY / cachedTotalScrollable, 0), 1);
+      
+      // Wake up rendering loop on scroll if it was paused
+      if (!isLoopRunning) {
+        isLoopRunning = true;
+        animationFrameId = requestAnimationFrame(updateLoop);
+      }
+    };
+
+    const handleResize = () => {
+      calculateScrollable();
+      handleScroll();
     };
 
     const applyVideoSeek = (targetTime: number) => {
@@ -130,8 +148,8 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       }
 
       const now = performance.now();
-      // Throttle seeks slightly so hardware decoders remain fluid
-      const minInterval = isTouch ? 40 : 16;
+      // Throttle seeks on touch / slow connection so hardware decoders remain fluid
+      const minInterval = isSlowConnection ? 80 : isTouch ? 45 : 16;
       if (now - lastSeekTimestamp < minInterval) {
         pendingSeekTimeRef.current = targetTime;
         return;
@@ -186,11 +204,19 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
 
     const updateLoop = () => {
       const diff = targetProgressRef.current - currentSmoothProgressRef.current;
+      
+      // Idle pause when user is not scrolling and target reached
       if (Math.abs(diff) < 0.0005) {
         currentSmoothProgressRef.current = targetProgressRef.current;
-      } else {
-        currentSmoothProgressRef.current += diff * (isTouch ? 0.25 : 0.2);
+        if (video && video.duration && !isNaN(video.duration)) {
+          applyVideoSeek(currentSmoothProgressRef.current * video.duration);
+        }
+        isLoopRunning = false;
+        animationFrameId = null;
+        return; // Pause the RAF loop completely when resting
       }
+
+      currentSmoothProgressRef.current += diff * (isTouch ? 0.25 : 0.2);
 
       if (video && video.duration && !isNaN(video.duration)) {
         applyVideoSeek(currentSmoothProgressRef.current * video.duration);
@@ -199,18 +225,20 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       animationFrameId = requestAnimationFrame(updateLoop);
     };
 
+    calculateScrollable();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
     handleScroll();
-    animationFrameId = requestAnimationFrame(updateLoop);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('resize', handleResize);
       if (video) {
         video.removeEventListener('seeked', handleSeeked);
       }
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [isVideoLoaded]);
 
@@ -221,21 +249,21 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
         <video
           ref={videoRef}
           src={resolvedSrc}
-          className={`w-full h-full object-cover blur-[5px] scale-105 transition-opacity duration-700 ${
+          className={`w-full h-full object-cover blur-[4px] scale-105 transition-opacity duration-700 ${
             isVideoLoaded ? 'opacity-65 sm:opacity-80' : 'opacity-40'
           }`}
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           disableRemotePlayback
         />
 
         {/* Ambient Dark Scrim with backdrop blur to soften background and enhance contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/45 via-[#050505]/30 to-[#050505]/50 backdrop-blur-[4px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/45 via-[#050505]/30 to-[#050505]/50 backdrop-blur-[3px] pointer-events-none" />
       </div>
 
-      {/* 2. Absolute Glow Red Atmospheric Spheres */}
+      {/* 2. Absolute Glow Red Atmospheric Spheres with Mobile GPU optimization */}
       <motion.div
         animate={{
           x: [0, 80, -40, 0],
@@ -247,7 +275,7 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-[#df2531] opacity-15 blur-[120px]"
+        className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-[#df2531] opacity-15 blur-[60px] sm:blur-[120px] transform-gpu pointer-events-none"
       />
 
       <motion.div
@@ -261,7 +289,7 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[20%] right-[-10%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full bg-[#df2531] opacity-10 blur-[130px]"
+        className="absolute bottom-[20%] right-[-10%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full bg-[#df2531] opacity-10 blur-[65px] sm:blur-[130px] transform-gpu pointer-events-none"
       />
 
       <motion.div
@@ -274,7 +302,7 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[40%] left-[20%] w-[35vw] h-[35vw] max-w-[400px] max-h-[400px] rounded-full bg-[#9e141d] opacity-5 blur-[100px]"
+        className="absolute top-[40%] left-[20%] w-[35vw] h-[35vw] max-w-[400px] max-h-[400px] rounded-full bg-[#9e141d] opacity-5 blur-[50px] sm:blur-[100px] transform-gpu pointer-events-none"
       />
 
       {/* 3. Subtle Cyber Grid Overlay */}

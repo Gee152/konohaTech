@@ -14,49 +14,62 @@ import SectionHeader from './ui/SectionHeader';
 import WhatsAppIcon from './ui/WhatsAppIcon';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 
+// Simulated Case Metrics to populate the details modal with realistic data
+const PROJECT_METRICS: Record<string, { uptime: string; latency?: string; conversion?: string; speed?: string; highlights: string[], url?: string }> = {
+  'apex-inventory': {
+    uptime: '99.99%',
+    speed: '+340% de processamento',
+    highlights: [
+      'Modelagem inteligente de demanda com IA integrada para reposições',
+      'Sincronização instantânea com estoques físicos via RFDI / REST Webhooks',
+      'Dashboards analíticos avançados para gestores regionais',
+      'Alertas automatizados em tempo real no Telegram e Slack'
+    ],
+    url: 'https://heronpsicologo.com'
+  },
+  'chrono-flow': {
+    uptime: '99.98%',
+    latency: '< 12ms por lote',
+    conversion: '-94% de tempo operacional',
+    highlights: [
+      'Conexão segura com gateways bancários e APIs nacionais de tributos',
+      'Algoritmos customizados de reconciliação de dados em memória',
+      'Painel administrativo para auditoria e log de falhas em tempo real',
+      'Rotinas resilientes de retentava com tratamento de exceções robusto'
+    ],
+    url: "https://gee152.github.io/LDA_fisioterapeuta_Ana_Carolina/"
+  },
+  'elysium-portal': {
+    uptime: '100% Core Web Vitals',
+    speed: '0.4s Primeira Renderização',
+    conversion: '+42% em captação de leads',
+    highlights: [
+      'Construído em Astro para eliminação completa de JS não utilizado',
+      'Otimização avançada de Assets e entrega super-rápida via CDN global',
+      'Acessibilidade nota 100 comprovada pelo Google Lighthouse',
+      'Formulários interativos inteligentes integrados com RD Station e ActiveCampaign'
+    ],
+    url: 'https://eaoliveiracorretoradeseguros.com'
+  },
+};
+
+const PORTFOLIO_GLOW_COLORS = ["bg-brand-red", "bg-orange-500", "bg-zinc-400"];
+const PORTFOLIO_BORDER_COLORS = ["via-brand-red", "via-orange-500", "via-zinc-400"];
+
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth >= 768 : false);
 
-  // Simulated Case Metrics to populate the details modal with realistic data
-  const projectMetrics: Record<string, { uptime: string; latency?: string; conversion?: string; speed?: string; highlights: string[], url?: string }> = {
-    'apex-inventory': {
-      uptime: '99.99%',
-      speed: '+340% de processamento',
-      highlights: [
-        'Modelagem inteligente de demanda com IA integrada para reposições',
-        'Sincronização instantânea com estoques físicos via RFDI / REST Webhooks',
-        'Dashboards analíticos avançados para gestores regionais',
-        'Alertas automatizados em tempo real no Telegram e Slack'
-      ],
-      url: 'https://heronpsicologo.com'
-    },
-    'chrono-flow': {
-      uptime: '99.98%',
-      latency: '< 12ms por lote',
-      conversion: '-94% de tempo operacional',
-      highlights: [
-        'Conexão segura com gateways bancários e APIs nacionais de tributos',
-        'Algoritmos customizados de reconciliação de dados em memória',
-        'Painel administrativo para auditoria e log de falhas em tempo real',
-        'Rotinas resilientes de retentava com tratamento de exceções robusto'
-      ],
-      url: "https://gee152.github.io/LDA_fisioterapeuta_Ana_Carolina/"
-    },
-    'elysium-portal': {
-      uptime: '100% Core Web Vitals',
-      speed: '0.4s Primeira Renderização',
-      conversion: '+42% em captação de leads',
-      highlights: [
-        'Construído em Astro para eliminação completa de JS não utilizado',
-        'Otimização avançada de Assets e entrega super-rápida via CDN global',
-        'Acessibilidade nota 100 comprovada pelo Google Lighthouse',
-        'Formulários interativos inteligentes integrados com RD Station e ActiveCampaign'
-      ],
-      url: 'https://eaoliveiracorretoradeseguros.com'
-    },
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      const desktop = window.innerWidth >= 768;
+      setIsDesktop((prev) => (prev !== desktop ? desktop : prev));
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Movimentação automática a cada 15 segundos (pausa ao passar o mouse)
   useEffect(() => {
@@ -70,19 +83,8 @@ export default function Portfolio() {
 
   // Card no Modelo com Maior Visibilidade da Imagem/Site e Bloco de Texto Compacto
   const renderCard = (project: PortfolioProject, idx: number) => {
-    const glowColors = [
-      "bg-brand-red",
-      "bg-orange-500",
-      "bg-zinc-400"
-    ];
-    const borderColors = [
-      "via-brand-red",
-      "via-orange-500",
-      "via-zinc-400"
-    ];
-    
-    const glowColor = glowColors[idx % glowColors.length];
-    const borderColor = borderColors[idx % borderColors.length];
+    const glowColor = PORTFOLIO_GLOW_COLORS[idx % PORTFOLIO_GLOW_COLORS.length];
+    const borderColor = PORTFOLIO_BORDER_COLORS[idx % PORTFOLIO_BORDER_COLORS.length];
 
     return (
       <div
@@ -165,7 +167,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
+    <section id="portfolio" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40 content-visibility-auto">
       
       {/* Background radial effects */}
       <div className="absolute right-[10%] bottom-[30%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[140px] pointer-events-none" />
@@ -206,10 +208,12 @@ export default function Portfolio() {
                     {/* Card Principal do Slide */}
                     {renderCard(project, idx)}
 
-                    {/* Card Lado a Lado (visível no desktop) */}
-                    <div className="hidden md:block">
-                      {renderCard(nextProject, (idx + 1) % PORTFOLIO.length)}
-                    </div>
+                    {/* Card Lado a Lado (apenas montado no desktop para poupar 50% de decodificação e DOM no mobile) */}
+                    {isDesktop && (
+                      <div className="hidden md:block">
+                        {renderCard(nextProject, (idx + 1) % PORTFOLIO.length)}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -313,21 +317,21 @@ export default function Portfolio() {
                     <span className="block text-[10px] text-zinc-500 font-mono uppercase tracking-wider mb-1">Disponibilidade</span>
                     <span className="font-display font-bold text-lg text-emerald-400 flex items-center gap-1.5">
                       <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                      {projectMetrics[selectedProject.id]?.uptime || '99.99%'}
+                      {PROJECT_METRICS[selectedProject.id]?.uptime || '99.99%'}
                     </span>
                   </div>
                   <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl">
                     <span className="block text-[10px] text-zinc-500 font-mono uppercase tracking-wider mb-1">Performance alcançada</span>
                     <span className="font-display font-bold text-lg text-brand-red flex items-center gap-1.5">
                       <Zap className="w-5 h-5 text-brand-red" />
-                      {projectMetrics[selectedProject.id]?.speed || 'Alta Performance'}
+                      {PROJECT_METRICS[selectedProject.id]?.speed || 'Alta Performance'}
                     </span>
                   </div>
                   <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl">
                     <span className="block text-[10px] text-zinc-500 font-mono uppercase tracking-wider mb-1">Indicador operacional</span>
                     <span className="font-display font-bold text-lg text-white flex items-center gap-1.5">
                       <Layers className="w-5 h-5 text-zinc-400" />
-                      {projectMetrics[selectedProject.id]?.latency || projectMetrics[selectedProject.id]?.conversion || 'Processos ágeis'}
+                      {PROJECT_METRICS[selectedProject.id]?.latency || PROJECT_METRICS[selectedProject.id]?.conversion || 'Processos ágeis'}
                     </span>
                   </div>
                 </div>
@@ -342,7 +346,7 @@ export default function Portfolio() {
                     A Konoha Tech arquitetou o projeto utilizando o estado da arte do ecossistema de software livre moderno. Focamos no desenvolvimento de componentes com zero perdas operacionais.
                   </p>
                   <ul className="grid sm:grid-cols-2 gap-3 pl-3">
-                    {projectMetrics[selectedProject.id]?.highlights.map((highlight, index) => (
+                    {PROJECT_METRICS[selectedProject.id]?.highlights.map((highlight, index) => (
                       <li key={index} className="text-xs sm:text-sm text-zinc-300 flex items-start gap-2.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
                         <span>{highlight}</span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, ChevronRight, X } from 'lucide-react';
 import { DATA } from '../data';
@@ -8,6 +8,15 @@ interface ContactFormProps {
   onCloseBudgetModal: () => void;
   onOpenBudgetModal: () => void;
 }
+
+// Services list mapping for budget picker
+const BUDGET_SERVICES = [
+  { id: 'web', name: 'Desenvolvimento Web', baseVal: 4500 },
+  { id: 'api', name: 'APIs e Back-end', baseVal: 6000 },
+  { id: 'automation', name: 'Automações de Processo', baseVal: 3500 },
+  { id: 'ai', name: 'Inteligência Artificial', baseVal: 7500 },
+  { id: 'qa', name: 'QA e Testes Automatizados', baseVal: 4000 }
+];
 
 export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onOpenBudgetModal }: ContactFormProps) {
   // Dynamic budget wizard state inside modal
@@ -21,15 +30,6 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
   const [wizardSubmitted, setWizardSubmitted] = useState(false);
   const [wizardLoading, setWizardLoading] = useState(false);
 
-  // Services list mapping for budget picker
-  const budgetServices = [
-    { id: 'web', name: 'Desenvolvimento Web', baseVal: 4500 },
-    { id: 'api', name: 'APIs e Back-end', baseVal: 6000 },
-    { id: 'automation', name: 'Automações de Processo', baseVal: 3500 },
-    { id: 'ai', name: 'Inteligência Artificial', baseVal: 7500 },
-    { id: 'qa', name: 'QA e Testes Automatizados', baseVal: 4000 }
-  ];
-
   // Toggle multi-select services in wizard
   const toggleService = (id: string) => {
     if (selectedServices.includes(id)) {
@@ -39,13 +39,13 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
     }
   };
 
-  // Calculate simulated budget price range
-  const calculateEstimate = () => {
+  // Calculate simulated budget price range (memoized to eliminate unnecessary recalculations on keystroke)
+  const currentEstimate = useMemo(() => {
     if (selectedServices.length === 0) return { min: 0, max: 0 };
 
     // Sum of base values of chosen services
-    let baseSum = selectedServices.reduce((sum, serviceId) => {
-      const match = budgetServices.find(b => b.id === serviceId);
+    const baseSum = selectedServices.reduce((sum, serviceId) => {
+      const match = BUDGET_SERVICES.find(b => b.id === serviceId);
       return sum + (match?.baseVal || 0);
     }, 0);
 
@@ -59,9 +59,7 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
       min: Math.round(finalBase * 0.9),
       max: Math.round(finalBase * 1.15)
     };
-  };
-
-  const currentEstimate = calculateEstimate();
+  }, [selectedServices, projectScale]);
 
   const handleWizardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +69,7 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
     }
 
     const serviceNames = selectedServices
-      .map(id => budgetServices.find(s => s.id === id)?.name)
+      .map(id => BUDGET_SERVICES.find(s => s.id === id)?.name)
       .filter(Boolean)
       .join(', ');
 
@@ -180,7 +178,7 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
                       </div>
 
                       <div className="space-y-3">
-                        {budgetServices.map((service) => (
+                        {BUDGET_SERVICES.map((service) => (
                           <div
                             key={service.id}
                             onClick={() => toggleService(service.id)}

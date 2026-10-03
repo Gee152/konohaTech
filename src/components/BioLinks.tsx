@@ -4,6 +4,7 @@ import { MessageCircle, Sparkles, Briefcase, Code2, Workflow, Instagram, Linkedi
 import { profileConfig, bioLinksData } from '../data';
 import { BioLinkItem } from '../types';
 import PortfolioModal from './PortfolioModal';
+import { openCookiePreferencesModal, openPrivacyPolicyModal } from '../utils/cookieConsent';
 import { CircularCommandMenu, CommandItem } from '@/components/ui/circular-command-menu';
 
 interface BioLinksProps {
@@ -423,7 +424,24 @@ export default function BioLinks({ onNavigateToLanding, onOpenBudgetModal }: Bio
         </div>
 
         {/* 5. Footer & Metadados */}
-        <footer className="flex flex-col items-center text-center gap-3 pt-4 border-t border-white/5">
+        <footer className="flex flex-col items-center text-center gap-2 pt-4 border-t border-white/5">
+          <div className="flex items-center gap-3 text-[11px] text-zinc-500">
+            <button
+              type="button"
+              onClick={openPrivacyPolicyModal}
+              className="hover:text-zinc-300 transition-colors cursor-pointer"
+            >
+              Privacidade (LGPD)
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={openCookiePreferencesModal}
+              className="hover:text-zinc-300 transition-colors cursor-pointer"
+            >
+              Cookies
+            </button>
+          </div>
           <p className="font-mono text-[10px] text-zinc-600">
             © {new Date().getFullYear()} KonohaTech • CNPJ: 45.109.825/0001-92
           </p>

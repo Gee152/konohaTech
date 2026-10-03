@@ -1,8 +1,9 @@
-import { Instagram, Mail } from 'lucide-react';
+import { Instagram, Mail, ShieldCheck, Cookie } from 'lucide-react';
 import { DATA } from '../data';
 import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
 import WhatsAppIcon from './ui/WhatsAppIcon';
 import { getWhatsAppUrl } from '../utils/whatsapp';
+import { openCookiePreferencesModal, openPrivacyPolicyModal } from '../utils/cookieConsent';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ export default function Footer() {
   );
 
   return (
-    <footer id="contato" className="relative bg-[#09090b]/80 border-t border-white/5 pt-16 pb-8 overflow-hidden">
+    <footer id="contato" className="relative bg-[#09090b]/80 border-t border-white/5 pt-16 pb-8 overflow-hidden content-visibility-auto">
 
       {/* Absolute linear dark-red glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-[#df2531]/30 to-transparent pointer-events-none" />
@@ -78,8 +79,8 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Links: 2 colunas no mobile (grid-cols-2) e distribuídos no desktop */}
-        <div className="grid grid-cols-2 gap-6 sm:gap-8 md:col-span-7 md:gap-12">
+        {/* Links: colunas de navegação, projetos e legalidade/LGPD */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 md:col-span-7 md:gap-8">
           {/* Directory Links */}
           <div className="space-y-4">
             <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Navegação</h5>
@@ -99,6 +100,33 @@ export default function Footer() {
               <li><a href="#processo" className="hover:text-brand-red transition-colors">Processo de Trabalho</a></li>
               <li><a href="#depoimentos" className="hover:text-brand-red transition-colors">Depoimentos</a></li>
               <li><a href="#contato" className="hover:text-brand-red transition-colors">Contato Comercial</a></li>
+            </ul>
+          </div>
+
+          {/* Legal / LGPD */}
+          <div className="space-y-4 col-span-2 sm:col-span-1">
+            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Privacidade & LGPD</h5>
+            <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
+              <li>
+                <button
+                  type="button"
+                  onClick={openPrivacyPolicyModal}
+                  className="hover:text-brand-red transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-red" />
+                  <span>Política de Privacidade</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={openCookiePreferencesModal}
+                  className="hover:text-brand-red transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Cookie className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-red" />
+                  <span>Preferências de Cookies</span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -127,11 +155,27 @@ export default function Footer() {
       </div>
 
       {/* Copy License bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs text-zinc-600 font-mono">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs text-zinc-500 font-mono">
         <div>
           <span>© {currentYear} Konoha Tech. Todos os direitos reservados. CNPJ: 45.109.825/0001-92</span>
         </div>
-        <div>
+        <div className="flex items-center flex-wrap justify-center sm:justify-end gap-3 text-zinc-500">
+          <button
+            type="button"
+            onClick={openPrivacyPolicyModal}
+            className="hover:text-zinc-300 transition-colors cursor-pointer"
+          >
+            Privacidade (LGPD)
+          </button>
+          <span>•</span>
+          <button
+            type="button"
+            onClick={openCookiePreferencesModal}
+            className="hover:text-zinc-300 transition-colors cursor-pointer"
+          >
+            Cookies
+          </button>
+          <span>•</span>
           <span>Recife, PE — Brasil</span>
         </div>
       </div>

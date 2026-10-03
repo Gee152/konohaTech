@@ -84,3 +84,11 @@ export interface BioProfileConfig {
     whatsappMessage: string;
   };
 }
+
+export interface CookieConsentPreferences {
+  essential: boolean;
+  analytics: boolean;
+  marketing: boolean;
+  acceptedAt: string;
+  status: 'all' | 'essential' | 'custom';
+}

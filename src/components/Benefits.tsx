@@ -2,42 +2,54 @@ import { motion } from 'motion/react';
 import { Zap, TrendingUp, Shield, Gauge, MousePointerClick, Star } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
-export default function Benefits() {
-  const benefits = [
-    {
-      title: 'Mais produtividade',
-      desc: 'Automatize tarefas repetitivas de forma fluida, elimine o trabalho manual e possibilite que sua equipe foque no que realmente importa.',
-      icon: Zap,
-    },
-    {
-      title: 'Escalabilidade',
-      desc: 'Arquiteturas projetadas para escalar com elasticidade, permitindo processar de centenas a milhões de requisições sem lentidão.',
-      icon: TrendingUp,
-    },
-    {
-      title: 'Segurança',
-      desc: 'Blindagem robusta contra ameaças de segurança, integração criptografada com provedores externos e auditorias de vulnerabilidades.',
-      icon: Shield,
-    },
-    {
-      title: 'Performance',
-      desc: 'Sistemas refinados ao extremo com código modular de baixa latência e carregamentos velozes que agradam clientes e robôs de busca.',
-      icon: Gauge,
-    },
-    {
-      title: 'Experiência do usuário',
-      desc: 'Interfaces refinadas, intuitivas e estonteantes construídas para aumentar a fidelidade e acelerar suas taxas de conversão diárias.',
-      icon: MousePointerClick,
-    },
-    {
-      title: 'Qualidade',
-      desc: 'Engenharia de software séria com baterias exaustivas de testes, validações funcionais em múltiplos navegadores e entregas à prova de erros.',
-      icon: Star,
-    },
-  ];
+const BENEFITS = [
+  {
+    title: 'Mais produtividade',
+    desc: 'Automatize tarefas repetitivas de forma fluida, elimine o trabalho manual e possibilite que sua equipe foque no que realmente importa.',
+    icon: Zap,
+  },
+  {
+    title: 'Escalabilidade',
+    desc: 'Arquiteturas projetadas para escalar com elasticidade, permitindo processar de centenas a milhões de requisições sem lentidão.',
+    icon: TrendingUp,
+  },
+  {
+    title: 'Segurança',
+    desc: 'Blindagem robusta contra ameaças de segurança, integração criptografada com provedores externos e auditorias de vulnerabilidades.',
+    icon: Shield,
+  },
+  {
+    title: 'Performance',
+    desc: 'Sistemas refinados ao extremo com código modular de baixa latência e carregamentos velozes que agradam clientes e robôs de busca.',
+    icon: Gauge,
+  },
+  {
+    title: 'Experiência do usuário',
+    desc: 'Interfaces refinadas, intuitivas e estonteantes construídas para aumentar a fidelidade e acelerar suas taxas de conversão diárias.',
+    icon: MousePointerClick,
+  },
+  {
+    title: 'Qualidade',
+    desc: 'Engenharia de software séria com baterias exaustivas de testes, validações funcionais em múltiplos navegadores e entregas à prova de erros.',
+    icon: Star,
+  },
+];
 
+const BENEFITS_GLOW_COLORS = [
+  "bg-brand-red",
+  "bg-orange-500",
+  "bg-zinc-400"
+];
+
+const BENEFITS_BORDER_COLORS = [
+  "via-brand-red",
+  "via-orange-500",
+  "via-zinc-400"
+];
+
+export default function Benefits() {
   return (
-    <section id="beneficios" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/20">
+    <section id="beneficios" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/20 content-visibility-auto">
       
       {/* Visual background lights */}
       <div className="absolute right-[5%] bottom-[15%] w-[450px] h-[450px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -54,23 +66,10 @@ export default function Benefits() {
 
         {/* Benefits Grid */}
         <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
-          {benefits.map((benefit, idx) => {
+          {BENEFITS.map((benefit, idx) => {
             const Icon = benefit.icon;
-            
-            // Varied glow colors adhering to the project palette
-            const glowColors = [
-              "bg-brand-red",
-              "bg-orange-500",
-              "bg-zinc-400"
-            ];
-            const borderColors = [
-              "via-brand-red",
-              "via-orange-500",
-              "via-zinc-400"
-            ];
-            
-            const glowColor = glowColors[idx % glowColors.length];
-            const borderColor = borderColors[idx % borderColors.length];
+            const glowColor = BENEFITS_GLOW_COLORS[idx % BENEFITS_GLOW_COLORS.length];
+            const borderColor = BENEFITS_BORDER_COLORS[idx % BENEFITS_BORDER_COLORS.length];
 
             return (
               <motion.div

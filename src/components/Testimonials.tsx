@@ -3,9 +3,21 @@ import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
+const TESTIMONIAL_GLOW_COLORS = [
+  "bg-brand-red",
+  "bg-orange-500",
+  "bg-zinc-400"
+];
+
+const TESTIMONIAL_BORDER_COLORS = [
+  "via-brand-red",
+  "via-orange-500",
+  "via-zinc-400"
+];
+
 export default function Testimonials() {
   return (
-    <section id="depoimentos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
+    <section id="depoimentos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50 content-visibility-auto">
     {/* Background glow shadow */}
       <div className="absolute left-[5%] top-[10%] w-[450px] h-[450px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
 
@@ -20,19 +32,8 @@ export default function Testimonials() {
     {/* Testimonials Grid */}
         <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
           {TESTIMONIALS.map((testimonial, idx) => { 
-            const glowColors = [
-              "bg-brand-red",
-              "bg-orange-500",
-              "bg-zinc-400"
-            ]
-            const borderColors = [
-              "via-brand-red",
-              "via-orange-500",
-              "via-zinc-400"
-            ];
-            
-            const glowColor = glowColors[idx % glowColors.length];
-            const borderColor = borderColors[idx % borderColors.length];
+            const glowColor = TESTIMONIAL_GLOW_COLORS[idx % TESTIMONIAL_GLOW_COLORS.length];
+            const borderColor = TESTIMONIAL_BORDER_COLORS[idx % TESTIMONIAL_BORDER_COLORS.length];
             
             return (
             <motion.div

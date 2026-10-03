@@ -109,6 +109,21 @@
 }
 
 
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 0.9s ease-in-out infinite;
+}
+
+/* Content visibility optimization for below-the-fold components on mobile & desktop */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}
+
 /* Scrollbar oculto para carrossel e swipes horizontais */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -130,7 +145,6 @@ button, a {
 /* Base hidden state for scroll reveal elements */
 .scroll-reveal {
   opacity: 0;
-  will-change: transform, opacity;
   transition-property: opacity, transform;
   transition-duration: 1500ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -140,7 +154,6 @@ button, a {
 .scroll-reveal-left {
   opacity: 0;
   transform: translate3d(-54px, 0, 0);
-  will-change: transform, opacity;
   transition-property: opacity, transform;
   transition-duration: 1550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -150,7 +163,6 @@ button, a {
 .scroll-reveal-right {
   opacity: 0;
   transform: translate3d(54px, 0, 0);
-  will-change: transform, opacity;
   transition-property: opacity, transform;
   transition-duration: 1550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,7 +172,6 @@ button, a {
 .scroll-reveal-down {
   opacity: 0;
   transform: translate3d(0, -50px, 0);
-  will-change: transform, opacity;
   transition-property: opacity, transform;
   transition-duration: 1500ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -170,7 +181,6 @@ button, a {
 .scroll-reveal-up {
   opacity: 0;
   transform: translate3d(0, 50px, 0);
-  will-change: transform, opacity;
   transition-property: opacity, transform;
   transition-duration: 1500ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -202,7 +212,6 @@ button, a {
   transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.46s cubic-bezier(0.16, 1, 0.3, 1), 
               border-color 0.35s ease;
-  will-change: transform, box-shadow;
 }
 
 .card-dynamic:hover {

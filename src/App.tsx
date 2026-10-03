@@ -11,6 +11,7 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import CookieConsentManager from './components/CookieConsentManager';
 import { useQueryRouting } from './hooks/useQueryRouting';
 
 const BioLinks = lazy(() => import('./components/BioLinks'));
@@ -85,6 +86,9 @@ export default function App() {
           onOpenBudgetModal={() => setIsBudgetModalOpen(true)}
         />
       )}
+
+      {/* Sistema de Gestão de Cookies e LGPD */}
+      <CookieConsentManager />
     </div>
   );
 }

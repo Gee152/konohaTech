@@ -2,42 +2,58 @@ import { motion } from 'motion/react';
 import { Compass, Layers, Code, ShieldCheck, Rocket, ChevronRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
-export default function Solution() {
-  const steps = [
-    {
-      label: 'Planejamento',
-      icon: Compass,
-      desc: 'Mapeamento de escopo, arquitetura técnica e análise estratégica.',
-      color: 'from-zinc-500 to-zinc-400'
-    },
-    {
-      label: 'Design',
-      icon: Layers,
-      desc: 'Criação de interfaces premium exclusivas focadas em usabilidade (UX/UI).',
-      color: 'from-zinc-400 to-red-500'
-    },
-    {
-      label: 'Desenvolvimento',
-      icon: Code,
-      desc: 'Programação impecável em TypeScript com código modular, rápido e escalonável.',
-      color: 'from-red-500 to-brand-red'
-    },
-    {
-      label: 'Testes',
-      icon: ShieldCheck,
-      desc: 'Asseguração completa de ponta a ponta com testes unitários e funcionais.',
-      color: 'from-brand-red to-red-400'
-    },
-    {
-      label: 'Entrega',
-      icon: Rocket,
-      desc: 'Lançamento suave em ambientes de alta disponibilidade com suporte ativo.',
-      color: 'from-red-400 to-white'
-    }
-  ];
+const SOLUTION_STEPS = [
+  {
+    label: 'Planejamento',
+    icon: Compass,
+    desc: 'Mapeamento de escopo, arquitetura técnica e análise estratégica.',
+    color: 'from-zinc-500 to-zinc-400'
+  },
+  {
+    label: 'Design',
+    icon: Layers,
+    desc: 'Criação de interfaces premium exclusivas focadas em usabilidade (UX/UI).',
+    color: 'from-zinc-400 to-red-500'
+  },
+  {
+    label: 'Desenvolvimento',
+    icon: Code,
+    desc: 'Programação impecável em TypeScript com código modular, rápido e escalonável.',
+    color: 'from-red-500 to-brand-red'
+  },
+  {
+    label: 'Testes',
+    icon: ShieldCheck,
+    desc: 'Asseguração completa de ponta a ponta com testes unitários e funcionais.',
+    color: 'from-brand-red to-red-400'
+  },
+  {
+    label: 'Entrega',
+    icon: Rocket,
+    desc: 'Lançamento suave em ambientes de alta disponibilidade com suporte ativo.',
+    color: 'from-red-400 to-white'
+  }
+];
 
+const SOLUTION_GLOW_COLORS = [
+  "bg-brand-red",
+  "bg-orange-500",
+  "bg-zinc-400",
+  "bg-brand-red",
+  "bg-orange-500"
+];
+
+const SOLUTION_BORDER_COLORS = [
+  "via-brand-red",
+  "via-orange-500",
+  "via-zinc-400",
+  "via-brand-red",
+  "via-orange-500"
+];
+
+export default function Solution() {
   return (
-    <section id="solucao" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
+    <section id="solucao" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50 content-visibility-auto">
       
       {/* Background radial soft light */}
       <div className="absolute left-[8%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -58,27 +74,10 @@ export default function Solution() {
 
           {/* Grid for Steps */}
           <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
-            {steps.map((step, idx) => {
+            {SOLUTION_STEPS.map((step, idx) => {
               const Icon = step.icon;
-              
-              // Varied glow colors adhering to the project palette
-              const glowColors = [
-                "bg-brand-red",
-                "bg-orange-500",
-                "bg-zinc-400",
-                "bg-brand-red",
-                "bg-orange-500"
-              ];
-              const borderColors = [
-                "via-brand-red",
-                "via-orange-500",
-                "via-zinc-400",
-                "via-brand-red",
-                "via-orange-500"
-              ];
-              
-              const glowColor = glowColors[idx % glowColors.length];
-              const borderColor = borderColors[idx % borderColors.length];
+              const glowColor = SOLUTION_GLOW_COLORS[idx % SOLUTION_GLOW_COLORS.length];
+              const borderColor = SOLUTION_BORDER_COLORS[idx % SOLUTION_BORDER_COLORS.length];
 
               return (
                 <motion.div
@@ -107,7 +106,7 @@ export default function Solution() {
                     {/* Label / Title */}
                     <h3 className="font-display font-bold text-lg text-white mb-2 tracking-tight flex items-center gap-1 w-full lg:justify-center">
                       {step.label}
-                      {idx < steps.length - 1 && (
+                      {idx < SOLUTION_STEPS.length - 1 && (
                         <ChevronRight className="w-4 h-4 text-zinc-600 translate-x-0 transition-all lg:hidden" />
                       )}
                     </h3>

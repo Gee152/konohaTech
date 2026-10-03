@@ -23,7 +23,7 @@ export default function Process() {
   };
 
   return (
-    <section id="processo" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
+    <section id="processo" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40 content-visibility-auto">
       
       {/* Decorative side lights */}
       <div className="absolute right-[-10%] top-[40%] w-[380px] h-[380px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />

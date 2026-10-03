@@ -7,31 +7,35 @@ interface HeaderProps {
   onOpenBudgetModal: () => void;
 }
 
+const NAV_LINKS = [
+  { name: 'Problema', href: '#problema' },
+  { name: 'Solução', href: '#solucao' },
+  { name: 'Benefícios', href: '#beneficios' },
+  { name: 'Serviços', href: '#servicos' },
+  { name: 'Casos', href: '#portfolio' },
+  { name: 'Processo', href: '#processo' },
+  { name: 'Depoimentos', href: '#depoimentos' },
+];
+
 export default function Header({ onOpenBudgetModal }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 20;
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: 'Problema', href: '#problema' },
-    { name: 'Solução', href: '#solucao' },
-    { name: 'Benefícios', href: '#beneficios' },
-    { name: 'Serviços', href: '#servicos' },
-    { name: 'Casos', href: '#portfolio' },
-    { name: 'Processo', href: '#processo' },
-    { name: 'Depoimentos', href: '#depoimentos' },
-  ];
 
   return (
     <header
@@ -65,7 +69,7 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -123,7 +127,7 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
             className="absolute top-full inset-x-0 z-50 p-4 mx-4 mt-2 rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 shadow-2xl lg:hidden"
           >
             <div className="flex flex-col gap-3 py-2">
-              {navLinks.map((link) => (
+              {NAV_LINKS.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}

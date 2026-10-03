@@ -19,15 +19,6 @@ function TypewriterPresentation() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isCursorVisible, setIsCursorVisible] = useState(true);
-
-  // Piscar suave do cursor
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setIsCursorVisible((prev) => !prev);
-    }, 450);
-    return () => clearInterval(cursorInterval);
-  }, []);
 
   // Efeito simulador de digitação em velocidade realista
   useEffect(() => {
@@ -98,9 +89,7 @@ function TypewriterPresentation() {
           <span className="text-brand-red font-mono font-bold mr-1.5 select-none">{'>'}</span>
           <span>{displayedText}</span>
           <span
-            className={`inline-block w-1.5 h-3.5 sm:h-4 bg-brand-red ml-1 align-middle rounded-[1px] ${
-              isCursorVisible ? 'opacity-100' : 'opacity-0'
-            } transition-opacity duration-75`}
+            className="inline-block w-1.5 h-3.5 sm:h-4 bg-brand-red ml-1 align-middle rounded-[1px] animate-cursor-blink"
             aria-hidden="true"
           />
         </p>
@@ -117,28 +106,14 @@ function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
   useEffect(() => {
     let animationFrameId: number;
     let startTime: number | null = null;
-    let currentScrollRatio = 0;
-
-    const onScroll = () => {
-      // Avança suavemente com o scroll no Hero
-      const scrollY = window.scrollY || window.pageYOffset || 0;
-      currentScrollRatio = Math.min(Math.max(scrollY / 280, 0), 1);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
-
-      // Progressão lenta no tempo (slow motion)
       const timeRatio = Math.min(elapsed / duration, 1);
-      // Combina a contagem lenta com o scroll do usuário
-      const combinedProgress = Math.min(Math.max(timeRatio, currentScrollRatio), 1);
 
       // Curva suave de atenuação (soft ease-out)
-      const ease = 1 - Math.pow(1 - combinedProgress, 1.6);
+      const ease = 1 - Math.pow(1 - timeRatio, 1.6);
       const nextVal = Math.round(target * ease);
 
       if (nextVal !== countRef.current) {
@@ -146,7 +121,7 @@ function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
         setCount(nextVal);
       }
 
-      if (combinedProgress < 1) {
+      if (timeRatio < 1) {
         animationFrameId = requestAnimationFrame(animate);
       } else {
         setCount(target);
@@ -160,7 +135,6 @@ function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(animationFrameId);
     };
   }, [target, duration]);
@@ -313,13 +287,13 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
               <div className="absolute top-[20%] left-[10%] w-72 h-72 rounded-full bg-[#df2531]/30 blur-3xl pointer-events-none z-0" />
               <div className="absolute top-[10%] -right-[10%] w-60 h-60 rounded-full bg-orange-600/20 blur-3xl pointer-events-none z-0" />
 
-              {/* 2. DUPLICATED IMAGE: Almost transparent shadow in the background with the exact red tone of Print 2 */}
-              <div className="absolute inset-0 z-[1] pointer-events-none flex items-end justify-center transform scale-105 translate-x-2.5 -translate-y-2.5 opacity-25 filter blur-[3px]">
+              {/* 2. DUPLICATED IMAGE: Perfectly aligned subtle silhouette shadow directly behind portrait */}
+              <div className="absolute inset-0 z-[1] pointer-events-none flex items-end justify-center opacity-25 filter blur-[4px]">
                 <img
                   src={gabrielImg}
                   alt=""
                   aria-hidden="true"
-                  className="w-full h-full object-cover object-top filter sepia-[1] saturate-[8] hue-rotate-[320deg] brightness-[0.9] drop-shadow-[0_0_35px_rgba(223,37,49,0.9)]"
+                  className="w-full h-full object-cover object-top filter sepia-[1] saturate-[8] hue-rotate-[320deg] brightness-[0.9] drop-shadow-[0_0_25px_rgba(223,37,49,0.8)]"
                 />
               </div>
 
@@ -338,6 +312,9 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
                 <img
                   src={gabrielImg}
                   alt="Gabriel Campos - Fundador & Desenvolvedor de Software na KonohaTech"
+                  width={420}
+                  height={500}
+                  decoding="async"
                   className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.04]"
                   loading="eager"
                   fetchPriority="high"

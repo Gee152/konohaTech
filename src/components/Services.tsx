@@ -11,7 +11,7 @@ const serviceIcons: Record<string, LucideIcon> = {
 
 export default function Services() {
   return (
-    <section id="servicos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
+    <section id="servicos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50 content-visibility-auto">
       
       {/* Background neon orb */}
       <div className="absolute left-[30%] top-[40%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[150px] pointer-events-none" />
