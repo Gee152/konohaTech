@@ -15,7 +15,7 @@ export const DATA: Data[] = [
       linkedin: 'https://www.linkedin.com/in/gabriel-alves-7967641b1',
       github: 'https://github.com/gee152',
       whatsapp: '558187772234',
-      instagram: 'https://www.instagram.com/konoha.tech/',
+      instagram: 'https://www.instagram.com/konohatech_/',
       tiktok: '@konohatech'
     },
     about: 'Desenvolvemos tecnologia de estado da arte para estruturar, otimizar e escalar operações de empresas modernas de ponta. Código puro, entregas blindadas.',

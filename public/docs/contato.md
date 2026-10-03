@@ -21,7 +21,7 @@
 - **Atendimento para:** Propostas formais, RFPs, parcerias corporativas e assuntos jurídicos/administrativos.
 
 ### 1.3 Redes Sociais Oficiais
-- **Instagram:** [@konoha.tech](https://www.instagram.com/konoha.tech/)
+- **Instagram:** [@konoha.tech](https://www.instagram.com/konohatech_/)
 - **LinkedIn:** [Perfil Institucional no LinkedIn](https://www.linkedin.com/in/gabriel-alves-7967641b1)
 - **GitHub:** [https://github.com/Gee152/konohaTech](https://github.com/Gee152/konohaTech)
 

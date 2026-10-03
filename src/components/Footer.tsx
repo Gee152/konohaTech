@@ -42,7 +42,7 @@ export default function Footer() {
             {/* Social & Contact Icons next to brand name */}
             <div className="flex items-center gap-2 sm:gap-2.5 pl-3 border-l border-white/10">
               <a
-                href={DATA[0]?.socialMedia?.instagram || 'https://www.instagram.com/konoha.tech/'}
+                href={DATA[0]?.socialMedia?.instagram || 'https://www.instagram.com/konohatech_/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram da KonohaTech"
