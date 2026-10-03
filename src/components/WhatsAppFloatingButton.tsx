@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { motion } from 'motion/react';
 import WhatsAppIcon from './ui/WhatsAppIcon';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 import { DATA } from '../data';
@@ -18,11 +17,9 @@ const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = memo(({
   const whatsappUrl = getWhatsAppUrl(phone, message);
 
   return (
-    <motion.aside
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.6, type: 'spring', stiffness: 260, damping: 20 }}
-      className={`fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-40 ${className}`}
+    <aside
+      style={{ position: 'fixed', zIndex: 90 }}
+      className={`fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-[90] pointer-events-auto touch-manipulation transition-all duration-300 ${className}`}
       aria-label="Atendimento via WhatsApp"
     >
       <a
@@ -60,7 +57,7 @@ const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = memo(({
           </span>
         </div>
       </a>
-    </motion.aside>
+    </aside>
   );
 });
 
