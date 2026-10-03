@@ -10,6 +10,7 @@ import Portfolio from './components/Portfolio';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import { useQueryRouting } from './hooks/useQueryRouting';
 
 const BioLinks = lazy(() => import('./components/BioLinks'));
@@ -95,6 +96,9 @@ export default function App() {
           />
         </Suspense>
       )}
+
+      {/* Botão Flutuante de Atendimento WhatsApp */}
+      <WhatsAppFloatingButton />
 
       {/* Sistema de Gestão de Cookies e LGPD (carregado assincronamente) */}
       <Suspense fallback={null}>
