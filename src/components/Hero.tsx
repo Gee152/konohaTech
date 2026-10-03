@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import gabrielImg from '../assets/img/gabriel.webp';
 
 interface SlowCounterProps {
@@ -160,20 +160,6 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
         <div className="w-[500px] h-[500px] rounded-full bg-brand-red/10 blur-[80px] glow-red" />
       </div>
 
-      {/* Floating high-tech minimalist elements in background */}
-      <div data-parallax="0.08" className="absolute top-[12%] left-[10%] hidden xl:block animate-float pointer-events-none">
-        <div className="glass-panel px-4 py-2.5 rounded-2xl flex items-center gap-3 border-brand-red/20 shadow-[0_0_20px_rgba(223,37,49,0.05)]">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-          <span className="font-mono text-[10px] tracking-wide text-zinc-400">Deploy: Successful</span>
-        </div>
-      </div>
-
-      <div data-parallax="-0.08" className="absolute top-[12%] right-[10%] hidden xl:block animate-float pointer-events-none">
-        <div className="glass-panel-red p-3 rounded-2xl flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-brand-red" />
-          <span className="font-sans text-[11px] text-zinc-300">Inteligência Artificial Ativa</span>
-        </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
