@@ -1,5 +1,8 @@
 import { Service, PortfolioProject, Testimonial, WorkflowStep, TechBadge, Data, BioProfileConfig, BioLinkItem } from './types'
 import logoSrc from './assets/img/heron.webp'
+import heronPessoa from './assets/img/heronpessoa.png'
+import danielleImg from './assets/img/danielle.jpeg'
+import anaPerfil from './assets/img/anaperfil.png'
 import eaoliveira from './assets/img/eaoliveira.webp'
 import anaCarolina from './assets/img/anaCarolina.png'
 import konohaLogo from './assets/img/8987bd130641623.6184473f5678a.png'
@@ -137,7 +140,7 @@ export const PORTFOLIO: PortfolioProject[] = [
     id: 'apex-inventory',
     title: "Psicologo Heron Silveira",
     category: 'Sistemas Web',
-    tags: ['React', 'Node.js', ],
+    tags: ['React', 'Node.js',],
     description: "Site focado em divulgação de serviços psicológicos, apresentando consultas presenciais e online. O projeto visa converter visitantes em pacientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
     image: `${logoSrc}`,
     url: 'https://heronpsicologo.com'
@@ -160,9 +163,9 @@ export const PORTFOLIO: PortfolioProject[] = [
     image: `${eaoliveira}`,
     url: 'https://eaoliveiracorretoradeseguros.com'
   },
-   {
+  {
     id: 'dg-portal',
-    title: "Danielle Galdinho Corretora de Imoveis",
+    title: "Danielle Galdino Corretora de Imoveis",
     category: 'Site de vendas',
     tags: ['Astro', 'TypeScript', 'Tailwind CSS', 'Playwright'],
     description: "Site focado na venda de imóveis, apresentando diversas opções de imóveis para diferentes necessidades. O projeto visa converter visitantes em clientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
@@ -182,28 +185,28 @@ export const PORTFOLIO: PortfolioProject[] = [
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    id: 'carlos-henrique',
-    name: 'Carlos Henrique',
-    role: 'CTO',
-    company: 'Vortex Fintech',
-    comment: 'A Konoha Tech entregou nosso novo motor de pagamentos em tempo recorde. O sistema é robusto, seguro e o suporte técnico prestado foi incrível durante todo o projeto.',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80'
+    id: 'heron-silveira',
+    name: 'Heron Silveira',
+    role: 'Psicólogo',
+    company: 'Psicologia Clínica',
+    comment: 'Gabriel me entregou um site rápido e melhorou meu posicionamento no Google.',
+    avatar: heronPessoa
   },
   {
-    id: 'beatriz-mello',
-    name: 'Beatriz Mello',
-    role: 'Diretora de Operações',
-    company: 'LogiCargo Logística',
-    comment: 'Automatizamos todo o faturamento da nossa frota com o fluxo de automações desenvolvido pela Konoha. Reduzimos o retrabalho manual a zero e ganhamos tempo.',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&h=120&q=80'
+    id: 'danielle-galdinho',
+    name: 'Danielle Galdino',
+    role: 'Corretora de Imóveis',
+    company: 'DG Imóveis',
+    comment: 'A Konoha Tech e o Gabriel vêm me orientando no meio digital, tanto na parte tecnológica quanto em anúncios no Meta Ads.',
+    avatar: danielleImg
   },
   {
-    id: 'rodrigo-almeida',
-    name: 'Rodrigo Almeida',
-    role: 'Fundador',
-    company: 'Elysium Developments',
-    comment: 'Nossa nova landing page comercial superou todas as metas de conversão de leads altamente qualificados. O refinamento de design premium faz toda a diferença.',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80'
+    id: 'ana-carolina',
+    name: 'Ana Carolina',
+    role: 'Fisioterapeuta',
+    company: 'Fisioterapia Pélvica',
+    comment: 'Gabriel fez um trabalho muito bom, tanto no meu Instagram quanto no meu site, me dando mais visibilidade no Google.',
+    avatar: anaPerfil
   }
 ];
 

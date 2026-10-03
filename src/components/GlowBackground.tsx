@@ -24,15 +24,13 @@ interface GlowBackgroundProps {
 export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const isSeekingRef = useRef(false);
   const pendingSeekTimeRef = useRef<number | null>(null);
-  const seekWatchdogRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const targetProgressRef = useRef(0);
   const currentSmoothProgressRef = useRef(0);
 
   const resolvedSrc = resolveVideoUrl(videoSrc);
 
-  // Priming the hardware video decoder for Safari / WebKit & iOS
+  // Initialize and prime the video decoder safely across Safari / iOS / WebKit
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -40,73 +38,68 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
-    video.setAttribute('playsinline', 'true');
-    video.setAttribute('webkit-playsinline', 'true');
 
-    const markVideoReady = () => {
-      if (video.readyState >= 1) {
-        setIsVideoLoaded(true);
-      }
-      if (video.paused && video.currentTime === 0) {
+    const onReady = () => {
+      if (video && !video.paused) {
         try {
-          video.currentTime = 0.001;
+          video.pause();
         } catch {
           // Ignore
         }
       }
-    };
-
-    const primeDecoder = () => {
-      if (!video) return;
-      video.muted = true;
-      video.defaultMuted = true;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            video.pause();
-            markVideoReady();
-          })
-          .catch(() => {
-            markVideoReady();
-          });
+      if (video.duration && !isNaN(video.duration)) {
+        setIsVideoLoaded(true);
       }
     };
 
-    if (video.readyState >= 1) {
-      markVideoReady();
+    video.addEventListener('loadedmetadata', onReady);
+    video.addEventListener('loadeddata', onReady);
+    video.addEventListener('canplay', onReady);
+
+    if (video.readyState >= 1 && video.duration && !isNaN(video.duration)) {
+      if (!video.paused) {
+        try {
+          video.pause();
+        } catch {
+          // Ignore
+        }
+      }
+      setIsVideoLoaded(true);
     }
 
-    video.addEventListener('loadedmetadata', markVideoReady);
-    video.addEventListener('loadeddata', markVideoReady);
-    video.addEventListener('canplay', markVideoReady);
-    video.addEventListener('playing', markVideoReady);
-
-    const onFirstInteraction = () => {
-      primeDecoder();
-      window.removeEventListener('touchstart', onFirstInteraction);
-      window.removeEventListener('scroll', onFirstInteraction);
-      window.removeEventListener('pointerdown', onFirstInteraction);
+    // Decoder primer for Safari / iOS without autonomous playback
+    const onUserInteraction = () => {
+      if (!video) return;
+      const p = video.play();
+      if (p !== undefined) {
+        p.then(() => {
+          video.pause();
+          setIsVideoLoaded(true);
+        }).catch(() => {
+          setIsVideoLoaded(true);
+        });
+      }
+      window.removeEventListener('touchstart', onUserInteraction);
+      window.removeEventListener('pointerdown', onUserInteraction);
     };
 
-    window.addEventListener('touchstart', onFirstInteraction, { passive: true });
-    window.addEventListener('scroll', onFirstInteraction, { passive: true });
-    window.addEventListener('pointerdown', onFirstInteraction, { passive: true });
+    window.addEventListener('touchstart', onUserInteraction, { passive: true });
+    window.addEventListener('pointerdown', onUserInteraction, { passive: true });
 
     return () => {
-      video.removeEventListener('loadedmetadata', markVideoReady);
-      video.removeEventListener('loadeddata', markVideoReady);
-      video.removeEventListener('canplay', markVideoReady);
-      video.removeEventListener('playing', markVideoReady);
-      window.removeEventListener('touchstart', onFirstInteraction);
-      window.removeEventListener('scroll', onFirstInteraction);
-      window.removeEventListener('pointerdown', onFirstInteraction);
+      video.removeEventListener('loadedmetadata', onReady);
+      video.removeEventListener('loadeddata', onReady);
+      video.removeEventListener('canplay', onReady);
+      window.removeEventListener('touchstart', onUserInteraction);
+      window.removeEventListener('pointerdown', onUserInteraction);
     };
   }, [resolvedSrc]);
 
-  // 60fps LERP video scrubbing across the entire website scroll
+  // Smooth video scrubbing synchronized with page scroll
   useEffect(() => {
     let animationFrameId: number;
+    let lastSeekTimestamp = 0;
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
     const handleScroll = () => {
       const docHeight = Math.max(
@@ -127,48 +120,58 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       const video = videoRef.current;
       if (!video || !video.duration || isNaN(video.duration)) return;
 
-      const maxTime = Math.max(video.duration - 0.03, 0);
+      // Crucial: ensure video is never playing autonomously
+      if (!video.paused) {
+        try {
+          video.pause();
+        } catch {
+          // Ignore
+        }
+      }
+
+      const now = performance.now();
+      // Throttle seeks slightly so hardware decoders remain fluid
+      const minInterval = isTouch ? 40 : 16;
+      if (now - lastSeekTimestamp < minInterval) {
+        pendingSeekTimeRef.current = targetTime;
+        return;
+      }
+
+      const maxTime = Math.max(video.duration - 0.05, 0);
       const clampedTime = Math.min(Math.max(targetTime, 0), maxTime);
 
-      if (isSeekingRef.current || video.seeking) {
-        pendingSeekTimeRef.current = clampedTime;
+      if (Math.abs(video.currentTime - clampedTime) < 0.02) {
         return;
       }
 
-      if (Math.abs(video.currentTime - clampedTime) <= 0.015) {
-        return;
-      }
-
-      isSeekingRef.current = true;
+      lastSeekTimestamp = now;
       pendingSeekTimeRef.current = null;
 
       try {
-        video.currentTime = clampedTime;
-      } catch {
-        isSeekingRef.current = false;
-      }
-
-      // Safeguard watchdog timer
-      if (seekWatchdogRef.current) clearTimeout(seekWatchdogRef.current);
-      seekWatchdogRef.current = setTimeout(() => {
-        isSeekingRef.current = false;
-        if (pendingSeekTimeRef.current !== null) {
-          const next = pendingSeekTimeRef.current;
-          pendingSeekTimeRef.current = null;
-          applyVideoSeek(next);
+        if ('fastSeek' in video) {
+          (video as any).fastSeek(clampedTime);
+        } else {
+          video.currentTime = clampedTime;
         }
-      }, 90);
+      } catch {
+        // Silently catch seek errors
+      }
     };
 
     const handleSeeked = () => {
-      isSeekingRef.current = false;
-      if (seekWatchdogRef.current) clearTimeout(seekWatchdogRef.current);
-
       const video = videoRef.current;
-      if (video && video.readyState >= 1 && !isVideoLoaded) {
-        setIsVideoLoaded(true);
+      if (video) {
+        if (!video.paused) {
+          try {
+            video.pause();
+          } catch {
+            // Ignore
+          }
+        }
+        if (video.duration && !isNaN(video.duration) && !isVideoLoaded) {
+          setIsVideoLoaded(true);
+        }
       }
-
       if (pendingSeekTimeRef.current !== null) {
         const next = pendingSeekTimeRef.current;
         pendingSeekTimeRef.current = null;
@@ -181,19 +184,12 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       video.addEventListener('seeked', handleSeeked);
     }
 
-    const isSlowConnection = typeof navigator !== 'undefined' && (
-      (navigator as any).connection?.saveData ||
-      ['slow-2g', '2g', '3g'].includes((navigator as any).connection?.effectiveType)
-    );
-
     const updateLoop = () => {
       const diff = targetProgressRef.current - currentSmoothProgressRef.current;
-      const threshold = isSlowConnection ? 0.001 : 0.0004;
-      if (Math.abs(diff) < threshold) {
+      if (Math.abs(diff) < 0.0005) {
         currentSmoothProgressRef.current = targetProgressRef.current;
       } else {
-        // Smooth lerp coefficient (0.2 for responsiveness + fluidity)
-        currentSmoothProgressRef.current += diff * (isSlowConnection ? 0.15 : 0.2);
+        currentSmoothProgressRef.current += diff * (isTouch ? 0.25 : 0.2);
       }
 
       if (video && video.duration && !isNaN(video.duration)) {
@@ -214,15 +210,9 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       if (video) {
         video.removeEventListener('seeked', handleSeeked);
       }
-      if (seekWatchdogRef.current) clearTimeout(seekWatchdogRef.current);
       cancelAnimationFrame(animationFrameId);
     };
   }, [isVideoLoaded]);
-
-  const isSlowNet = typeof navigator !== 'undefined' && (
-    (navigator as any).connection?.saveData ||
-    ['slow-2g', '2g', '3g'].includes((navigator as any).connection?.effectiveType)
-  );
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[#050505]">
@@ -231,23 +221,18 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
         <video
           ref={videoRef}
           src={resolvedSrc}
-          className={`w-full h-full object-cover transition-opacity duration-700 ${
+          className={`w-full h-full object-cover blur-[5px] scale-105 transition-opacity duration-700 ${
             isVideoLoaded ? 'opacity-65 sm:opacity-80' : 'opacity-40'
           }`}
           muted
           playsInline
-          preload={isSlowNet ? 'metadata' : 'auto'}
+          preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-        >
-          <source src={resolvedSrc} type="video/mp4" />
-          <source src={`${BASE_URL}video/bg-scroll.mp4`} type="video/mp4" />
-          <source src="/konohaTech/video/bg-scroll.mp4" type="video/mp4" />
-          <source src="/video/bg-scroll.mp4" type="video/mp4" />
-        </video>
+        />
 
-        {/* Ambient Dark Scrim to balance contrast, readability and video depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/40 via-[#050505]/25 to-[#050505]/45 pointer-events-none" />
+        {/* Ambient Dark Scrim with backdrop blur to soften background and enhance contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/45 via-[#050505]/30 to-[#050505]/50 backdrop-blur-[4px] pointer-events-none" />
       </div>
 
       {/* 2. Absolute Glow Red Atmospheric Spheres */}

@@ -163,6 +163,13 @@ Qualquer alteração em serviços, planos ou novos cases do portfólio exige atu
   * `WebSite`: Domínio e rota canônica.
   * `FAQPage`: Perguntas e respostas técnicas atualizadas.
 
+### 4.4. Padrão de Rastreabilidade Semântica Invisível (Crawlable & Screen-Reader Only)
+* **Regra de Interface Humana:** Links técnicos de documentação e manifesto de IA (`llms.txt`, `docs/*.md`) **NÃO** devem poluir a interface visual de navegação do usuário.
+* **Técnica de Indexação Homologada:**
+  1. No rodapé ([`Footer.tsx`](file:///c:/Users/gabri/OneDrive/Pictures/konohaTech/konohaTech/src/components/Footer.tsx)): Manter os links encapsulados em `<nav aria-label="Rastreamento IA e Documentação Semântica" className="sr-only">`. O `sr-only` garante 100% de leitura para bots, indexadores e leitores de tela sem qualquer impacto visual na tela.
+  2. No cabeçalho ([`index.html`](file:///c:/Users/gabri/OneDrive/Pictures/konohaTech/konohaTech/index.html)): Incluir tags semânticas `<link rel="help" ... />` e `<link rel="documentation" ... />` diretamente no `<head>`.
+  3. No [`robots.txt`](file:///c:/Users/gabri/OneDrive/Pictures/konohaTech/konohaTech/public/robots.txt) e [`sitemap.xml`](file:///c:/Users/gabri/OneDrive/Pictures/konohaTech/konohaTech/public/sitemap.xml): Manter as rotas liberadas e mapeadas explicitamente.
+
 ---
 
 ## 5. ✅ Checklist Obrigatório de Code Review (PR / Deploy)

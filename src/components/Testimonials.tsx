@@ -80,7 +80,7 @@ export default function Testimonials() {
                     width={48}
                     height={48}
                     referrerPolicy="no-referrer"
-                    className="object-cover w-full h-full"
+                    className="object-cover object-top w-full h-full"
                   />
                 </div>
                 <div>

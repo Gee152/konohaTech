@@ -50,7 +50,7 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.01] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
+                className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.11] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
               >
                 {/* Step badge overlay */}
                 <div className="absolute top-4 right-4 font-mono font-bold text-xs text-brand-red/30 group-hover:text-brand-red transition-all">

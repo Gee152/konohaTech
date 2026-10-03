@@ -41,21 +41,15 @@ export default function Services() {
                 className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 bg-[#121214]/40 border border-white/5 hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  {/* Top: Icon & Action arrow */}
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-brand-red/5 border border-brand-red/10 text-brand-red flex items-center justify-center group-hover:scale-105 transition-transform">
+                  {/* Service Title with Icon directly alongside */}
+                  <div className="flex items-center gap-3.5 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-brand-red/15 group-hover:border-brand-red/40 transition-all">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    {/* Visual product index */}
-                    <span className="font-mono text-[10px] text-zinc-600 font-semibold uppercase">
-                      Serviço 0{idx + 1}
-                    </span>
+                    <h3 className="font-display font-semibold text-xl text-white tracking-tight leading-snug">
+                      {serv.title}
+                    </h3>
                   </div>
-
-                  {/* Service Title */}
-                  <h3 className="font-display font-semibold text-xl text-white mb-3 tracking-tight">
-                    {serv.title}
-                  </h3>
 
                   {/* Small description */}
                   <p className="text-zinc-400 text-sm leading-relaxed mb-6">

@@ -1,4 +1,4 @@
-import { Instagram, Mail, FileText, Bot } from 'lucide-react';
+import { Instagram, Mail } from 'lucide-react';
 import { DATA } from '../data';
 import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
 import WhatsAppIcon from './ui/WhatsAppIcon';
@@ -91,38 +91,39 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links & GEO IA RAG */}
+          {/* Projects Links */}
           <div className="space-y-4">
-            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos &amp; IA</h5>
+            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos</h5>
             <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
               <li><a href="#portfolio" className="hover:text-brand-red transition-colors">Nossos clientes</a></li>
               <li><a href="#processo" className="hover:text-brand-red transition-colors">Processo de Trabalho</a></li>
               <li><a href="#depoimentos" className="hover:text-brand-red transition-colors">Depoimentos</a></li>
-              <li>
-                <a
-                  href={`${import.meta.env.BASE_URL}llms.txt`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-red transition-colors inline-flex items-center gap-1.5 text-zinc-400 font-mono text-xs"
-                >
-                  <Bot className="w-3.5 h-3.5 text-brand-red" />
-                  Manifesto IA (llms.txt)
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`${import.meta.env.BASE_URL}docs/sobre.md`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-red transition-colors inline-flex items-center gap-1.5 text-zinc-400 font-mono text-xs"
-                >
-                  <FileText className="w-3.5 h-3.5 text-zinc-400" />
-                  Base de Conhecimento
-                </a>
-              </li>
+              <li><a href="#contato" className="hover:text-brand-red transition-colors">Contato Comercial</a></li>
             </ul>
           </div>
         </div>
+
+        {/* Camada de Rastreamento Semântico para Agentes de IA e Rastreadores (Invisível visualmente, 100% crawlable) */}
+        <nav aria-label="Rastreamento IA e Documentação Semântica" className="sr-only">
+          <a href={`${import.meta.env.BASE_URL}llms.txt`} rel="help">
+            Manifesto IA e Protocolo RAG (llms.txt)
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs/sobre.md`} rel="documentation">
+            Base de Conhecimento Institucional
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs/servicos.md`} rel="documentation">
+            Documentação de Serviços KonohaTech
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs/cases.md`} rel="documentation">
+            Cases de Sucesso e Portfólio
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs/biolinks.md`} rel="documentation">
+            Hub de Links e Canais de Conversão
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs/contato.md`} rel="documentation">
+            Dados Cadastrais, Fiscais e Canais Oficiais
+          </a>
+        </nav>
       </div>
 
       {/* Copy License bar */}
