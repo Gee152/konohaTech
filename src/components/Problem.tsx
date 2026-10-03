@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { ClipboardList, Clock, AlertTriangle, BatteryLow, ArrowDownRight } from 'lucide-react';
 
+import SectionHeader from './ui/SectionHeader';
+
 export default function Problem() {
   const problems = [
     {
@@ -30,7 +32,7 @@ export default function Problem() {
   ];
 
   return (
-    <section id="problema" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
+    <section id="problema" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Background glow shadow */}
       <div className="absolute right-[10%] top-[30%] w-[350px] h-[350px] rounded-full bg-brand-red/5 blur-[100px] pointer-events-none" />
@@ -38,20 +40,14 @@ export default function Problem() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Section Title */}
-        <div className="max-w-3xl mb-16 lg:mb-20 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            O Grande Gargalo
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            Sua empresa está perdendo oportunidades por falta de tecnologia?
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Muitas empresas ainda dependem de processos manuais, sistemas antigos e ferramentas desconectadas, resultando em perda de tempo, retrabalho e extrema dificuldade de crescimento escalável.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="O Grande Gargalo"
+          title="Sua empresa está perdendo oportunidades por falta de tecnologia?"
+          description="Muitas empresas ainda dependem de processos manuais, sistemas antigos e ferramentas desconectadas, resultando em perda de tempo, retrabalho e extrema dificuldade de crescimento escalável."
+        />
 
         {/* Problem Cards list Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 no-scrollbar snap-x snap-mandatory">
           {problems.map((prob) => {
             const IconComponent = prob.icon;
             return (
@@ -59,9 +55,9 @@ export default function Problem() {
                 key={prob.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
+                viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: prob.delay }}
-                className="group relative rounded-2xl p-6 transition-all duration-300 bg-brand-red/[0.015] border border-brand-red/10 hover:border-brand-red/35 hover:bg-brand-red/[0.04] flex flex-col justify-between min-h-[220px]"
+                className="w-[84vw] max-w-[320px] shrink-0 sm:w-auto snap-start group relative rounded-2xl p-6 transition-all duration-300 bg-brand-red/[0.015] border border-brand-red/10 hover:border-brand-red/35 hover:bg-brand-red/[0.04] flex flex-col justify-between min-h-[240px]"
               >
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 rounded-2xl bg-brand-red/5 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10 pointer-events-none" />

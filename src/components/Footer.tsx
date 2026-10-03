@@ -1,10 +1,18 @@
-import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png'
+import { Instagram, Mail, FileText, Bot } from 'lucide-react';
+import { DATA } from '../data';
+import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
+import WhatsAppIcon from './ui/WhatsAppIcon';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const whatsappUrl = getWhatsAppUrl(
+    DATA[0]?.socialMedia?.whatsapp,
+    'Olá KonohaTech! Gostaria de conversar sobre um projeto.'
+  );
 
   return (
-    <footer id="contato" className="relative bg-[#09090b] border-t border-white/5 pt-16 pb-8 overflow-hidden">
+    <footer id="contato" className="relative bg-[#09090b]/80 border-t border-white/5 pt-16 pb-8 overflow-hidden">
 
       {/* Absolute linear dark-red glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-[#df2531]/30 to-transparent pointer-events-none" />
@@ -13,14 +21,58 @@ export default function Footer() {
 
         {/* Brand column */}
         <div className="md:col-span-5 space-y-4">
-          <a href="#" className="flex items-center gap-2.5">
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-[#df2531]/10 border border-brand-red/30">
-              <img className="w-5 h-5 text-brand-red group-hover:scale-110 transition-transform duration-300" src={logoSrc} alt="Logo" />
+          <div className="flex items-center flex-wrap gap-3">
+            <a href="#" className="flex items-center gap-2.5 group">
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-[#df2531]/10 border border-brand-red/30">
+                <img
+                  className="w-5 h-5 text-brand-red group-hover:scale-110 transition-transform duration-300"
+                  src={logoSrc}
+                  alt="KonohaTech Logo"
+                  width={20}
+                  height={20}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <span className="font-display font-bold text-lg tracking-tight text-white">
+                Konoha<span className="text-brand-red">Tech</span>
+              </span>
+            </a>
+
+            {/* Social & Contact Icons next to brand name */}
+            <div className="flex items-center gap-2 sm:gap-2.5 pl-3 border-l border-white/10">
+              <a
+                href={DATA[0]?.socialMedia?.instagram || 'https://www.instagram.com/konoha.tech/'}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram da KonohaTech"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-zinc-300 hover:text-white bg-white/[0.04] hover:bg-[#df2531]/20 border border-white/10 hover:border-brand-red/50 transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm hover:shadow-[0_0_15px_-3px_rgba(223,37,49,0.3)] group"
+                title="Instagram da KonohaTech"
+              >
+                <Instagram className="w-4 h-4 group-hover:text-brand-red transition-colors" />
+              </a>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp da KonohaTech"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-zinc-300 hover:text-white bg-white/[0.04] hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/50 transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] group"
+                title="WhatsApp Comercial"
+              >
+                <WhatsAppIcon className="w-4 h-4 group-hover:text-emerald-400 transition-colors" />
+              </a>
+
+              <a
+                href={`mailto:${DATA[0]?.email || 'contatokonohatech@gmail.com'}`}
+                aria-label="Enviar e-mail para KonohaTech"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-zinc-300 hover:text-white bg-white/[0.04] hover:bg-[#df2531]/20 border border-white/10 hover:border-brand-red/50 transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm hover:shadow-[0_0_15px_-3px_rgba(223,37,49,0.3)] group"
+                title="E-mail de Contato"
+              >
+                <Mail className="w-4 h-4 group-hover:text-brand-red transition-colors" />
+              </a>
             </div>
-            <span className="font-display font-bold text-lg tracking-tight text-white">
-              Konoha<span className="text-brand-red">Tech</span>
-            </span>
-          </a>
+          </div>
           <p className="text-zinc-500 text-xs sm:text-sm max-w-sm leading-relaxed">
             Desenvolvemos tecnologia de estado da arte para estruturar, otimizar e escalar operações de empresas modernas de ponta. Código puro, entregas blindadas.
           </p>
@@ -39,27 +91,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Support Links & GEO IA RAG */}
           <div className="space-y-4">
-            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos</h5>
+            <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Projetos &amp; IA</h5>
             <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
               <li><a href="#portfolio" className="hover:text-brand-red transition-colors">Nossos clientes</a></li>
               <li><a href="#processo" className="hover:text-brand-red transition-colors">Processo de Trabalho</a></li>
               <li><a href="#depoimentos" className="hover:text-brand-red transition-colors">Depoimentos</a></li>
-              <li><a href="#contato" className="hover:text-brand-red transition-colors">Contato Comercial</a></li>
+              <li>
+                <a
+                  href={`${import.meta.env.BASE_URL}llms.txt`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-red transition-colors inline-flex items-center gap-1.5 text-zinc-400 font-mono text-xs"
+                >
+                  <Bot className="w-3.5 h-3.5 text-brand-red" />
+                  Manifesto IA (llms.txt)
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`${import.meta.env.BASE_URL}docs/sobre.md`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-red transition-colors inline-flex items-center gap-1.5 text-zinc-400 font-mono text-xs"
+                >
+                  <FileText className="w-3.5 h-3.5 text-zinc-400" />
+                  Base de Conhecimento
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-
-        {/* Legal Column 
-        <div className="md:col-span-2 space-y-4">
-          <h5 className="font-semibold text-xs uppercase tracking-wider text-white">Legal</h5>
-          <ul className="space-y-2 text-xs sm:text-sm text-zinc-500 font-medium">
-            <li><a href="#" className="hover:text-brand-red transition-colors">Políticas de Privacidade</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Termos de Uso de Serviço</a></li>
-            <li><a href="#" className="hover:text-brand-red transition-colors">Cookies de Navegação</a></li>
-          </ul>
-        </div>*/}
       </div>
 
       {/* Copy License bar */}

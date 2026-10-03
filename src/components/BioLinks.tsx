@@ -1,20 +1,6 @@
 import { useState, useTransition, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import {
-  MessageCircle,
-  Sparkles,
-  Briefcase,
-  Code2,
-  Workflow,
-  Instagram,
-  Linkedin,
-  Share2,
-  Globe,
-  Check,
-  ChevronRight,
-  ArrowUpRight,
-  LucideIcon
-} from 'lucide-react';
+import { MessageCircle, Sparkles, Briefcase, Code2, Workflow, Instagram, Linkedin, Share2, Globe, Check, ChevronRight, ArrowUpRight, LucideIcon } from 'lucide-react'
 import { profileConfig, bioLinksData } from '../data';
 import { BioLinkItem } from '../types';
 import PortfolioModal from './PortfolioModal';
@@ -191,6 +177,10 @@ export default function BioLinks({ onNavigateToLanding, onOpenBudgetModal }: Bio
               <img
                 src={profileConfig.avatarSrc}
                 alt={profileConfig.name}
+                width={56}
+                height={56}
+                decoding="async"
+                fetchPriority="high"
                 className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>

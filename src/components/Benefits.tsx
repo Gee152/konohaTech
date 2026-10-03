@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Zap, TrendingUp, Shield, Gauge, MousePointerClick, Star } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
 
 export default function Benefits() {
   const benefits = [
@@ -36,7 +37,7 @@ export default function Benefits() {
   ];
 
   return (
-    <section id="beneficios" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/20">
+    <section id="beneficios" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/20">
       
       {/* Visual background lights */}
       <div className="absolute right-[5%] bottom-[15%] w-[450px] h-[450px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -45,20 +46,14 @@ export default function Benefits() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Title */}
-        <div className="max-w-3xl mb-16 lg:mb-22 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            Vantagens Competitivas
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            O que sua empresa ganha trabalhando conosco
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Nossos projetos são estruturados com as melhores práticas de desenvolvimento global. Unimos velocidade mercadológica a um rigor de desenvolvimento incomparável.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Vantagens Competitivas"
+          title="O que sua empresa ganha trabalhando conosco"
+          description="Nossos projetos são estruturados com as melhores práticas de desenvolvimento global. Unimos velocidade mercadológica a um rigor de desenvolvimento incomparável."
+        />
 
         {/* Benefits Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
           {benefits.map((benefit, idx) => {
             const Icon = benefit.icon;
             
@@ -82,9 +77,9 @@ export default function Benefits() {
                 key={benefit.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group relative rounded-[32px] p-8 md:p-10 transition-all duration-500 bg-zinc-950/80 border border-white/5 hover:scale-[1.03] shadow-2xl flex flex-col justify-between min-h-[300px] overflow-hidden"
+                className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-[32px] p-8 md:p-10 transition-all duration-500 bg-zinc-950/80 border border-white/5 hover:scale-[1.03] shadow-2xl flex flex-col justify-between min-h-[300px] overflow-hidden card-dynamic"
               >
                 {/* Glowing Bottom Effects based on the reference image */}
                 <div className={`absolute -bottom-[30%] left-0 right-0 h-[70%] ${glowColor} blur-[90px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />

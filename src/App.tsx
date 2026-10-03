@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import GlowBackground from './components/GlowBackground';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -7,13 +7,13 @@ import Solution from './components/Solution';
 import Benefits from './components/Benefits';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
-import Technologies from './components/Technologies';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import BioLinks from './components/BioLinks';
 import { useQueryRouting } from './hooks/useQueryRouting';
+
+const BioLinks = lazy(() => import('./components/BioLinks'));
 
 export default function App() {
   const [isBudgetModalOpen, setIsBudgetModalOpen] = useState(false);
@@ -26,10 +26,12 @@ export default function App() {
 
       {currentView === 'biolinks' ? (
         /* Visualização BioLinks / Hub de Links Mobile-First (?page=links) */
-        <BioLinks
-          onNavigateToLanding={openLanding}
-          onOpenBudgetModal={() => setIsBudgetModalOpen(true)}
-        />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#050505] text-[#df2531]">Carregando...</div>}>
+          <BioLinks
+            onNavigateToLanding={openLanding}
+            onOpenBudgetModal={() => setIsBudgetModalOpen(true)}
+          />
+        </Suspense>
       ) : (
         /* Visualização Landing Page Completa */
         <>
@@ -55,9 +57,6 @@ export default function App() {
 
             {/* Portfolio Section featuring dynamic case modals */}
             <Portfolio />
-
-            {/* Technologies Utilized Badge list */}
-            <Technologies />
 
             {/* Elegant Horizontal workflow process */}
             <Process />

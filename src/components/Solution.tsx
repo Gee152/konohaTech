@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Compass, Layers, Code, ShieldCheck, Rocket, ChevronRight } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
 
 export default function Solution() {
   const steps = [
@@ -36,7 +37,7 @@ export default function Solution() {
   ];
 
   return (
-    <section id="solucao" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]">
+    <section id="solucao" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
       
       {/* Background radial soft light */}
       <div className="absolute left-[8%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -44,17 +45,11 @@ export default function Solution() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Title */}
-        <div className="max-w-3xl text-left mb-16 lg:mb-20">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            A Solução Definitiva
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            A Konoha Tech desenvolve soluções que impulsionam resultados.
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Criamos aplicações modernas, automações robustas e sistemas personalizados de alta engenharia, transformando dores operacionais complexas em experiências de software extremamente simples, rápidas e eficientes.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="A Solução Definitiva"
+          title="A Konoha Tech desenvolve soluções que impulsionam resultados."
+          description="Criamos aplicações modernas, automações robustas e sistemas personalizados de alta engenharia, transformando dores operacionais complexas em experiências de software extremamente simples, rápidas e eficientes."
+        />
 
         {/* Timeline Layout */}
         <div className="relative">
@@ -62,7 +57,7 @@ export default function Solution() {
           <div className="hidden lg:block absolute top-[44px] left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-zinc-800 via-brand-red/50 to-zinc-800 -z-10" />
 
           {/* Grid for Steps */}
-          <div className="grid lg:grid-cols-5 gap-8 lg:gap-6 relative">
+          <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
             {steps.map((step, idx) => {
               const Icon = step.icon;
               
@@ -90,9 +85,9 @@ export default function Solution() {
                   key={step.label}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
+                  viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="group flex flex-col items-start lg:items-center text-left lg:text-center p-6 lg:p-4 rounded-2xl bg-zinc-950/80 border border-white/5 hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
+                  className="w-[90vw] max-w-[330px] shrink-0 lg:w-auto snap-start group flex flex-col items-start lg:items-center text-left lg:text-center p-7 lg:p-4 rounded-2xl bg-zinc-950/80 border border-white/5 hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
                 >
                   {/* Glowing Bottom Effects based on the reference image */}
                   <div className={`absolute -bottom-[40%] left-0 right-0 h-[80%] ${glowColor} blur-[70px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />

@@ -1,0 +1,16 @@
+# KonohaTech — Engenharia de Software & Soluções Digitais
+> Engenharia de software de ponta, sistemas escaláveis e automações inteligentes. Código puro, entregas blindadas.
+> Plataforma web desenvolvida com React 19, TypeScript, Tailwind CSS v4 e Framer Motion.
+
+## Rotas e Recursos (Markdown)
+- [Sobre a KonohaTech](https://gee152.github.io/konohaTech/docs/sobre.md): Apresentação institucional, manifesto de engenharia, stack suportada e garantia de código.
+- [Serviços de Engenharia](https://gee152.github.io/konohaTech/docs/servicos.md): Desenvolvimento Web de alta performance, Cloud & DevOps, Automações com IA e Arquitetura de APIs.
+- [Cases de Sucesso & Portfólio](https://gee152.github.io/konohaTech/docs/cases.md): Especificações técnicas dos projetos entregues (Clínica Dra. Ana Carolina, Psicólogo Heron Silveira, E&A Seguros).
+- [Hub BioLinks](https://gee152.github.io/konohaTech/docs/biolinks.md): Interface mobile com Menu Circular de Comandos para redes sociais.
+- [Contato & Dados Cadastrais](https://gee152.github.io/konohaTech/docs/contato.md): Canais oficiais de WhatsApp, formulário de orçamento, CNPJ e localização em Recife-PE.
+
+## Notas para Agentes de IA e RAG
+- **Razão Social / CNPJ**: CNPJ oficial: 45.109.825/0001-92.
+- **Localização Primária**: Recife, Pernambuco — Brasil (atendimento remoto nacional e internacional).
+- **Core Competencies**: Desenvolvimento sob demanda de alto nível técnico, sem templates prontos (React 19, Vite, Tailwind v4, APIs robustas, microsserviços).
+- **Canal Oficial de Atendimento**: Conversão via WhatsApp corporativo (+55 81 98777-2234) e simulador interativo de orçamento na Landing Page.

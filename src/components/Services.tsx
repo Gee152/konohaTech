@@ -1,10 +1,17 @@
 import { motion } from 'motion/react';
 import { SERVICES } from '../data';
-import * as LucideIcons from 'lucide-react';
+import { Layout, Sparkles, TrendingUp, Layers, Check, LucideIcon } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
+
+const serviceIcons: Record<string, LucideIcon> = {
+  Layout,
+  Sparkles,
+  TrendingUp,
+};
 
 export default function Services() {
   return (
-    <section id="servicos" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]">
+    <section id="servicos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
       
       {/* Background neon orb */}
       <div className="absolute left-[30%] top-[40%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[150px] pointer-events-none" />
@@ -12,23 +19,17 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Title */}
-        <div className="max-w-3xl mb-16 lg:mb-24 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            Nossos Serviços
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            Engenharia de ponta para impulsionar seu pipeline digital
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Explorada ao extremo, nossa especialidade é moldar tecnologia em ferramentas escaláveis que geram economia, eficiência e resultados exponenciais para sua marca.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Nossos Serviços"
+          title="Engenharia de ponta para impulsionar seu pipeline digital"
+          description="Explorada ao extremo, nossa especialidade é moldar tecnologia em ferramentas escaláveis que geram economia, eficiência e resultados exponenciais para sua marca."
+        />
 
         {/* Services Grid (Product Style) */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
           {SERVICES.map((serv, idx) => {
             // Dynamically resolve icon
-            const IconComponent = (LucideIcons as any)[serv.iconName] || LucideIcons.Layers;
+            const IconComponent = serviceIcons[serv.iconName] || Layers;
             
             return (
               <motion.div
@@ -37,7 +38,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="group relative rounded-2xl p-8 bg-[#121214]/40 border border-white/5 hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+                className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 bg-[#121214]/40 border border-white/5 hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Top: Icon & Action arrow */}
@@ -68,7 +69,7 @@ export default function Services() {
                     <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase block mb-1">Incluso na solução</span>
                     {serv.features.map((feat) => (
                       <div key={feat} className="flex items-start gap-2.5">
-                        <LucideIcons.Check className="w-4 h-4 text-brand-red mt-0.5 shrink-0" />
+                        <Check className="w-4 h-4 text-brand-red mt-0.5 shrink-0" />
                         <span className="text-zinc-300 text-xs sm:text-sm leading-tight">
                           {feat}
                         </span>

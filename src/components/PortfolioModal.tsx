@@ -93,6 +93,10 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                   <img
                     src={currentProject.image}
                     alt={currentProject.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={420}
+                    height={280}
                     className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
                   />
                   

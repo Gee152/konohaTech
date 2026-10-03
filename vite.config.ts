@@ -23,10 +23,29 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+              return 'vendor-react';
+            }
+            if (id.includes('node_modules/framer-motion/') || id.includes('node_modules/motion/')) {
+              return 'vendor-motion';
+            }
+            if (id.includes('node_modules/lucide-react/')) {
+              return 'vendor-lucide';
+            }
+          },
+        },
+      },
+      chunkSizeWarningLimit: 600,
+    },
     test: {
       globals: true,
       environment: 'jsdom',
       setupFiles: './src/test/setup.ts',
+      include: ['src/**/*.{test,spec}.{ts,tsx}'],
     },
   };
 });

@@ -1,29 +1,24 @@
 import { motion } from 'motion/react';
 import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
 
 export default function Testimonials() {
   return (
-    <section id="depoimentos" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]">
+    <section id="depoimentos" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-[#09090b]/50">
     {/* Background glow shadow */}
       <div className="absolute left-[5%] top-[10%] w-[450px] h-[450px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-    {/* Title */}
-        <div className="max-w-3xl mb-16 lg:mb-24 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            Satisfação Comprovada
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            Quem trabalha com a Konoha Tech recomenda
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Parcerias duradouras construídas com confiança técnica, entregas exemplares dentro do cronograma e suporte de alta disponibilidade.
-          </p>
-        </div>
+        {/* Title */}
+        <SectionHeader
+          eyebrow="Satisfação Comprovada"
+          title="Quem trabalha com a Konoha Tech recomenda"
+          description="Parcerias duradouras construídas com confiança técnica, entregas exemplares dentro do cronograma e suporte de alta disponibilidade."
+        />
 
     {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
           {TESTIMONIALS.map((testimonial, idx) => { 
             const glowColors = [
               "bg-brand-red",
@@ -46,7 +41,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`group relative rounded-2xl p-8 glass-panel border border-white/5 hover:border-brand-red/25 transition-all duration-300 flex flex-col justify-between`}>
+              className={`w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 glass-panel border border-white/5 hover:border-brand-red/25 transition-all duration-300 flex flex-col justify-between`}>
     {/* Outer light glow behind the card on hover */}
               <div className={`absolute inset-0 rounded-2xl bg-brand-red/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
 
@@ -80,6 +75,10 @@ export default function Testimonials() {
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.name}
+                    loading="lazy"
+                    decoding="async"
+                    width={48}
+                    height={48}
                     referrerPolicy="no-referrer"
                     className="object-cover w-full h-full"
                   />

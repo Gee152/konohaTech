@@ -1,6 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Code2, Play, CheckCircle2, Terminal, BarChart2, Cpu, Sparkles, Database } from 'lucide-react';
+
+interface SlowCounterProps {
+  target: number;
+  duration?: number;
+}
+
+function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
+  const [count, setCount] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    let animationFrameId: number;
+    let startTime: number | null = null;
+    let currentScrollRatio = 0;
+
+    const onScroll = () => {
+      // Avança suavemente com o scroll no Hero
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      currentScrollRatio = Math.min(Math.max(scrollY / 280, 0), 1);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+
+      // Progressão lenta no tempo (slow motion)
+      const timeRatio = Math.min(elapsed / duration, 1);
+      // Combina a contagem lenta com o scroll do usuário
+      const combinedProgress = Math.min(Math.max(timeRatio, currentScrollRatio), 1);
+
+      // Curva suave de atenuação (soft ease-out)
+      const ease = 1 - Math.pow(1 - combinedProgress, 1.6);
+      const nextVal = Math.round(target * ease);
+
+      if (nextVal !== countRef.current) {
+        countRef.current = nextVal;
+        setCount(nextVal);
+      }
+
+      if (combinedProgress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+        setIsFinished(true);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      animationFrameId = requestAnimationFrame(animate);
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [target, duration]);
+
+  return (
+    <span className={`metric-counter ${isFinished ? 'counter-finished' : ''}`}>
+      {count}
+    </span>
+  );
+}
 
 interface HeroProps {
   onOpenBudgetModal: () => void;
@@ -10,7 +78,7 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
   const [activeTab, setActiveTab] = useState<'analytics' | 'code' | 'automation'>('analytics');
 
   return (
-    <section className="relative min-h-screen pt-32 pb-20 lg:pt-40 lg:pb-28 flex flex-col justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen pt-32 pb-20 lg:pt-40 lg:pb-28 flex flex-col justify-center overflow-hidden">
       
       {/* Background radial highlight & floating shapes */}
       <div className="absolute inset-x-0 top-1/4 -z-10 flex justify-center pointer-events-none">
@@ -18,14 +86,14 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
       </div>
 
       {/* Floating high-tech minimalist elements in background */}
-      <div className="absolute top-[12%] left-[10%] hidden xl:block animate-float pointer-events-none">
+      <div data-parallax="0.08" className="absolute top-[12%] left-[10%] hidden xl:block animate-float pointer-events-none">
         <div className="glass-panel px-4 py-2.5 rounded-2xl flex items-center gap-3 border-brand-red/20 shadow-[0_0_20px_rgba(223,37,49,0.05)]">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
           <span className="font-mono text-[10px] tracking-wide text-zinc-400">Deploy: Successful</span>
         </div>
       </div>
 
-      <div className="absolute top-[12%] right-[10%] hidden xl:block animate-float pointer-events-none">
+      <div data-parallax="-0.08" className="absolute top-[12%] right-[10%] hidden xl:block animate-float pointer-events-none">
         <div className="glass-panel-red p-3 rounded-2xl flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-brand-red" />
           <span className="font-sans text-[11px] text-zinc-300">Inteligência Artificial Ativa</span>
@@ -43,7 +111,7 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30"
+              className="hidden sm:inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
@@ -83,20 +151,20 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-2"
+              className="flex flex-row items-center gap-3 sm:gap-4 mt-2"
             >
               <button
                 onClick={onOpenBudgetModal}
-                className="px-8 py-4 rounded-full text-sm font-semibold bg-brand-red text-white hover:bg-brand-red-hover transition-all text-center glow-red hover:scale-[1.02] active:scale-[0.98] duration-200"
+                className="flex-1 sm:flex-none px-4 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-semibold bg-brand-red text-white hover:bg-brand-red-hover transition-all text-center glow-red hover:scale-[1.02] active:scale-[0.98] duration-200 whitespace-nowrap"
               >
                 Solicitar orçamento
               </button>
               <a
                 href="#portfolio"
-                className="px-8 py-4 rounded-full text-sm font-semibold bg-white/5 text-white hover:bg-white/10 border border-white/10 hover:scale-[1.02] active:scale-[0.98] transition-all text-center flex items-center justify-center gap-1 duration-200"
+                className="flex-1 sm:flex-none px-4 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-semibold bg-white/5 text-white hover:bg-white/10 border border-white/10 hover:scale-[1.02] active:scale-[0.98] transition-all text-center flex items-center justify-center gap-1 duration-200 whitespace-nowrap"
               >
                 Conhecer projetos
-                <ArrowRight className="w-4 h-4 ml-1" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 shrink-0" />
               </a>
             </motion.div>
 
@@ -108,17 +176,23 @@ export default function Hero({ onOpenBudgetModal }: HeroProps) {
               className="flex items-center gap-8 mt-5 border-t border-white/5 pt-6"
             >
               <div>
-                <p className="font-display font-bold text-2xl text-white">45%</p>
+                <p className="font-display font-bold text-2xl text-white">
+                  <SlowCounter target={45} duration={3400} />%
+                </p>
                 <p className="text-xs text-zinc-500">Mais produtividade operacional</p>
               </div>
               <div className="w-px h-8 bg-white/10" />
               <div>
-                <p className="font-display font-bold text-2xl text-white">100%</p>
+                <p className="font-display font-bold text-2xl text-white">
+                  <SlowCounter target={100} duration={3600} />%
+                </p>
                 <p className="text-xs text-zinc-500">Entregas no prazo acordado</p>
               </div>
               <div className="w-px h-8 bg-white/10" />
               <div>
-                <p className="font-display font-bold text-2xl text-white">12+</p>
+                <p className="font-display font-bold text-2xl text-white">
+                  <SlowCounter target={12} duration={2800} />+
+                </p>
                 <p className="text-xs text-zinc-500">Tecnologias de ponta dominadas</p>
               </div>
             </motion.div>

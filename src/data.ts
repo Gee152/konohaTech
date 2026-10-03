@@ -3,10 +3,8 @@ import logoSrc from './assets/img/heron.webp'
 import eaoliveira from './assets/img/eaoliveira.webp'
 import anaCarolina from './assets/img/anaCarolina.png'
 import konohaLogo from './assets/img/8987bd130641623.6184473f5678a.png'
-
-const logo = logoSrc;
-const eaOliveira = eaoliveira;
-const anacarolina = anaCarolina;
+import dg from './assets/img/dg.png'
+import fitness from './assets/img/fitness.png'
 
 export const DATA: Data[] = [
   {
@@ -109,42 +107,6 @@ export const SERVICES: Service[] = [
     iconName: 'Layout'
   },
   {
-    id: 'api-backend',
-    title: 'APIs e Back-end',
-    description: 'Arquiteturas robustas, seguras e preparadas para escalabilidade.',
-    features: [
-      'Construção de APIs REST ou GraphQL robustas',
-      'Modelagem de banco de dados otimizada',
-      'Microsserviços de alto desempenho',
-      'Integrações com sistemas legado'
-    ],
-    iconName: 'Database'
-  },
-  {
-    id: 'automations',
-    title: 'Automações',
-    description: 'Integrações e otimização de processos internos eficientes.',
-    features: [
-      'Eliminação de tarefas manuais repetitivas',
-      'Webhooks e gatilhos automatizados',
-      'Redução de erros operacionais e gargalos',
-      'Integração fluida entre diferentes softwares (SaaS)'
-    ],
-    iconName: 'Cpu'
-  },
-  {
-    id: 'qa-tests',
-    title: 'QA e Testes',
-    description: 'Garantia completa de qualidade para blindar seu produto.',
-    features: [
-      'Testes E2E com Cypress e Playwright',
-      'Cobertura extensa de testes unitários e funcionais',
-      'Monitoramento preventivo de falhas em produção',
-      'Esteiras de CI/CD para deploy seguro'
-    ],
-    iconName: 'CheckSquare'
-  },
-  {
     id: 'ai-solutions',
     title: 'Inteligência Artificial',
     description: 'Assistentes inteligentes e automação cognitiva.',
@@ -177,7 +139,7 @@ export const PORTFOLIO: PortfolioProject[] = [
     category: 'Sistemas Web',
     tags: ['React', 'Node.js', ],
     description: "Site focado em divulgação de serviços psicológicos, apresentando consultas presenciais e online. O projeto visa converter visitantes em pacientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
-    image: `${logo}`,
+    image: `${logoSrc}`,
     url: 'https://heronpsicologo.com'
   },
   {
@@ -186,7 +148,7 @@ export const PORTFOLIO: PortfolioProject[] = [
     category: "Gthree",
     tags: ['React', 'TypeScript', 'Tailwind CSS',],
     description: "Ambiente online com intuito de levar o paciente até sua consulta de modo fácil e prático, dando visão geral da profissional. O projeto visa converter visitantes em pacientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
-    image: `${anacarolina}`,
+    image: `${anaCarolina}`,
     url: "https://gee152.github.io/LDA_fisioterapeuta_Ana_Carolina/"
   },
   {
@@ -195,8 +157,26 @@ export const PORTFOLIO: PortfolioProject[] = [
     category: 'Site de vendas',
     tags: ['Astro', 'TypeScript', 'Tailwind CSS', 'Playwright'],
     description: "Site focado na venda de seguros, apresentando diversas opções de seguros para diferentes necessidades. O projeto visa converter visitantes em clientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
-    image: `${eaOliveira}`,
+    image: `${eaoliveira}`,
     url: 'https://eaoliveiracorretoradeseguros.com'
+  },
+   {
+    id: 'dg-portal',
+    title: "Danielle Galdinho Corretora de Imoveis",
+    category: 'Site de vendas',
+    tags: ['Astro', 'TypeScript', 'Tailwind CSS', 'Playwright'],
+    description: "Site focado na venda de imóveis, apresentando diversas opções de imóveis para diferentes necessidades. O projeto visa converter visitantes em clientes através de um design profissional e acolhedor, com agendamento direto via WhatsApp.",
+    image: `${dg}`,
+    url: 'https://homepage-imobiliaria-dg.vercel.app/'
+  },
+  {
+    id: 'fitness-portal',
+    title: "Letice Santana Fitness",
+    category: 'Site de vendas',
+    tags: ['Astro', 'TypeScript', 'Tailwind CSS', 'Playwright'],
+    description: "Site focado na venda de serviços fitness, apresentando diversas opções de serviços para diferentes necessidades. O projeto visa converter visitantes em clientes através de um design moderno, atraente e funcional, com agendamento direto via WhatsApp.",
+    image: `${fitness}`,
+    url: 'https://homepagepersonal-git-main-gee152s-projects.vercel.app/'
   }
 ];
 

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { PROCESS_STEPS } from '../data';
 import { Check, Clipboard, Calendar, Hammer, HelpCircle, Send } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
 
 export default function Process() {
   // Simple helper to fetch representative step icons
@@ -22,7 +23,7 @@ export default function Process() {
   };
 
   return (
-    <section id="processo" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
+    <section id="processo" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Decorative side lights */}
       <div className="absolute right-[-10%] top-[40%] w-[380px] h-[380px] rounded-full bg-brand-red/5 blur-[120px] pointer-events-none" />
@@ -30,32 +31,26 @@ export default function Process() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Title */}
-        <div className="max-w-3xl mb-16 lg:mb-24 text-left">
-          <span className="font-mono text-xs text-brand-red font-semibold tracking-[0.05em] uppercase mb-3 block">
-            Fluxo de Entrega Estável
-          </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-6">
-            Como funciona nosso processo de ponta a ponta
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
-            Eliminamos surpresas ou atrasos desagradáveis. Nosso método de engajamento é totalmente transparente, ágil, baseado em marcos definidos e relatórios semanais.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Fluxo de Entrega Estável"
+          title="Como funciona nosso processo de ponta a ponta"
+          description="Eliminamos surpresas ou atrasos desagradáveis. Nosso método de engajamento é totalmente transparente, ágil, baseado em marcos definidos e relatórios semanais."
+        />
 
         {/* Horizontal & Vertical Timeline combination */}
         <div className="relative">
           {/* Neon connecting pipe background indicator */}
           <div className="hidden lg:block absolute top-[44px] left-[5%] right-[5%] h-px bg-gradient-to-r from-zinc-800 via-brand-red/40 to-zinc-800 -z-10" />
 
-          <div className="grid lg:grid-cols-5 gap-10 lg:gap-6 relative">
+          <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
             {PROCESS_STEPS.map((step, index) => (
               <motion.div
                 key={step.stepNumber}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
+                viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.01] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
+                className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.01] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
               >
                 {/* Step badge overlay */}
                 <div className="absolute top-4 right-4 font-mono font-bold text-xs text-brand-red/30 group-hover:text-brand-red transition-all">
@@ -78,11 +73,6 @@ export default function Process() {
                 <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-xs">
                   {step.description}
                 </p>
-
-                {/* Mini mobile step divider pipe */}
-                {index < PROCESS_STEPS.length - 1 && (
-                  <div className="w-px h-8 bg-zinc-800 absolute top-full left-[43px] translate-y-2 lg:hidden -z-10" />
-                )}
               </motion.div>
             ))}
           </div>

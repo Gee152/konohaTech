@@ -10,6 +10,9 @@ import {
   Layers,
   BarChart
 } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
+import WhatsAppIcon from './ui/WhatsAppIcon';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
@@ -52,7 +55,7 @@ export default function Portfolio() {
         'Formulários interativos inteligentes integrados com RD Station e ActiveCampaign'
       ],
       url: 'https://eaoliveiracorretoradeseguros.com'
-    }
+    },
   };
 
   // Movimentação automática a cada 15 segundos (pausa ao passar o mouse)
@@ -99,6 +102,10 @@ export default function Portfolio() {
             <img
               src={project.image}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
+              width={600}
+              height={320}
               referrerPolicy="no-referrer"
               className="object-cover object-top w-full h-full scale-105 transition-transform duration-500 group-hover:scale-110"
             />
@@ -158,7 +165,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
+    <section id="portfolio" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/40">
       
       {/* Background radial effects */}
       <div className="absolute right-[10%] bottom-[30%] w-[500px] h-[500px] rounded-full bg-brand-red/5 blur-[140px] pointer-events-none" />
@@ -167,20 +174,14 @@ export default function Portfolio() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Header Centralizado */}
-        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
-            <span className="font-mono text-xs text-brand-red font-semibold tracking-wider uppercase">
-              Cases de Sucesso
-            </span>
-          </div>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-tight mb-4">
-            Projetos que transformam negócios
-          </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Conheça algumas soluções de ponta desenvolvidas pela Konoha Tech. Arquitetura impecável, design envolvente e foco total em conversão e usabilidade.
-          </p>
-        </div>
+        <SectionHeader
+          align="center"
+          badgeStyle="pill"
+          eyebrow="Cases de Sucesso"
+          title="Projetos que transformam negócios"
+          description="Conheça algumas soluções de ponta desenvolvidas pela Konoha Tech. Arquitetura impecável, design envolvente e foco total em conversão e usabilidade."
+          className="mb-10 sm:mb-12 lg:mb-16"
+        />
 
         {/* Slide Carousel Track - Cards 100% Íntegros e sem cortes */}
         <div 
@@ -296,6 +297,10 @@ export default function Portfolio() {
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={450}
                     referrerPolicy="no-referrer"
                     className="object-cover w-full h-full"
                   />
@@ -370,11 +375,16 @@ export default function Portfolio() {
                   Acesse o projeto
                 </a>
                 <a
-                  href={`https://api.whatsapp.com/send?phone=${DATA[0]?.socialMedia?.whatsapp}&text=Ol%C3%A1%20Konoha%20Tech!%20Gostaria%20de%20conversar%20sobre%20um%20projeto.`}
+                  href={getWhatsAppUrl(
+                    DATA[0]?.socialMedia?.whatsapp,
+                    `Olá Konoha Tech! Gostaria de conversar sobre um projeto parecido com ${selectedProject.title}.`
+                  )}
                   target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setSelectedProject(null)}
-                  className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-brand-red hover:bg-brand-red-hover text-white transition-all shadow-[0_0_15px_-3px_rgba(223,37,49,0.3)] hover:glow-red max-[375px]:px-2 max-[375px]:py-1.5 max-[375px]:text-[5%]"
+                  className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-brand-red hover:bg-brand-red-hover text-white transition-all shadow-[0_0_15px_-3px_rgba(223,37,49,0.3)] hover:glow-red max-[375px]:px-2 max-[375px]:py-1.5 max-[375px]:text-[5%] inline-flex items-center gap-1.5"
                 >
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
                   Quero uma solução parecida
                 </a>
               </div>

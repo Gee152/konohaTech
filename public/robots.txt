@@ -1,0 +1,30 @@
+# robots.txt para KonohaTech
+# https://gee152.github.io/konohaTech/
+
+User-agent: *
+Allow: /
+Allow: /docs/
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin/
+Disallow: /drafts/
+
+# Permitir Rastreadores de Resposta e Busca por IA
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Bloqueio de Scrapers Predatórios de Treinamento Massivo
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Localização do Sitemap
+Sitemap: https://gee152.github.io/konohaTech/sitemap.xml

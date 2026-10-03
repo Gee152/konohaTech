@@ -1,14 +1,127 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Konoha Tech</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>KonohaTech — Engenharia de Software &amp; Soluções Digitais</title>
+    
+    <meta name="description" content="Engenharia de software de ponta, sistemas escaláveis e automações inteligentes. Código puro, entregas blindadas pela KonohaTech." />
+    <meta name="keywords" content="KonohaTech, engenharia de software, desenvolvimento web, react 19, typescript, tailwind css, recife, automações com ia, apis robustas, software sob medida" />
+    <meta name="author" content="KonohaTech" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#050505" />
+
+    <link rel="canonical" href="https://gee152.github.io/konohaTech/" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://gee152.github.io/konohaTech/sitemap.xml" />
+
+    <!-- Google Fonts DNS prefetch & Preconnect for Fast LCP / FCP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gee152.github.io/konohaTech/" />
+    <meta property="og:title" content="KonohaTech — Engenharia de Software &amp; Soluções Digitais" />
+    <meta property="og:description" content="Engenharia de software de ponta, sistemas escaláveis e automações inteligentes. Código puro, entregas blindadas." />
+    <meta property="og:image" content="https://gee152.github.io/konohaTech/assets/og-cover.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="KonohaTech" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://gee152.github.io/konohaTech/" />
+    <meta name="twitter:title" content="KonohaTech — Engenharia de Software &amp; Soluções Digitais" />
+    <meta name="twitter:description" content="Engenharia de software de ponta, sistemas escaláveis e automações inteligentes." />
+    <meta name="twitter:image" content="https://gee152.github.io/konohaTech/assets/og-cover.png" />
+
+    <!-- Schema.org JSON-LD Structured Data for SEO & GEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://gee152.github.io/konohaTech/#organization",
+          "name": "KonohaTech",
+          "alternateName": "Konoha Tech",
+          "url": "https://gee152.github.io/konohaTech/",
+          "logo": "https://gee152.github.io/konohaTech/assets/og-cover.png",
+          "image": "https://gee152.github.io/konohaTech/assets/og-cover.png",
+          "description": "Engenharia de software de ponta, sistemas escaláveis e automações inteligentes.",
+          "telephone": "+55-81-98777-2234",
+          "email": "contatokonohatech@gmail.com",
+          "taxID": "45.109.825/0001-92",
+          "priceRange": "$$",
+          "currenciesAccepted": "BRL, USD",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Recife",
+            "addressRegion": "PE",
+            "addressCountry": "BR"
+          },
+          "areaServed": "Global",
+          "sameAs": [
+            "https://github.com/Gee152/konohaTech",
+            "https://www.instagram.com/konoha.tech/",
+            "https://www.linkedin.com/in/gabriel-alves-7967641b1"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://gee152.github.io/konohaTech/#website",
+          "url": "https://gee152.github.io/konohaTech/",
+          "name": "KonohaTech",
+          "publisher": {
+            "@id": "https://gee152.github.io/konohaTech/#organization"
+          },
+          "inLanguage": "pt-BR"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://gee152.github.io/konohaTech/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Quais serviços a KonohaTech desenvolve?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A KonohaTech é especializada em desenvolvimento de Web Apps e landing pages de alta performance, construção de APIs REST e microsserviços, automações de processos de negócios integradas com inteligência artificial e consultoria técnica de arquitetura."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Onde a KonohaTech está sediada e qual seu CNPJ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A KonohaTech está sediada em Recife, Pernambuco (Brasil), com atendimento global remoto, sob o CNPJ oficial 45.109.825/0001-92."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como solicitar um orçamento ou proposta comercial?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Você pode solicitar um orçamento através do simulador de escopo presente na página inicial ou contatar diretamente a equipe pelo WhatsApp corporativo +55 (81) 98777-2234 ou e-mail contatokonohatech@gmail.com."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quais tecnologias a KonohaTech domina?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A stack principal inclui React 19, TypeScript, Next.js, Vite, Tailwind CSS v4, Node.js, PostgreSQL, Docker, Playwright, Vitest e modelos avançados de IA (OpenAI, Claude, Gemini)."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
