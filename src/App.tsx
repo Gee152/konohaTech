@@ -9,6 +9,7 @@ import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import { useQueryRouting } from './hooks/useQueryRouting';
@@ -68,6 +69,9 @@ export default function App() {
 
             {/* Testimonials Quote Cards */}
             <Testimonials />
+
+            {/* Questions & Answers / Structured FAQ Section (Google Schema Aligned) */}
+            <FAQ onOpenBudgetModal={handleOpenBudgetModal} />
 
             {/* Final CTA call, Contact Forms & Estimator Dialog wizard */}
             {isBudgetModalOpen && (

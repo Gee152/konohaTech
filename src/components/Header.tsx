@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { name: 'Casos', href: '#portfolio' },
   { name: 'Processo', href: '#processo' },
   { name: 'Depoimentos', href: '#depoimentos' },
+  { name: 'FAQ', href: '#faq' },
 ];
 
 export default function Header({ onOpenBudgetModal }: HeaderProps) {

@@ -90,6 +90,7 @@ function Footer() {
               <li><a href="#solucao" className="hover:text-brand-red transition-colors">A Solução</a></li>
               <li><a href="#beneficios" className="hover:text-brand-red transition-colors">Benefícios</a></li>
               <li><a href="#servicos" className="hover:text-brand-red transition-colors">Serviços</a></li>
+              <li><a href="#faq" className="hover:text-brand-red transition-colors">Perguntas Frequentes (FAQ)</a></li>
             </ul>
           </div>
 

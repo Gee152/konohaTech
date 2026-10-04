@@ -180,28 +180,28 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               </span>
             </motion.div>
 
-            {/* Title - Mais compacto no mobile */}
+            {/* Title - Otimizado para SEO e GEO com palavras-chave primárias */}
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
               className="font-display font-extrabold text-[28px] xs:text-[30px] sm:text-5xl lg:text-[58px] tracking-tight text-white leading-[1.1]"
             >
-              Transformamos ideias {' '}
+              Desenvolvimento de software{' '}
               <span className="text-brand-red">
-                em soluções
+                e soluções digitais
               </span>{' '}
-               digitais!
+              de alta performance
             </motion.h1>
 
-            {/* Subtitle - Mais compacto no mobile */}
+            {/* Subtitle - Otimizado para intenção de busca regional e nacional */}
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, ease: 'easeOut', delay: 0.04 }}
               className="text-zinc-200 text-xs sm:text-base lg:text-lg max-w-xl leading-relaxed"
             >
-              Crio sites e sistemas web e desenvolvo estratégias de marketing digital para empresas de todo o Brasil
+              Engenharia de software sob medida: sites velozes, sistemas escaláveis e automações inteligentes com IA para empresas em Recife e em todo o Brasil.
             </motion.p>
 
             {/* Micro proof figures / Contagem */}
