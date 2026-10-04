@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { Compass, Layers, Code, ShieldCheck, Rocket, ChevronRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
@@ -81,12 +80,8 @@ function Solution() {
               const borderColor = SOLUTION_BORDER_COLORS[idx % SOLUTION_BORDER_COLORS.length];
 
               return (
-                <motion.div
+                <div
                   key={step.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-                  transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.05, 0.15) }}
                   className="w-[90vw] max-w-[330px] shrink-0 lg:w-auto snap-start group flex flex-col items-start lg:items-center text-left lg:text-center p-7 lg:p-4 rounded-2xl bg-zinc-950/80 border border-white/5 hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
                 >
                   {/* Glowing Bottom Effects based on the reference image */}
@@ -117,7 +112,7 @@ function Solution() {
                       {step.desc}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

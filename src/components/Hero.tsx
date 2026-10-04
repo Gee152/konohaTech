@@ -153,7 +153,7 @@ interface HeroProps {
 function Hero({ onOpenBudgetModal }: HeroProps) {
 
   return (
-    <section id="hero" className="relative pt-16 pb-6 sm:pt-24 sm:pb-12 lg:min-h-screen lg:pt-36 lg:pb-24 flex flex-col justify-center overflow-hidden">
+    <section id="hero" className="relative pt-16 pb-6 sm:pt-20 sm:pb-10 lg:min-h-[88vh] lg:pt-32 lg:pb-14 flex flex-col justify-center overflow-hidden">
       
       {/* Background radial highlight & floating shapes */}
       <div className="absolute inset-x-0 top-1/4 -z-10 flex justify-center pointer-events-none">

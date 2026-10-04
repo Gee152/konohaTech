@@ -18,8 +18,16 @@ const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = memo(({
 
   return (
     <aside
-      style={{ position: 'fixed', zIndex: 90 }}
-      className={`fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-[90] pointer-events-auto touch-manipulation transition-all duration-300 ${className}`}
+      style={{
+        position: 'fixed',
+        bottom: '24px',
+        right: '20px',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      className={`pointer-events-auto touch-manipulation transition-transform duration-300 ${className}`}
       aria-label="Atendimento via WhatsApp"
     >
       <a
@@ -47,7 +55,10 @@ const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = memo(({
         </div>
 
         {/* Botão circular principal */}
-        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#128C7E] via-[#25D366] to-[#25D366] text-white flex items-center justify-center shadow-lg shadow-emerald-950/50 border border-emerald-300/30 group-hover:scale-105 active:scale-95 group-hover:shadow-emerald-500/40 transition-all duration-300">
+        <div 
+          style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}
+          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#128C7E] via-[#25D366] to-[#25D366] text-white flex items-center justify-center shadow-lg shadow-emerald-950/50 border border-emerald-300/30 group-hover:scale-105 active:scale-95 group-hover:shadow-emerald-500/40 transition-all duration-300"
+        >
           <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8 fill-current drop-shadow-sm" />
 
           {/* Badge de status Online */}

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
@@ -37,12 +36,8 @@ function Testimonials() {
             const borderColor = TESTIMONIAL_BORDER_COLORS[idx % TESTIMONIAL_BORDER_COLORS.length];
             
             return (
-            <motion.div
+            <div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-              transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.04, 0.12) }}
               className={`w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 glass-panel border border-white/5 hover:border-brand-red/25 transition-all duration-300 flex flex-col justify-between`}>
     {/* Outer light glow behind the card on hover */}
               <div className={`absolute inset-0 rounded-2xl bg-brand-red/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
@@ -94,7 +89,7 @@ function Testimonials() {
                   </p>
                 </div>
               </div>  
-            </motion.div>
+            </div>
             )
           })}
         </div>

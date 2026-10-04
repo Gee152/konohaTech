@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { ClipboardList, Clock, AlertTriangle, BatteryLow, ArrowDownRight } from 'lucide-react';
 
 import SectionHeader from './ui/SectionHeader';
@@ -53,7 +52,7 @@ const PROBLEMS = [
 
 function Problem() {
   return (
-    <section id="problema" className="relative pt-8 pb-16 sm:py-24 lg:py-32 overflow-hidden border-t border-white/5 bg-zinc-950/20 backdrop-blur-[2px]">
+    <section id="problema" className="relative pt-8 pb-16 sm:py-20 lg:pt-16 lg:pb-24 overflow-hidden border-t border-white/5 bg-zinc-950/20 backdrop-blur-[2px]">
       
       {/* Background glow shadow */}
       <div className="absolute right-[10%] top-[30%] w-[380px] h-[380px] rounded-full bg-brand-red/10 blur-[120px] pointer-events-none" />
@@ -73,12 +72,8 @@ function Problem() {
           {PROBLEMS.map((prob) => {
             const IconComponent = prob.icon;
             return (
-              <motion.div
+              <div
                 key={prob.title}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-                transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(prob.delay, 0.1) }}
                 className="w-[88vw] max-w-[340px] shrink-0 sm:w-auto snap-start group relative rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl bg-white/[0.03] hover:border-brand-red/40 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 {/* Card Content Area */}
@@ -110,7 +105,7 @@ function Problem() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

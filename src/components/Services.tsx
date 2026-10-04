@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { SERVICES } from '../data';
 import { Layout, Sparkles, TrendingUp, Layers, Check, LucideIcon } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
@@ -33,12 +32,8 @@ function Services() {
             const IconComponent = serviceIcons[serv.iconName] || Layers;
             
             return (
-              <motion.div
+              <div
                 key={serv.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-                transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.04, 0.12) }}
                 className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 bg-[#121214]/40 border border-white/5 hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
@@ -72,14 +67,7 @@ function Services() {
                     ))}
                   </div>
                 </div>
-
-{/*                 <div className="mt-8 pt-4">
-                  <span className="inline-flex items-center gap-1 text-xs text-brand-red font-medium group-hover:underline cursor-pointer">
-                    Saiba mais sobre {serv.title}
-                    <LucideIcons.ChevronRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>  */}
-              </motion.div>
+              </div>
             );
           })}
         </div>

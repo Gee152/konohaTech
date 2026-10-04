@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { Zap, TrendingUp, Shield, Gauge, MousePointerClick, Star } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 
@@ -73,12 +72,8 @@ function Benefits() {
             const borderColor = BENEFITS_BORDER_COLORS[idx % BENEFITS_BORDER_COLORS.length];
 
             return (
-              <motion.div
+              <div
                 key={benefit.title}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-                transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(idx * 0.04, 0.12) }}
                 className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-[32px] p-8 md:p-10 transition-all duration-500 bg-zinc-950/80 border border-white/5 hover:scale-[1.03] shadow-2xl flex flex-col justify-between min-h-[300px] overflow-hidden card-dynamic"
               >
                 {/* Glowing Bottom Effects based on the reference image */}
@@ -104,7 +99,7 @@ function Benefits() {
                   <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase">Garantia Konoha</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-white transition-all" />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

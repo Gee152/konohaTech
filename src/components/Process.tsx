@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { PROCESS_STEPS } from '../data';
 import { Check, Clipboard, Calendar, Hammer, HelpCircle, Send } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
@@ -45,12 +44,8 @@ function Process() {
 
           <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
             {PROCESS_STEPS.map((step, index) => (
-              <motion.div
+              <div
                 key={step.stepNumber}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '80px 0px 0px 0px' }}
-                transition={{ duration: 0.3, ease: 'easeOut', delay: Math.min(index * 0.04, 0.12) }}
                 className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.11] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
               >
                 {/* Step badge overlay */}
@@ -74,7 +69,7 @@ function Process() {
                 <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-xs">
                   {step.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
