@@ -19,6 +19,12 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 # Bloqueio de Scrapers Predatórios de Treinamento Massivo
 User-agent: Bytespider
 Disallow: /
