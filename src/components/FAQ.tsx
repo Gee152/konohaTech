@@ -1,5 +1,5 @@
 import { useState, memo } from 'react';
-import { ChevronDown, HelpCircle, MessageSquare, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { ChevronDown, MessageSquare, ArrowRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 import { DATA } from '../data';
 import { getWhatsAppUrl } from '../utils/whatsapp';
@@ -13,34 +13,34 @@ interface FAQItem {
 
 const FAQ_ITEMS: FAQItem[] = [
   {
-    id: 'servicos',
-    category: 'Soluções & Escopo',
-    question: 'Quais serviços a KonohaTech desenvolve?',
-    answer: 'A KonohaTech é especializada em desenvolvimento de Web Apps e landing pages de alta performance, construção de APIs REST e microsserviços, automações de processos de negócios integradas com inteligência artificial e consultoria técnica de arquitetura de software.',
+    id: 'consultoria-solucoes',
+    category: 'Consultoria & Crescimento',
+    question: 'Como a KonohaTech pode ajudar minha empresa a vender mais pela internet?',
+    answer: 'Atuamos como uma consultoria digital completa. Desenvolvemos sites e landing pages modernas e ultrarrápidas, integradas com gestão de tráfego pago (anúncios no Google e Meta) e automações inteligentes. Cuidamos desde a criação da sua estrutura digital até a atração contínua de clientes qualificados prontos para comprar.',
+  },
+  {
+    id: 'trafego-pago',
+    category: 'Gestão de Tráfego & Vendas',
+    question: 'A KonohaTech também cuida dos anúncios e da captação de clientes?',
+    answer: 'Sim! Conectamos o desenvolvimento do seu site a estratégias de tráfego pago no Google Ads e Meta Ads (Instagram e Facebook). Dessa forma, sua empresa não ganha apenas uma página bonita, mas um verdadeiro canal de aquisição de clientes que gera mensagens e orçamentos todos os dias.',
   },
   {
     id: 'diferenciais',
-    category: 'Engenharia & Performance',
-    question: 'Por que escolher a KonohaTech em vez de agências tradicionais ou templates prontos?',
-    answer: 'Desenvolvemos código puro e arquitetura sob medida sem templates engessados ou construtores lentos. Nossas soluções entregam notas máximas no Google Lighthouse (Core Web Vitals), carregamento sub-segundo, segurança blindada e designs modernos projetados para máxima conversão.',
+    category: 'Diferenciais & Atendimento',
+    question: 'Qual é o diferencial da consultoria da KonohaTech frente a agências tradicionais?',
+    answer: 'Não usamos modelos prontos e engessados nem promessas vazias. Oferecemos um acompanhamento próximo e consultivo, unindo visual premium, páginas que carregam instantaneamente no celular e campanhas de anúncios com foco direto em retorno sobre o investimento (ROI).',
   },
   {
-    id: 'localizacao-cnpj',
-    category: 'Institucional & Segurança',
-    question: 'Onde a KonohaTech está sediada e qual seu CNPJ?',
-    answer: 'A KonohaTech está sediada em Recife, Pernambuco (Brasil), com atendimento global remoto, sob o CNPJ oficial 45.109.825/0001-92. Emitimos nota fiscal e formalizamos contratos de confidencialidade (NDA) para todos os projetos.',
+    id: 'orcamento-processo',
+    category: 'Contratação & Prazos',
+    question: 'Como funciona o processo de orçamento e início de um projeto?',
+    answer: 'É simples e direto: você nos chama no WhatsApp ou utiliza nosso simulador na página inicial. Fazemos um diagnóstico do seu momento comercial, apresentamos uma proposta transparente com prazos definidos e formalizamos tudo com contrato seguro e nota fiscal.',
   },
   {
-    id: 'orcamento',
-    category: 'Comercial & Prazos',
-    question: 'Como solicitar um orçamento ou proposta comercial?',
-    answer: 'Você pode solicitar um orçamento através do simulador de escopo presente na página inicial ou contatar diretamente nossa equipe pelo WhatsApp corporativo +55 (81) 98777-2234 ou e-mail contatokonohatech@gmail.com.',
-  },
-  {
-    id: 'stack',
-    category: 'Stack Técnica',
-    question: 'Quais tecnologias a KonohaTech domina?',
-    answer: 'A stack principal inclui React 19, TypeScript, Next.js, Vite, Tailwind CSS v4, Node.js, PostgreSQL, Docker, Playwright, Vitest e modelos avançados de IA (OpenAI, Claude, Gemini).',
+    id: 'atendimento-localizacao',
+    category: 'Atendimento & Confiança',
+    question: 'Onde a empresa está localizada e como é feito o suporte?',
+    answer: 'Nossa base fica em Recife-PE, sob o CNPJ oficial 45.109.825/0001-92, e atendemos clientes em todo o Brasil. O contato é direto e ágil via WhatsApp corporativo, com reuniões de alinhamento e suporte contínuo para o seu crescimento.',
   },
 ];
 
@@ -50,7 +50,7 @@ interface FAQProps {
 
 function FAQ({ onOpenBudgetModal }: FAQProps) {
   // Abre o primeiro item por padrão para visualização imediata
-  const [openId, setOpenId] = useState<string | null>('servicos');
+  const [openId, setOpenId] = useState<string | null>('consultoria-solucoes');
 
   const toggleItem = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
@@ -58,7 +58,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
 
   const whatsappUrl = getWhatsAppUrl(
     DATA[0]?.socialMedia?.whatsapp,
-    'Olá KonohaTech! Li o FAQ no site e gostaria de tirar uma dúvida específica sobre meu projeto.'
+    'Olá KonohaTech! Li o FAQ no site e gostaria de agendar uma conversa sobre consultoria digital e tráfego pago para minha empresa.'
   );
 
   return (
@@ -69,14 +69,14 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <SectionHeader
-          eyebrow="Tire Suas Dúvidas"
-          title="Perguntas frequentes sobre nossa engenharia"
-          description="Transparência total em processos, tecnologias adotadas, prazos e modalidades de contratação para o seu negócio."
+          eyebrow="Consultoria & Resultados"
+          title="Perguntas frequentes sobre nossa consultoria digital"
+          description="Descubra como unimos criação de sites de alta conversão, gestão de tráfego pago e automações para acelerar as vendas da sua empresa."
         />
 
         {/* Accordion List */}
         <div className="mt-8 sm:mt-12 space-y-3.5">
-          {FAQ_ITEMS.map((item, index) => {
+          {FAQ_ITEMS.map((item) => {
             const isOpen = openId === item.id;
 
             return (
@@ -94,7 +94,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${item.id}`}
                   id={`faq-question-${item.id}`}
-                  className="w-full p-5 sm:p-6 text-left flex items-start sm:items-center justify-between gap-4 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50"
+                  className="w-full p-5 sm:p-6 text-left flex items-start sm:items-center justify-between gap-4 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50 cursor-pointer"
                 >
                   <div className="space-y-1">
                     <span className="font-mono text-[10px] uppercase tracking-wider text-brand-red/90 block">
@@ -136,10 +136,10 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
           <div className="space-y-1">
             <h4 className="font-display font-bold text-white text-base sm:text-lg flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-brand-red" />
-              Sua dúvida não está listada aqui?
+              Quer entender qual a melhor estratégia para sua empresa?
             </h4>
             <p className="text-zinc-400 text-xs sm:text-sm">
-              Fale diretamente com Gabriel Campos (Fundador & Tech Lead) para uma análise técnica personalizada.
+              Fale diretamente com nosso especialista para um diagnóstico digital gratuito do seu negócio.
             </p>
           </div>
 
@@ -148,7 +148,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
               <button
                 type="button"
                 onClick={onOpenBudgetModal}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-white transition-all text-center"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-white transition-all text-center cursor-pointer"
               >
                 Simular Projeto
               </button>
@@ -159,7 +159,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-red hover:bg-[#c41d28] text-white text-xs font-semibold shadow-md shadow-brand-red/30 transition-all flex items-center justify-center gap-2"
             >
-              Conversar no WhatsApp
+              Falar no WhatsApp
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
