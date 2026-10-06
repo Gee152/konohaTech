@@ -254,7 +254,7 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
           }`}
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           disablePictureInPicture
           disableRemotePlayback
         />
