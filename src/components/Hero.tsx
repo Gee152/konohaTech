@@ -21,10 +21,18 @@ function TypewriterPresentation() {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Efeito simulador de digitação em velocidade realista
+  // Efeito simulador de digitação em velocidade realista com atraso inicial para evitar reflows
   useEffect(() => {
     const currentPhrase = PRESENTATION_PHRASES[phraseIndex];
     let timeoutId: ReturnType<typeof setTimeout>;
+
+    // Atraso inicial para dar folga de CPU no carregamento da página (Mobile FCP/LCP)
+    if (phraseIndex === 0 && displayedText === '' && !isDeleting) {
+      timeoutId = setTimeout(() => {
+        setDisplayedText(currentPhrase.slice(0, 1));
+      }, 750);
+      return () => clearTimeout(timeoutId);
+    }
 
     if (!isDeleting) {
       // Digitando caractere por caractere (~36ms por tecla)
