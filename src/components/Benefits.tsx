@@ -96,7 +96,7 @@ function Benefits() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
-                  <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase">Garantia Konoha</span>
+                  <span className="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Garantia Konoha</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-white transition-all" />
                 </div>
               </div>

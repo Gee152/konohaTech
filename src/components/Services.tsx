@@ -56,7 +56,7 @@ function Services() {
 
                   {/* Feature Lists */}
                   <div className="space-y-3">
-                    <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase block mb-1">Incluso na solução</span>
+                    <span className="font-mono text-[9px] tracking-widest text-zinc-400 uppercase block mb-1">Incluso na solução</span>
                     {serv.features.map((feat) => (
                       <div key={feat} className="flex items-start gap-2.5">
                         <Check className="w-4 h-4 text-brand-red mt-0.5 shrink-0" />

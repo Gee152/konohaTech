@@ -83,9 +83,9 @@ function Testimonials() {
                   />
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-sm text-white tracking-tight">
+                  <h3 className="font-display font-bold text-sm text-white tracking-tight">
                     {testimonial.name}
-                  </h4>
+                  </h3>
                   <p className="text-zinc-500 text-xs font-mono">
                     {testimonial.role} — <span className="text-zinc-400 font-sans font-medium">{testimonial.company}</span>
                   </p>

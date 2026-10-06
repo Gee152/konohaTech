@@ -96,11 +96,11 @@ function Problem() {
                   {/* Subcard Telemetry Block (EXACT replica of Print 1's Acessos Ativos / Tempo de Resposta) */}
                   <div className="grid grid-cols-2 gap-2 pt-2">
                     <div className="bg-white/[0.02] border border-white/5 p-2.5 rounded-xl">
-                      <span className="block text-[9px] text-zinc-500 uppercase tracking-wider font-mono">{prob.metric1.label}</span>
+                      <span className="block text-[9px] text-zinc-400 uppercase tracking-wider font-mono">{prob.metric1.label}</span>
                       <span className="font-mono text-xs sm:text-sm text-white font-semibold">{prob.metric1.value}</span>
                     </div>
                     <div className="bg-white/[0.02] border border-white/5 p-2.5 rounded-xl">
-                      <span className="block text-[9px] text-zinc-500 uppercase tracking-wider font-mono">{prob.metric2.label}</span>
+                      <span className="block text-[9px] text-zinc-400 uppercase tracking-wider font-mono">{prob.metric2.label}</span>
                       <span className="font-mono text-xs sm:text-sm text-red-400 font-semibold">{prob.metric2.value}</span>
                     </div>
                   </div>
