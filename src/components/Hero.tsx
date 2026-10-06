@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, memo } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import gabrielImg from '../assets/img/konoha_tech_seo_gabriel_recife.webp';
+import ImageWithSkeleton from './ui/ImageWithSkeleton';
 
 interface SlowCounterProps {
   target: number;
@@ -286,12 +287,13 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
 
               {/* FOREGROUND: Gabriel Portrait Image with background removed */}
               <div className="relative z-[2] w-full h-full flex items-end justify-center">
-                <img
+                <ImageWithSkeleton
                   src={gabrielImg}
                   alt="Gabriel Campos - Fundador & Desenvolvedor de Software na KonohaTech"
                   width={420}
                   height={500}
                   decoding="async"
+                  containerClassName="w-full h-full"
                   className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.04]"
                   loading="eager"
                   fetchPriority="high"

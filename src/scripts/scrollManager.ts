@@ -23,17 +23,17 @@ export function initScrollSystem() {
       });
     },
     {
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.08
+      rootMargin: '150px 0px 150px 0px',
+      threshold: 0.01
     }
   );
 
   const observeElements = (container: Document | HTMLElement = document) => {
     const elements = container.querySelectorAll(revealSelector);
     elements.forEach((el) => {
-      // If already in viewport on load, reveal immediately
+      // If already near viewport on load, reveal immediately
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
+      if (rect.top < window.innerHeight + 150 && rect.bottom > -150) {
         el.classList.add('is-revealed');
       } else {
         revealObserver.observe(el);

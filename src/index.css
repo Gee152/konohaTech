@@ -118,6 +118,35 @@
   animation: cursor-blink 0.9s ease-in-out infinite;
 }
 
+/* Skeleton Shimmer Animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.12) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
 
 /* Scrollbar oculto para carrossel e swipes horizontais */
 .no-scrollbar::-webkit-scrollbar {
@@ -141,43 +170,43 @@ button, a {
 .scroll-reveal {
   opacity: 0;
   transition-property: opacity, transform;
-  transition-duration: 1500ms;
+  transition-duration: 380ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Side Slide: Left */
 .scroll-reveal-left {
   opacity: 0;
-  transform: translate3d(-54px, 0, 0);
+  transform: translate3d(-20px, 0, 0);
   transition-property: opacity, transform;
-  transition-duration: 1550ms;
+  transition-duration: 380ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Side Slide: Right */
 .scroll-reveal-right {
   opacity: 0;
-  transform: translate3d(54px, 0, 0);
+  transform: translate3d(20px, 0, 0);
   transition-property: opacity, transform;
-  transition-duration: 1550ms;
+  transition-duration: 380ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Side Down: Enters sliding down from above */
 .scroll-reveal-down {
   opacity: 0;
-  transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -20px, 0);
   transition-property: opacity, transform;
-  transition-duration: 1500ms;
+  transition-duration: 380ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Slide Up: Enters sliding up from below */
 .scroll-reveal-up {
   opacity: 0;
-  transform: translate3d(0, 50px, 0);
+  transform: translate3d(0, 20px, 0);
   transition-property: opacity, transform;
-  transition-duration: 1500ms;
+  transition-duration: 380ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -191,22 +220,22 @@ button, a {
   transform: translate3d(0, 0, 0) !important;
 }
 
-/* Stagger Delays for natural cascading entries */
-.delay-75 { transition-delay: 140ms; }
-.delay-100 { transition-delay: 230ms; }
-.delay-150 { transition-delay: 400ms; }
-.delay-200 { transition-delay: 580ms; }
-.delay-250 { transition-delay: 750ms; }
-.delay-300 { transition-delay: 920ms; }
-.delay-350 { transition-delay: 1100ms; }
-.delay-400 { transition-delay: 1280ms; }
-.delay-500 { transition-delay: 1500ms; }
+/* Stagger Delays ultrarrápidos e fluidos */
+.delay-75 { transition-delay: 30ms; }
+.delay-100 { transition-delay: 50ms; }
+.delay-150 { transition-delay: 80ms; }
+.delay-200 { transition-delay: 120ms; }
+.delay-250 { transition-delay: 160ms; }
+.delay-300 { transition-delay: 200ms; }
+.delay-350 { transition-delay: 220ms; }
+.delay-400 { transition-delay: 250ms; }
+.delay-500 { transition-delay: 300ms; }
 
 /* Dynamic Interactive Cards: Elevated hover, silky border transition, spring physics */
 .card-dynamic {
-  transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.46s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s ease;
 }
 
 .card-dynamic:hover {
@@ -228,18 +257,18 @@ button, a {
 .side-down-dynamic,
 .converge-drop {
   opacity: 0;
-  transform: translate3d(0, -68px, 0);
+  transform: translate3d(0, -28px, 0);
   will-change: transform, opacity;
-  transition: opacity 1600ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1950ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .converge-rise {
   opacity: 0;
-  transform: translate3d(0, 64px, 0);
+  transform: translate3d(0, 28px, 0);
   will-change: transform, opacity;
-  transition: opacity 1600ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1950ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Unlocked states: triggered smoothly when cinematic-unlocked is active */
@@ -275,22 +304,22 @@ button, a {
   .scroll-reveal-right,
   .scroll-reveal-down,
   .scroll-reveal-up {
-    transition-duration: 1500ms !important;
+    transition-duration: 200ms !important;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
-  .scroll-reveal-left { transform: translate3d(-24px, 0, 0); }
-  .scroll-reveal-right { transform: translate3d(24px, 0, 0); }
-  .scroll-reveal-down { transform: translate3d(0, -24px, 0); }
-  .scroll-reveal-up { transform: translate3d(0, 24px, 0); }
+  .scroll-reveal-left { transform: translate3d(-12px, 0, 0); }
+  .scroll-reveal-right { transform: translate3d(12px, 0, 0); }
+  .scroll-reveal-down { transform: translate3d(0, -12px, 0); }
+  .scroll-reveal-up { transform: translate3d(0, 12px, 0); }
 
   .side-down-dynamic,
   .converge-drop {
-    transform: translate3d(0, -32px, 0);
-    transition: opacity 1600ms ease-out, transform 1950ms ease-out;
+    transform: translate3d(0, -16px, 0);
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
   }
   .converge-rise {
-    transform: translate3d(0, 32px, 0);
-    transition: opacity 1600ms ease-out, transform 1950ms ease-out;
+    transform: translate3d(0, 16px, 0);
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
   }
   .cinematic-unlocked .side-down-dynamic,
   .cinematic-unlocked .converge-drop,

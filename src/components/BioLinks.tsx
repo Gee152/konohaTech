@@ -4,6 +4,7 @@ import { MessageCircle, Sparkles, Briefcase, Code2, Workflow, Instagram, Linkedi
 import { profileConfig, bioLinksData } from '../data';
 import { BioLinkItem } from '../types';
 import PortfolioModal from './PortfolioModal';
+import ImageWithSkeleton from './ui/ImageWithSkeleton';
 import { openCookiePreferencesModal, openPrivacyPolicyModal } from '../utils/cookieConsent';
 import { CircularCommandMenu, CommandItem } from '@/components/ui/circular-command-menu';
 
@@ -174,14 +175,15 @@ export default function BioLinks({ onNavigateToLanding, onOpenBudgetModal }: Bio
           
           {/* Avatar com neon ring e glow red */}
           <div className="relative group mb-4">
-            <div className="relative flex items-center justify-center w-24 h-24 rounded-2xl bg-[#df2531]/10 border-2 border-[#df2531]/40 shadow-[0_0_25px_rgba(223,37,49,0.3)]">
-              <img
+            <div className="relative flex items-center justify-center w-24 h-24 rounded-2xl bg-[#df2531]/10 border-2 border-[#df2531]/40 shadow-[0_0_25px_rgba(223,37,49,0.3)] overflow-hidden">
+              <ImageWithSkeleton
                 src={profileConfig.avatarSrc}
                 alt={profileConfig.name}
                 width={56}
                 height={56}
                 decoding="async"
                 fetchPriority="high"
+                containerClassName="w-14 h-14 flex items-center justify-center"
                 className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>

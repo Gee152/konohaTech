@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
+import ImageWithSkeleton from './ui/ImageWithSkeleton';
 
 const TESTIMONIAL_GLOW_COLORS = [
   "bg-brand-red",
@@ -69,7 +70,7 @@ function Testimonials() {
     {/* Client Profile Section */}
               <div className="flex items-center gap-4 border-t border-white/5 pt-6">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-brand-red/40 transition-colors shrink-0">
-                  <img
+                  <ImageWithSkeleton
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     loading="lazy"
@@ -77,6 +78,7 @@ function Testimonials() {
                     width={48}
                     height={48}
                     referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full"
                     className="object-cover object-top w-full h-full"
                   />
                 </div>

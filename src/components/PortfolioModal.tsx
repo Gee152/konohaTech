@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, ArrowUpRight, Globe } from 'lucide-react';
 import { PORTFOLIO } from '../data';
+import ImageWithSkeleton from './ui/ImageWithSkeleton';
 
 interface PortfolioModalProps {
   isOpen: boolean;
@@ -90,13 +91,14 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
               >
                 {/* Imagem Ampliada do Mockup do Site com Badges (Ocupando o espaço do texto) */}
                 <div className="relative h-64 sm:h-72 w-full bg-zinc-950 overflow-hidden">
-                  <img
+                  <ImageWithSkeleton
                     src={currentProject.image}
                     alt={currentProject.title}
                     loading="lazy"
                     decoding="async"
                     width={420}
                     height={280}
+                    containerClassName="w-full h-full"
                     className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
                   />
                   

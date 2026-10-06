@@ -14,6 +14,8 @@ import Footer from './components/Footer';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import { useQueryRouting } from './hooks/useQueryRouting';
 
+import BioLinksSkeleton from './components/skeletons/BioLinksSkeleton';
+
 const BioLinks = lazy(() => import('./components/BioLinks'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const CookieConsentManager = lazy(() => import('./components/CookieConsentManager'));
@@ -32,7 +34,7 @@ export default function App() {
 
       {currentView === 'biolinks' ? (
         /* Visualização BioLinks / Hub de Links Mobile-First (?page=links) */
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#050505] text-[#df2531]">Carregando...</div>}>
+        <Suspense fallback={<BioLinksSkeleton />}>
           <BioLinks
             onNavigateToLanding={openLanding}
             onOpenBudgetModal={handleOpenBudgetModal}

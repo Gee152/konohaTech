@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 import WhatsAppIcon from './ui/WhatsAppIcon';
+import ImageWithSkeleton from './ui/ImageWithSkeleton';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 
 // Simulated Case Metrics to populate the details modal with realistic data
@@ -101,7 +102,7 @@ function Portfolio() {
           
           {/* Image Showcase Ampliada - Muito mais visibilidade ao mockup do site */}
           <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden border-b border-white/10 z-10 bg-zinc-950">
-            <img
+            <ImageWithSkeleton
               src={project.image}
               alt={project.title}
               loading="lazy"
@@ -109,6 +110,7 @@ function Portfolio() {
               width={600}
               height={320}
               referrerPolicy="no-referrer"
+              containerClassName="w-full h-full"
               className="object-cover object-top w-full h-full scale-105 transition-transform duration-500 group-hover:scale-110"
             />
             {/* Subtle dark gradient overlay */}
@@ -298,7 +300,7 @@ function Portfolio() {
               <div className="p-6 md:p-8 overflow-y-auto space-y-8">
                 {/* Visual Banner */}
                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/5">
-                  <img
+                  <ImageWithSkeleton
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     loading="lazy"
@@ -306,6 +308,7 @@ function Portfolio() {
                     width={800}
                     height={450}
                     referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full"
                     className="object-cover w-full h-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/95 via-transparent" />
