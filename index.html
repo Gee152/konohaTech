@@ -1,14 +1,24 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-537BF8944D"></script>
+    <!-- Google tag (gtag.js) — Non-blocking async load -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-537BF8944D');
+      function loadGtag() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-537BF8944D';
+        document.head.appendChild(s);
+        gtag('config', 'G-537BF8944D');
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGtag, { timeout: 3000 });
+      } else {
+        window.addEventListener('load', loadGtag);
+      }
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,10 +41,14 @@
     <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://gee152.github.io/konohaTech/sitemap.xml" />
 
-    <!-- Google Fonts DNS prefetch & Preconnect for Fast LCP / FCP -->
+    <!-- Google Fonts Non-Blocking Async Loading for Zero-FCP Delay -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" />
+    </noscript>
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
@@ -201,7 +215,7 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/konohaTech/assets/index-BHeCz7j0.js"></script>
+    <script type="module" crossorigin src="/konohaTech/assets/index-DdFXpB3p.js"></script>
     <link rel="modulepreload" crossorigin href="/konohaTech/assets/vendor-react-sXpfDjey.js">
     <link rel="modulepreload" crossorigin href="/konohaTech/assets/vendor-motion-BIm3dPp6.js">
     <link rel="modulepreload" crossorigin href="/konohaTech/assets/vendor-lucide-BJeuZBbu.js">
