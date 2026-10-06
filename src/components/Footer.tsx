@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Instagram, Mail, ShieldCheck, Cookie } from 'lucide-react';
 import { DATA } from '../data';
-import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
+import logoSrc from '../assets/img/logo_konoha_tech_recife.png';
 import WhatsAppIcon from './ui/WhatsAppIcon';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 import { openCookiePreferencesModal, openPrivacyPolicyModal } from '../utils/cookieConsent';

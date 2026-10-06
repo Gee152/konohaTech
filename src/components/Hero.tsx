@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import gabrielImg from '../assets/img/gabriel.webp';
+import gabrielImg from '../assets/img/konoha_tech_seo_gabriel_recife.webp';
 
 interface SlowCounterProps {
   target: number;
@@ -187,7 +187,7 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               transition={{ duration: 0.25, ease: 'easeOut' }}
               className="font-display font-extrabold text-[28px] xs:text-[30px] sm:text-5xl lg:text-[58px] tracking-tight text-white leading-[1.1]"
             >
-              Desenvolvimento de software{' '}
+              Criação de sites{' '}
               <span className="text-brand-red">
                 e soluções digitais
               </span>{' '}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import logoSrc from '../assets/img/8987bd130641623.6184473f5678a.png';
+import logoSrc from '../assets/img/logo_konoha_tech_recife.png';
 
 interface HeaderProps {
   onOpenBudgetModal: () => void;
