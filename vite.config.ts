@@ -6,7 +6,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/konohaTech/', // <-- Adicionado o base path para o GitHub Pages
+    base: '/', // <-- Adicionado o base path para o GitHub Pages
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: [
