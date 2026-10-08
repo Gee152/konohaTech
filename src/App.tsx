@@ -30,7 +30,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-zinc-100 font-sans selection:bg-[#df2531]/30 selection:text-white bg-[#050505]">
       {/* 1. Global Atmospheric Glow Background */}
-      <GlowBackground />
+      <GlowBackground showVideo={currentView !== 'biolinks'} />
 
       {currentView === 'biolinks' ? (
         /* Visualização BioLinks / Hub de Links Mobile-First (?page=links) */

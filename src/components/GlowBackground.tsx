@@ -19,9 +19,10 @@ export function resolveVideoUrl(path?: string): string {
 
 interface GlowBackgroundProps {
   videoSrc?: string;
+  showVideo?: boolean;
 }
 
-export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
+export default function GlowBackground({ videoSrc, showVideo = true }: GlowBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const pendingSeekTimeRef = useRef<number | null>(null);
@@ -32,6 +33,7 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
 
   // Initialize and prime the video decoder safely across Safari / iOS / WebKit
   useEffect(() => {
+    if (!showVideo) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -93,10 +95,11 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
       window.removeEventListener('touchstart', onUserInteraction);
       window.removeEventListener('pointerdown', onUserInteraction);
     };
-  }, [resolvedSrc]);
+  }, [resolvedSrc, showVideo]);
 
   // Smooth video scrubbing synchronized with page scroll
   useEffect(() => {
+    if (!showVideo) return;
     let animationFrameId: number | null = null;
     let lastSeekTimestamp = 0;
     let isLoopRunning = false;
@@ -240,28 +243,30 @@ export default function GlowBackground({ videoSrc }: GlowBackgroundProps) {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isVideoLoaded]);
+  }, [isVideoLoaded, showVideo]);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[#050505]">
       {/* 1. Scrollytelling Video Scrubbing Layer */}
-      <div className="absolute inset-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          src={resolvedSrc}
-          className={`w-full h-full object-cover blur-[4px] scale-105 transition-opacity duration-700 ${
-            isVideoLoaded ? 'opacity-65 sm:opacity-80' : 'opacity-40'
-          }`}
-          muted
-          playsInline
-          preload="none"
-          disablePictureInPicture
-          disableRemotePlayback
-        />
+      {showVideo && (
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            ref={videoRef}
+            src={resolvedSrc}
+            className={`w-full h-full object-cover blur-[4px] scale-105 transition-opacity duration-700 ${
+              isVideoLoaded ? 'opacity-65 sm:opacity-80' : 'opacity-40'
+            }`}
+            muted
+            playsInline
+            preload="none"
+            disablePictureInPicture
+            disableRemotePlayback
+          />
 
-        {/* Ambient Dark Scrim with backdrop blur to soften background and enhance contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/45 via-[#050505]/30 to-[#050505]/50 backdrop-blur-[3px] pointer-events-none" />
-      </div>
+          {/* Ambient Dark Scrim with backdrop blur to soften background and enhance contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/45 via-[#050505]/30 to-[#050505]/50 backdrop-blur-[3px] pointer-events-none" />
+        </div>
+      )}
 
       {/* 2. Absolute Glow Red Atmospheric Spheres with Mobile GPU optimization */}
       <motion.div
