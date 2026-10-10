@@ -2,7 +2,7 @@
 
 > Engenharia de software de ponta, sistemas escaláveis e automações inteligentes. Código puro, entregas blindadas.
 
-[![Deploy to GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-df2531?style=for-the-badge&logo=github)](https://gee152.github.io/konohaTech/)
+[![Deploy to GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-df2531?style=for-the-badge&logo=github)](https://www.konohatech.com.br/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
@@ -13,8 +13,8 @@
 ## 🌐 Demonstração Online
 
 A aplicação está hospedada e em produção contínua no GitHub Pages:
-- **Landing Page Completa:** [https://gee152.github.io/konohaTech/](https://gee152.github.io/konohaTech/)
-- **Hub BioLinks (Mobile-First):** [https://gee152.github.io/konohaTech/?page=links](https://gee152.github.io/konohaTech/?page=links)
+- **Landing Page Completa:** [https://www.konohatech.com.br/](https://www.konohatech.com.br/)
+- **Hub BioLinks (Mobile-First):** [https://www.konohatech.com.br/?page=links](https://www.konohatech.com.br/?page=links)
 
 ---
 
@@ -162,7 +162,7 @@ npm run deploy
 ```
 
 O comando irá compilar o código mais recente e publicar diretamente em:
-👉 **[https://gee152.github.io/konohaTech/](https://gee152.github.io/konohaTech/)**
+👉 **[https://www.konohatech.com.br/](https://www.konohatech.com.br/)**
 
 ---
 

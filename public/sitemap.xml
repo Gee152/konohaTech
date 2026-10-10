@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Landing Page Principal -->
   <url>
-    <loc>https://gee152.github.io/konohaTech/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Hub de BioLinks -->
   <url>
-    <loc>https://gee152.github.io/konohaTech/?page=links</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/?page=links</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Base Factual Markdown para RAG e Motores de IA -->
   <url>
-    <loc>https://gee152.github.io/konohaTech/docs/sobre.md</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/docs/sobre.md</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gee152.github.io/konohaTech/docs/servicos.md</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/docs/servicos.md</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gee152.github.io/konohaTech/docs/cases.md</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/docs/cases.md</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gee152.github.io/konohaTech/docs/biolinks.md</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/docs/biolinks.md</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://gee152.github.io/konohaTech/docs/contato.md</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://www.konohatech.com.br/docs/contato.md</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

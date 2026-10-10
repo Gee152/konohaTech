@@ -1,5 +1,5 @@
 # robots.txt para KonohaTech
-# https://gee152.github.io/konohaTech/
+# https://www.konohatech.com.br
 
 User-agent: *
 Allow: /
@@ -33,4 +33,4 @@ User-agent: CCBot
 Disallow: /
 
 # Localização do Sitemap
-Sitemap: https://gee152.github.io/konohaTech/sitemap.xml
+Sitemap: https://www.konohatech.com.br/sitemap.xml

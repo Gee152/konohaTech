@@ -10,7 +10,7 @@
 
 ## 1. Diagnóstico Atual (Auditoria de Pontos Críticos)
 
-Avaliamos a infraestrutura, marcação semântica, metadados e arquivos de IA da KonohaTech (`https://gee152.github.io/konohaTech/`).
+Avaliamos a infraestrutura, marcação semântica, metadados e arquivos de IA da KonohaTech (`https://www.konohatech.com.br/`).
 
 | Área | Situação Atual | Diagnóstico / Impacto | Gravidade |
 |---|---|---|---|

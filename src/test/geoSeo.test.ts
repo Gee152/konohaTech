@@ -52,7 +52,7 @@ describe('Infraestrutura GEO & SEO Técnico', () => {
       const content = fs.readFileSync(path.join(publicDir, 'robots.txt'), 'utf8');
       expect(content).toContain('User-agent: Bytespider');
       expect(content).toContain('User-agent: CCBot');
-      expect(content).toContain('Sitemap: https://gee152.github.io/konohaTech/sitemap.xml');
+      expect(content).toContain('Sitemap: https://www.konohatech.com.br/sitemap.xml');
     });
   });
 
@@ -63,11 +63,11 @@ describe('Infraestrutura GEO & SEO Técnico', () => {
 
       const content = fs.readFileSync(sitemapPath, 'utf8');
       expect(content).toContain('<?xml version="1.0" encoding="UTF-8"?>');
-      expect(content).toContain('<loc>https://gee152.github.io/konohaTech/</loc>');
-      expect(content).toContain('<loc>https://gee152.github.io/konohaTech/?page=links</loc>');
-      expect(content).toContain('<loc>https://gee152.github.io/konohaTech/docs/sobre.md</loc>');
-      expect(content).toContain('<loc>https://gee152.github.io/konohaTech/docs/servicos.md</loc>');
-      expect(content).toContain('<loc>https://gee152.github.io/konohaTech/docs/cases.md</loc>');
+      expect(content).toContain('<loc>https://www.konohatech.com.br/</loc>');
+      expect(content).toContain('<loc>https://www.konohatech.com.br/?page=links</loc>');
+      expect(content).toContain('<loc>https://www.konohatech.com.br/docs/sobre.md</loc>');
+      expect(content).toContain('<loc>https://www.konohatech.com.br/docs/servicos.md</loc>');
+      expect(content).toContain('<loc>https://www.konohatech.com.br/docs/cases.md</loc>');
     });
   });
 
@@ -101,7 +101,7 @@ describe('Infraestrutura GEO & SEO Técnico', () => {
   describe('Metadados Semânticos & Schema.org (index.html)', () => {
     it('possui tags canônicas, OpenGraph e Twitter Cards', () => {
       const html = fs.readFileSync(indexHtmlPath, 'utf8');
-      expect(html).toContain('<link rel="canonical" href="https://gee152.github.io/konohaTech/" />');
+      expect(html).toContain('<link rel="canonical" href="https://www.konohatech.com.br/" />');
       expect(html).toContain('property="og:title"');
       expect(html).toContain('property="og:image"');
       expect(html).toContain('name="twitter:card"');

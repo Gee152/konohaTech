@@ -48,4 +48,4 @@ Diferente de agências tradicionais que dependem de construtores genéricos ou t
 - **E-mail Corporativo:** contatokonohatech@gmail.com
 - **WhatsApp Corporativo:** +55 (81) 98777-2234
 - **Repositório do Projeto:** [https://github.com/Gee152/konohaTech](https://github.com/Gee152/konohaTech)
-- **Portal Oficial:** [https://gee152.github.io/konohaTech/](https://gee152.github.io/konohaTech/)
+- **Portal Oficial:** [https://www.konohatech.com.br/](https://www.konohatech.com.br/)

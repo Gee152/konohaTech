@@ -1,6 +1,6 @@
 # Hub BioLinks & Menu Circular de Comandos — KonohaTech
 
-> **Rota:** `https://gee152.github.io/konohaTech/?page=links`
+> **Rota:** `https://www.konohatech.com.br/?page=links`
 > **Propósito:** Hub mobile-first para bio de redes sociais (Instagram, TikTok, LinkedIn) com experiência interativa de alta tecnologia.
 > **Última Atualização:** Outubro de 2026.
 

@@ -41,7 +41,7 @@
 
 ## 3. Como Solicitar um Orçamento
 
-A KonohaTech disponibiliza um **Simulador Interativo de Escopo e Investimento** diretamente na Landing Page principal ([https://gee152.github.io/konohaTech/](https://gee152.github.io/konohaTech/)):
+A KonohaTech disponibiliza um **Simulador Interativo de Escopo e Investimento** diretamente na Landing Page principal ([https://www.konohatech.com.br/](https://www.konohatech.com.br/)):
 
 1. **Passo 1 — Seleção do Serviço:** Escolha entre Desenvolvimento Web, APIs/Back-end, Automações com IA, QA ou Consultoria de Arquitetura.
 2. **Passo 2 — Escala e Porte:** Indique o estágio da sua empresa (Startup, PME ou Grande Corporação).
