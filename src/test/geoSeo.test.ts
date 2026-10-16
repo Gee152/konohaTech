@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('Infraestrutura GEO & SEO Técnico', () => {
   const publicDir = path.resolve(__dirname, '../../public');
@@ -125,6 +128,38 @@ describe('Infraestrutura GEO & SEO Técnico', () => {
       expect(profService.address.addressLocality).toBe('Recife');
       expect(profService.address.addressRegion).toBe('PE');
       expect(profService.areaServed).toBeDefined();
+    });
+
+    it('contém palavras-chave estratégicas de tráfego pago, gestão de tráfego, geração de leads e criação de sistemas', () => {
+      const html = fs.readFileSync(indexHtmlPath, 'utf8');
+      expect(html).toContain('tráfego pago');
+      expect(html).toContain('gestão de tráfego');
+      expect(html).toContain('geração de leads');
+      expect(html).toContain('criação de sistemas');
+    });
+
+    it('inclui ofertas de criação de sistemas e gestão de tráfego pago no OfferCatalog', () => {
+      const html = fs.readFileSync(indexHtmlPath, 'utf8');
+      expect(html).toContain('Criação de Sistemas Web & Softwares sob Medida');
+      expect(html).toContain('Gestão de Tráfego Pago & Geração de Leads');
+    });
+  });
+
+  describe('Alinhamento GEO & IA com palavras-chave estratégicas', () => {
+    it('llms.txt referencia criação de sistemas, tráfego pago e geração de leads', () => {
+      const llmsPath = path.join(publicDir, 'llms.txt');
+      const content = fs.readFileSync(llmsPath, 'utf8');
+      expect(content).toContain('Criação de Sistemas');
+      expect(content).toContain('tráfego pago');
+      expect(content).toContain('geração');
+      expect(content).toContain('leads');
+    });
+
+    it('servicos.md documenta criação de sistemas e gestão de tráfego pago', () => {
+      const servicosPath = path.join(docsDir, 'servicos.md');
+      const content = fs.readFileSync(servicosPath, 'utf8');
+      expect(content).toContain('Criação de Sistemas Web');
+      expect(content).toContain('Gestão de Tráfego Pago & Geração de Leads');
     });
   });
 });

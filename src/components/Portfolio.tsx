@@ -133,21 +133,12 @@ function Portfolio() {
               </h3>
 
               {/* Short Description compacta */}
-              <p className="text-zinc-400 text-xs leading-relaxed mb-3 font-normal line-clamp-2">
+              <p className="text-zinc-400 text-xs leading-relaxed mb-4 font-normal line-clamp-2">
                 {project.description}
               </p>
             </div>
 
             <div>
-              {/* Technology tags */}
-              <div className="flex flex-wrap gap-1 mb-3">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="font-mono text-[9px] sm:text-[10px] bg-white/10 px-2 py-0.5 rounded-md text-zinc-300 border border-white/10">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
               {/* Interactive Action Button */}
               <button
                 onClick={(e) => {
@@ -187,14 +178,26 @@ function Portfolio() {
           className="mb-10 sm:mb-12 lg:mb-16"
         />
 
-        {/* Slide Carousel Track - Cards 100% Íntegros e sem cortes */}
+        {/* Slide Carousel Track - Cards 100% Íntegros e sem cortes com swipe por toque */}
         <div 
-          className="relative w-full max-w-6xl mx-auto overflow-hidden pb-4"
+          className="relative w-full max-w-6xl mx-auto overflow-hidden pb-4 scroll-reveal-up delay-100"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <motion.div
-            className="flex w-full"
+            className="flex w-full cursor-grab active:cursor-grabbing touch-pan-y select-none"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={(_, info) => {
+              const swipeThreshold = 40;
+              const velocityThreshold = 250;
+              if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
+                setActiveIndex((prev) => (prev + 1) % PORTFOLIO.length);
+              } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
+                setActiveIndex((prev) => (prev - 1 + PORTFOLIO.length) % PORTFOLIO.length);
+              }
+            }}
             animate={{ x: `-${activeIndex * 100}%` }}
             transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
           >
@@ -253,6 +256,11 @@ function Portfolio() {
               </button>
             );
           })}
+        </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 mt-4 text-zinc-500 font-mono text-[10px]">
+          <span>← deslize os cases de sucesso →</span>
         </div>
 
       </div>
@@ -356,18 +364,6 @@ function Portfolio() {
                       </li>
                     ))}
                   </ul>
-                </div>
-
-                {/* Technologies List */}
-                <div className="inline-block">
-                  <span className="block text-[10px] text-zinc-500 font-mono uppercase tracking-widest mb-2">Pilha tecnológica ativa</span>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.tags.map((tag) => (
-                      <span key={tag} className="font-mono text-xs px-3.5 py-1.5 rounded-xl bg-zinc-900 border border-white/5 text-zinc-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
 

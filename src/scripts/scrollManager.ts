@@ -23,17 +23,23 @@ export function initScrollSystem() {
       });
     },
     {
-      rootMargin: '150px 0px 150px 0px',
-      threshold: 0.01
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.06
     }
   );
+
+  const isTest = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test';
 
   const observeElements = (container: Document | HTMLElement = document) => {
     const elements = container.querySelectorAll(revealSelector);
     elements.forEach((el) => {
-      // If already near viewport on load, reveal immediately
+      if (prefersReducedMotion || isTest) {
+        el.classList.add('is-revealed');
+        return;
+      }
+      // If already within initial viewport on load, reveal immediately
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight + 150 && rect.bottom > -150) {
+      if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
         el.classList.add('is-revealed');
       } else {
         revealObserver.observe(el);

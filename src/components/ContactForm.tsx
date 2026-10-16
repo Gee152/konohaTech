@@ -9,20 +9,68 @@ interface ContactFormProps {
   onOpenBudgetModal: () => void;
 }
 
-// Services list mapping for budget picker
-const BUDGET_SERVICES = [
-  { id: 'web', name: 'Desenvolvimento Web', baseVal: 4500 },
-  { id: 'api', name: 'APIs e Back-end', baseVal: 6000 },
-  { id: 'automation', name: 'Automações de Processo', baseVal: 3500 },
-  { id: 'ai', name: 'Inteligência Artificial', baseVal: 7500 },
-  { id: 'qa', name: 'QA e Testes Automatizados', baseVal: 4000 }
+type ProjectScale = 'pequeno' | 'medio' | 'grande';
+
+interface BudgetService {
+  id: string;
+  name: string;
+  scales: Record<ProjectScale, { min: number; max: number }>;
+}
+
+// Services list mapping for budget picker with defined price ranges per scale
+const BUDGET_SERVICES: BudgetService[] = [
+  {
+    id: 'web-sales',
+    name: 'Sites e Landing Pages para Vendas e Captação de Leads',
+    scales: {
+      pequeno: { min: 897, max: 3497 },
+      medio: { min: 4100, max: 5297 },
+      grande: { min: 6497, max: 8280 },
+    },
+  },
+  {
+    id: 'admin-systems',
+    name: 'Sistemas com Administrador',
+    scales: {
+      pequeno: { min: 4590, max: 5865 },
+      medio: { min: 5400, max: 6900 },
+      grande: { min: 8640, max: 11040 },
+    },
+  },
+  {
+    id: 'automation',
+    name: 'Automações de Processo',
+    scales: {
+      pequeno: { min: 2678, max: 3421 },
+      medio: { min: 3150, max: 4025 },
+      grande: { min: 5040, max: 6440 },
+    },
+  },
+  {
+    id: 'ai',
+    name: 'Inteligência Artificial',
+    scales: {
+      pequeno: { min: 5738, max: 7331 },
+      medio: { min: 6750, max: 8625 },
+      grande: { min: 10800, max: 13800 },
+    },
+  },
+  {
+    id: 'security-tests',
+    name: 'Testes e Segurança',
+    scales: {
+      pequeno: { min: 3060, max: 3910 },
+      medio: { min: 3600, max: 4600 },
+      grande: { min: 5760, max: 7360 },
+    },
+  },
 ];
 
 export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onOpenBudgetModal }: ContactFormProps) {
   // Dynamic budget wizard state inside modal
   const [wizardStep, setWizardStep] = useState(1);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [projectScale, setProjectScale] = useState<'pequeno' | 'medio' | 'grande'>('medio');
+  const [projectScale, setProjectScale] = useState<ProjectScale>('medio');
   const [wizardName, setWizardName] = useState('');
   const [wizardEmail, setWizardEmail] = useState('');
   const [wizardPhone, setWizardPhone] = useState('');
@@ -43,22 +91,18 @@ export default function ContactForm({ isBudgetModalOpen, onCloseBudgetModal, onO
   const currentEstimate = useMemo(() => {
     if (selectedServices.length === 0) return { min: 0, max: 0 };
 
-    // Sum of base values of chosen services
-    const baseSum = selectedServices.reduce((sum, serviceId) => {
-      const match = BUDGET_SERVICES.find(b => b.id === serviceId);
-      return sum + (match?.baseVal || 0);
-    }, 0);
-
-    // Apply scale multiplier
-    let multiplier = 1;
-    if (projectScale === 'pequeno') multiplier = 0.85;
-    if (projectScale === 'grande') multiplier = 1.6;
-
-    const finalBase = baseSum * multiplier;
-    return {
-      min: Math.round(finalBase * 0.9),
-      max: Math.round(finalBase * 1.15)
-    };
+    return selectedServices.reduce(
+      (acc, serviceId) => {
+        const match = BUDGET_SERVICES.find(b => b.id === serviceId);
+        if (!match) return acc;
+        const scaleRange = match.scales[projectScale];
+        return {
+          min: acc.min + scaleRange.min,
+          max: acc.max + scaleRange.max,
+        };
+      },
+      { min: 0, max: 0 }
+    );
   }, [selectedServices, projectScale]);
 
   const handleWizardSubmit = (e: React.FormEvent) => {

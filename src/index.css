@@ -157,6 +157,26 @@
   scrollbar-width: none;
 }
 
+/* Mobile Touch Carousel: Silky horizontal swipe with finger, momentum scrolling, and text protection */
+.mobile-carousel {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  scroll-padding-left: 1rem;
+  scroll-padding-right: 1rem;
+}
+
+/* Prevent accidental text selection and gesture cancellation during finger swipe */
+.carousel-card {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: pan-x pan-y;
+}
+
 button, a {
   -webkit-tap-highlight-color: transparent;
 }
@@ -170,44 +190,49 @@ button, a {
 .scroll-reveal {
   opacity: 0;
   transition-property: opacity, transform;
-  transition-duration: 380ms;
+  transition-duration: 550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* Side Slide: Left */
 .scroll-reveal-left {
   opacity: 0;
-  transform: translate3d(-20px, 0, 0);
+  transform: translate3d(-28px, 0, 0);
   transition-property: opacity, transform;
-  transition-duration: 380ms;
+  transition-duration: 550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* Side Slide: Right */
 .scroll-reveal-right {
   opacity: 0;
-  transform: translate3d(20px, 0, 0);
+  transform: translate3d(28px, 0, 0);
   transition-property: opacity, transform;
-  transition-duration: 380ms;
+  transition-duration: 550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* Side Down: Enters sliding down from above */
 .scroll-reveal-down {
   opacity: 0;
-  transform: translate3d(0, -20px, 0);
+  transform: translate3d(0, -28px, 0);
   transition-property: opacity, transform;
-  transition-duration: 380ms;
+  transition-duration: 550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* Slide Up: Enters sliding up from below */
 .scroll-reveal-up {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
+  transform: translate3d(0, 28px, 0);
   transition-property: opacity, transform;
-  transition-duration: 380ms;
+  transition-duration: 550ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* Revealed state triggered by IntersectionObserver */
@@ -216,20 +241,20 @@ button, a {
 .scroll-reveal-right.is-revealed,
 .scroll-reveal-down.is-revealed,
 .scroll-reveal-up.is-revealed {
-  opacity: 1 !important;
-  transform: translate3d(0, 0, 0) !important;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Stagger Delays ultrarrápidos e fluidos */
-.delay-75 { transition-delay: 30ms; }
-.delay-100 { transition-delay: 50ms; }
-.delay-150 { transition-delay: 80ms; }
-.delay-200 { transition-delay: 120ms; }
-.delay-250 { transition-delay: 160ms; }
-.delay-300 { transition-delay: 200ms; }
-.delay-350 { transition-delay: 220ms; }
-.delay-400 { transition-delay: 250ms; }
-.delay-500 { transition-delay: 300ms; }
+.delay-75 { transition-delay: 75ms; }
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-250 { transition-delay: 250ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-350 { transition-delay: 350ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
 
 /* Dynamic Interactive Cards: Elevated hover, silky border transition, spring physics */
 .card-dynamic {

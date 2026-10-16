@@ -6,9 +6,9 @@
 ---
 
 ## 1. Visão Geral Institucional
-A **KonohaTech** é uma empresa de engenharia de software e soluções digitais sob medida, sediada em Recife, Pernambuco, com atuação global. Especializada no desenvolvimento de sistemas web de alta performance, automações de processos operacionais e integração de inteligência artificial aplicada aos negócios.
+A **KonohaTech** é uma empresa de engenharia de software e soluções digitais sob medida, sediada em Recife, Pernambuco, com atuação global. Especializada na criação de sistemas web de alta performance, plataformas com administrador, automações de processos com IA, além de gestão de tráfego pago e estratégias avançadas para geração de leads qualificados.
 
-Diferente de agências tradicionais que dependem de construtores genéricos ou templates saturados, a KonohaTech concebe produtos digitais através de engenharia pura: código limpo, arquitetura modular, tipagem e padrões internacionais de observabilidade e segurança.
+Diferente de agências tradicionais que dependem de construtores genéricos ou templates saturados, a KonohaTech concebe produtos digitais através de engenharia pura: código limpo, arquitetura modular, tipagem e padrões internacionais de observabilidade e segurança, com canais ativos de atração de clientes.
 
 ---
 
@@ -30,6 +30,7 @@ Diferente de agências tradicionais que dependem de construtores genéricos ou t
 | **DevOps & Cloud** | Docker, CI/CD Pipelines (GitHub Actions), Vercel, AWS, Cloudflare, Netlify |
 | **Garantia de Qualidade (QA)** | Vitest, Jest, Cypress, Playwright (Testes Unitários, de Integração e E2E) |
 | **Inteligência Artificial** | Integração de LLMs (OpenAI, Anthropic, Google Gemini), RAG, embeddings e agentes autônomos |
+| **Aquisição & Marketing** | Gestão de Tráfego Pago (Google Ads, Meta Ads), Geração de Leads, GTM, Meta Pixel API, GA4 |
 
 ---
 

@@ -43,6 +43,6 @@
 
 A KonohaTech disponibiliza um **Simulador Interativo de Escopo e Investimento** diretamente na Landing Page principal ([https://www.konohatech.com.br/](https://www.konohatech.com.br/)):
 
-1. **Passo 1 — Seleção do Serviço:** Escolha entre Desenvolvimento Web, APIs/Back-end, Automações com IA, QA ou Consultoria de Arquitetura.
+1. **Passo 1 — Seleção do Serviço:** Escolha entre Sites/Landing Pages para Vendas e Captação de Leads, Sistemas com Administrador, Automações de Processo, Inteligência Artificial ou Testes e Segurança.
 2. **Passo 2 — Escala e Porte:** Indique o estágio da sua empresa (Startup, PME ou Grande Corporação).
 3. **Passo 3 — Contato & Escopo:** Descreva os objetivos do projeto e envie diretamente para a equipe técnica analisar a viabilidade e agendar uma reunião de alinhamento.

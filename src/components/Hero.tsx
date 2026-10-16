@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import gabrielImg from '../assets/img/konoha_tech_seo_gabriel_recife.webp';
 import ImageWithSkeleton from './ui/ImageWithSkeleton';
+import Button from './ui/Button';
+import Badge from './ui/Badge';
 
 interface SlowCounterProps {
   target: number;
@@ -16,17 +18,16 @@ const PRESENTATION_PHRASES = [
   "Engenharia de precisão e código limpo para acelerar o crescimento da sua empresa.",
 ];
 
-function TypewriterPresentation() {
+const TypewriterPresentation = memo(function TypewriterPresentation() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Efeito simulador de digitação em velocidade realista com atraso inicial para evitar reflows
   useEffect(() => {
     const currentPhrase = PRESENTATION_PHRASES[phraseIndex];
     let timeoutId: ReturnType<typeof setTimeout>;
 
-    // Atraso inicial para dar folga de CPU no carregamento da página (Mobile FCP/LCP)
+    // Initial pause to protect CPU on initial load (LCP)
     if (phraseIndex === 0 && displayedText === '' && !isDeleting) {
       timeoutId = setTimeout(() => {
         setDisplayedText(currentPhrase.slice(0, 1));
@@ -35,25 +36,21 @@ function TypewriterPresentation() {
     }
 
     if (!isDeleting) {
-      // Digitando caractere por caractere (~36ms por tecla)
       if (displayedText.length < currentPhrase.length) {
         timeoutId = setTimeout(() => {
           setDisplayedText(currentPhrase.slice(0, displayedText.length + 1));
         }, 36);
       } else {
-        // Pausa para leitura confortável
         timeoutId = setTimeout(() => {
           setIsDeleting(true);
         }, 2800);
       }
     } else {
-      // Apagando rapidamente (~18ms por caractere)
       if (displayedText.length > 0) {
         timeoutId = setTimeout(() => {
           setDisplayedText(currentPhrase.slice(0, displayedText.length - 1));
         }, 18);
       } else {
-        // Avança para a próxima frase
         setIsDeleting(false);
         setPhraseIndex((prev) => (prev + 1) % PRESENTATION_PHRASES.length);
       }
@@ -105,9 +102,9 @@ function TypewriterPresentation() {
       </div>
     </div>
   );
-}
+});
 
-function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
+const SlowCounter = memo(function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
   const [count, setCount] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const countRef = useRef(0);
@@ -153,7 +150,7 @@ function SlowCounter({ target, duration = 3400 }: SlowCounterProps) {
       {count}
     </span>
   );
-}
+});
 
 interface HeroProps {
   onOpenBudgetModal: () => void;
@@ -181,12 +178,11 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="hidden sm:inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30"
+              className="hidden sm:inline-flex self-start"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
-              </span>
+              <Badge variant="red" pulse size="md">
+                Disponível para Novos Projetos
+              </Badge>
             </motion.div>
 
             {/* Title - Otimizado para SEO e GEO com palavras-chave primárias */}
@@ -210,7 +206,7 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               transition={{ duration: 0.25, ease: 'easeOut', delay: 0.04 }}
               className="text-zinc-200 text-xs sm:text-base lg:text-lg max-w-xl leading-relaxed"
             >
-              Engenharia de software sob medida: sites velozes, sistemas escaláveis e automações inteligentes com IA para empresas em Recife e em todo o Brasil.
+              Estrategias para alta conversão de clientes e resultados para empresas com IA, marketing digital, sites, sistemas e automações inteligentes, em Recife-PE e todo o Brasil.
             </motion.p>
 
             {/* Micro proof figures / Contagem */}
@@ -249,19 +245,22 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-row items-center gap-2 sm:gap-4 mt-2 sm:mt-4"
             >
-              <button
+              <Button
                 onClick={onOpenBudgetModal}
-                className="flex-1 sm:flex-none px-4 sm:px-8 py-2.5 sm:py-4 rounded-full text-xs sm:text-sm font-semibold bg-brand-red text-white hover:bg-brand-red-hover transition-all text-center glow-red hover:scale-[1.02] active:scale-[0.98] duration-200 whitespace-nowrap"
+                size="lg"
+                className="flex-1 sm:flex-none whitespace-nowrap"
               >
                 Solicitar orçamento
-              </button>
-              <a
+              </Button>
+              <Button
                 href="#portfolio"
-                className="flex-1 sm:flex-none px-4 sm:px-8 py-2.5 sm:py-4 rounded-full text-xs sm:text-sm font-semibold bg-white/5 text-white hover:bg-white/10 border border-white/10 hover:scale-[1.02] active:scale-[0.98] transition-all text-center flex items-center justify-center gap-1 duration-200 whitespace-nowrap"
+                variant="secondary"
+                size="lg"
+                icon={<ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 shrink-0" />}
+                className="flex-1 sm:flex-none whitespace-nowrap"
               >
                 Conhecer projetos
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 shrink-0" />
-              </a>
+              </Button>
             </motion.div>
           </div>
 

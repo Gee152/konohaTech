@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import logoSrc from '../assets/img/logo_konoha_tech_recife.png';
+import { Button } from './ui/Button';
 
 interface HeaderProps {
   onOpenBudgetModal: () => void;
@@ -85,29 +86,30 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
           <div className="flex items-center gap-3">
             {/* CTA Button (Desktop) */}
             <div className="hidden lg:flex items-center">
-              <button
+              <Button
+                variant="primary"
+                size="sm"
                 onClick={onOpenBudgetModal}
-                className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-red hover:bg-brand-red-hover transition-all duration-200 shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)] group overflow-hidden"
+                icon={<ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
+                className="shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)]"
               >
-                <span className="relative z-10 flex items-center gap-1">
-                  Solicitar orçamento
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </span>
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-gradient-to-r from-red-500 to-brand-red transition-transform duration-300 -z-10" />
-              </button>
+                Solicitar orçamento
+              </Button>
             </div>
 
             {/* Mobile Actions (Mobile) */}
             <div className="flex lg:hidden items-center gap-2">
-              <button
+              <Button
+                variant="primary"
+                size="sm"
                 onClick={onOpenBudgetModal}
-                className="relative px-3.5 py-1.5 rounded-full text-xs font-semibold text-white bg-brand-red hover:bg-brand-red-hover transition-all duration-200 shadow-[0_0_15px_-3px_rgba(223,37,49,0.4)]"
+                className="px-3.5 py-1.5 text-xs shadow-[0_0_15px_-3px_rgba(223,37,49,0.4)]"
               >
                 Orçamento
-              </button>
+              </Button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-none"
+                className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-none cursor-pointer"
                 aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -139,16 +141,18 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
                 </a>
               ))}
               <hr className="border-white/5 my-1" />
-              <button
+              <Button
+                variant="primary"
+                size="md"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenBudgetModal();
                 }}
-                className="w-full py-3 rounded-xl bg-brand-red hover:bg-brand-red-hover text-white text-center font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-1.5 shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)]"
+                icon={<ArrowUpRight className="w-4 h-4" />}
+                className="w-full rounded-xl justify-center shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)]"
               >
                 Solicitar orçamento
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </motion.div>
         )}

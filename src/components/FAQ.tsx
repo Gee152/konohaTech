@@ -3,6 +3,7 @@ import { ChevronDown, MessageSquare, ArrowRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 import { DATA } from '../data';
 import { getWhatsAppUrl } from '../utils/whatsapp';
+import { Button } from './ui/Button';
 
 interface FAQItem {
   id: string;
@@ -75,7 +76,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
         />
 
         {/* Accordion List */}
-        <div className="mt-8 sm:mt-12 space-y-3.5">
+        <div className="mt-8 sm:mt-12 space-y-3.5 scroll-reveal-up delay-75">
           {FAQ_ITEMS.map((item) => {
             const isOpen = openId === item.id;
 
@@ -132,7 +133,7 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
         </div>
 
         {/* CTA Bar pós-FAQ */}
-        <div className="mt-10 sm:mt-14 rounded-2xl bg-gradient-to-r from-[#121214] via-[#1a1214] to-[#121214] border border-brand-red/20 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-lg">
+        <div className="mt-10 sm:mt-14 rounded-2xl bg-gradient-to-r from-[#121214] via-[#1a1214] to-[#121214] border border-brand-red/20 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-lg scroll-reveal-up delay-150">
           <div className="space-y-1">
             <h4 className="font-display font-bold text-white text-base sm:text-lg flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-brand-red" />
@@ -145,23 +146,26 @@ function FAQ({ onOpenBudgetModal }: FAQProps) {
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
             {onOpenBudgetModal && (
-              <button
-                type="button"
+              <Button
+                variant="secondary"
+                size="sm"
                 onClick={onOpenBudgetModal}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-white transition-all text-center cursor-pointer"
+                className="w-full sm:w-auto rounded-xl"
               >
                 Simular Projeto
-              </button>
+              </Button>
             )}
-            <a
+            <Button
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-red hover:bg-[#c41d28] text-white text-xs font-semibold shadow-md shadow-brand-red/30 transition-all flex items-center justify-center gap-2"
+              variant="primary"
+              size="sm"
+              icon={<ArrowRight className="w-3.5 h-3.5" />}
+              className="w-full sm:w-auto rounded-xl shadow-md shadow-brand-red/30"
             >
               Falar no WhatsApp
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </Button>
           </div>
         </div>
       </div>

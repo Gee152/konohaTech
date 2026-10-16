@@ -3,6 +3,7 @@ import { TESTIMONIALS } from '../data';
 import { Quote } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 import ImageWithSkeleton from './ui/ImageWithSkeleton';
+import { Card } from './ui/Card';
 
 const TESTIMONIAL_GLOW_COLORS = [
   "bg-brand-red",
@@ -30,70 +31,74 @@ function Testimonials() {
           description="Parcerias duradouras construídas com confiança técnica, entregas exemplares dentro do cronograma e suporte de alta disponibilidade."
         />
 
-    {/* Testimonials Grid */}
-        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
+        {/* Testimonials Grid with mobile horizontal swipe */}
+        <div className="mobile-carousel pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory scroll-reveal-up">
           {TESTIMONIALS.map((testimonial, idx) => { 
             const glowColor = TESTIMONIAL_GLOW_COLORS[idx % TESTIMONIAL_GLOW_COLORS.length];
             const borderColor = TESTIMONIAL_BORDER_COLORS[idx % TESTIMONIAL_BORDER_COLORS.length];
             
             return (
-            <div
-              key={testimonial.id}
-              className={`w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 glass-panel border border-white/5 hover:border-brand-red/25 transition-all duration-300 flex flex-col justify-between`}>
-    {/* Outer light glow behind the card on hover */}
-              <div className={`absolute inset-0 rounded-2xl bg-brand-red/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
-
-    {/* Glowing Bottom Effects based on the reference image */}
-              <div className={`absolute -bottom-[30%] left-0 right-0 h-[70%] ${glowColor} blur-[90px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />
-              <div className={`absolute bottom-0 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent ${borderColor} to-transparent opacity-20 group-hover:opacity-80 transition-opacity duration-700 z-0`} />
-
-              <div>
-    {/* Upper quote icon decorative accent */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-zinc-600 group-hover:text-brand-red transition-colors">
-                    <Quote className="w-5 h-5 shrink-0" />
-                  </div>
-    {/* Decorative micro star scoring */}
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-brand-red text-sm">★</span>
-                    ))}
-                  </div>
-                </div>
-
-    {/* Client Quote Comment */}
-                <p className="text-zinc-300 italic text-sm sm:text-base leading-relaxed mb-8">
-                  "{testimonial.comment}"
-                </p>
-              </div>
-
-    {/* Client Profile Section */}
-              <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-brand-red/40 transition-colors shrink-0">
-                  <ImageWithSkeleton
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    loading="lazy"
-                    decoding="async"
-                    width={48}
-                    height={48}
-                    referrerPolicy="no-referrer"
-                    containerClassName="w-full h-full"
-                    className="object-cover object-top w-full h-full"
-                  />
-                </div>
+              <Card
+                key={testimonial.id}
+                variant="glass"
+                isSnapItem
+                snapBreakpoint="md"
+                glowColor={glowColor}
+                borderColor={borderColor}
+                className="p-6 sm:p-8"
+              >
                 <div>
-                  <h3 className="font-display font-bold text-sm text-white tracking-tight">
-                    {testimonial.name}
-                  </h3>
-                  <p className="text-zinc-500 text-xs font-mono">
-                    {testimonial.role} — <span className="text-zinc-400 font-sans font-medium">{testimonial.company}</span>
+                  {/* Upper quote icon decorative accent */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-zinc-600 group-hover:text-brand-red transition-colors">
+                      <Quote className="w-5 h-5 shrink-0" />
+                    </div>
+                    {/* Decorative micro star scoring */}
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="text-brand-red text-sm">★</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Client Quote Comment */}
+                  <p className="text-zinc-300 italic text-sm sm:text-base leading-relaxed mb-8">
+                    "{testimonial.comment}"
                   </p>
                 </div>
-              </div>  
-            </div>
-            )
+
+                {/* Client Profile Section */}
+                <div className="flex items-center gap-4 border-t border-white/5 pt-6">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-brand-red/40 transition-colors shrink-0">
+                    <ImageWithSkeleton
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      loading="lazy"
+                      decoding="async"
+                      width={48}
+                      height={48}
+                      referrerPolicy="no-referrer"
+                      containerClassName="w-full h-full"
+                      className="object-cover object-top w-full h-full"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-sm text-white tracking-tight">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-zinc-500 text-xs font-mono">
+                      {testimonial.role} — <span className="text-zinc-400 font-sans font-medium">{testimonial.company}</span>
+                    </p>
+                  </div>
+                </div>  
+              </Card>
+            );
           })}
+        </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 pt-2 text-zinc-500 font-mono text-[10px]">
+          <span>← deslize os depoimentos de clientes →</span>
         </div>
       </div>
     </section>

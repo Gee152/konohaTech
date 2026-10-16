@@ -27,7 +27,7 @@ export const DATA: Data[] = [
 
 export const profileConfig: BioProfileConfig = {
   name: "KonohaTech",
-  tagline: "Engenharia de software de ponta, sistemas escaláveis e automações inteligentes.",
+  tagline: "Criação de sistemas escaláveis, tráfego pago e geração de leads com automações inteligentes.",
   handle: "@konoha.tech",
   handleUrl: DATA[0].socialMedia.instagram,
   avatarSrc: konohaLogo,
@@ -99,39 +99,39 @@ export const bioLinksData: BioLinkItem[] = [
 export const SERVICES: Service[] = [
   {
     id: 'web-dev',
-    title: 'Desenvolvimento Web',
-    description: 'Landing pages, sistemas e aplicações modernas de alto desempenho.',
+    title: 'Criação de Sistemas & Sites',
+    description: 'Sistemas com administrador, plataformas sob medida e landing pages de conversão.',
     features: [
+      'Criação de sistemas com painel administrador intuitivo',
+      'Landing pages de alta conversão para vendas e leads',
       'Performance máxima e Web Vitals otimizados',
-      'Designs responsivos exclusivos (Mobile e Desktop)',
-      'SEO integrado para atração orgânica',
-      'Segurança completa com práticas modernas'
+      'SEO técnico nativo para atração orgânica'
     ],
     iconName: 'Layout'
   },
   {
+    id: 'traffic-leads',
+    title: 'Tráfego Pago & Geração de Leads',
+    description: 'Gestão de tráfego profissional no Google e Meta Ads para aquisição contínua de clientes.',
+    features: [
+      'Campanhas de tráfego pago no Google Ads e Meta Ads',
+      'Estratégias de atração e geração de leads qualificados',
+      'Rastreamento analítico de conversões com GTM e Pixel',
+      'Otimização contínua focada em ROI e menor CPL'
+    ],
+    iconName: 'TrendingUp'
+  },
+  {
     id: 'ai-solutions',
     title: 'Inteligência Artificial',
-    description: 'Assistentes inteligentes e automação cognitiva.',
+    description: 'Assistentes inteligentes, qualificação de leads e automação cognitiva.',
     features: [
-      'Assistentes virtuais e chatbots com LLMs',
-      'Classificação e análise de dados complexos',
+      'Chatbots e assistentes virtuais com LLMs para WhatsApp',
+      'Triagem e qualificação de leads recebidos em tempo real',
       'Processamento de Linguagem Natural (NLP)',
       'Geração inteligente de relatórios e conteúdos'
     ],
     iconName: 'Sparkles'
-  },
-  {
-    id: 'consulting',
-    title: 'Consultoria',
-    description: 'Planejamento estratégico e modernização tecnológica.',
-    features: [
-      'Auditoria de arquitetura de software',
-      'Estratégias de migração para nuvem',
-      'Otimização de custos de infraestrutura',
-      'Planejamento técnico para escalabilidade'
-    ],
-    iconName: 'TrendingUp'
   }
 ];
 
@@ -219,22 +219,22 @@ export const PROCESS_STEPS: WorkflowStep[] = [
   {
     stepNumber: 2,
     title: 'Planejamento',
-    description: 'Arquitetura técnica, wireframes, escopo de APIs e seleção das melhores tecnologias para o seu negócio.'
+    description: 'Planejamento de estratégias voltado para seu negocio para alta conversão de clientes.'
   },
   {
     stepNumber: 3,
     title: 'Desenvolvimento',
-    description: 'Desenvolvimento ágil com código limpo, componentizado, bem documentado e focado em altíssimo desempenho.'
+    description: 'Desenvolvimento de estratégias voltado para seu negocio, com foco em conversão e experiência do cliente.'
   },
   {
     stepNumber: 4,
     title: 'Testes e validação',
-    description: 'Blindagem de qualidade por meio de baterias intensas de testes funcionais, de integração e ponta a ponta.'
+    description: 'Testes funcionais, de integração e ponta a ponta, para garantir a qualidade do projeto.'
   },
   {
     stepNumber: 5,
     title: 'Entrega e suporte',
-    description: 'Publicação estável assistida, documentada e ativação de canais de manutenção proativa para inovações sequenciais.'
+    description: 'Entrega do projeto, com documentação e ativação de canais de suporte para futuras atualizações.'
   }
 ];
 

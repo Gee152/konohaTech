@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { ClipboardList, Clock, AlertTriangle, BatteryLow, ArrowDownRight } from 'lucide-react';
 
 import SectionHeader from './ui/SectionHeader';
+import { Card } from './ui/Card';
 
 const PROBLEMS = [
   {
@@ -67,14 +68,17 @@ function Problem() {
           description="Muitas empresas ainda dependem de processos manuais, sistemas antigos e ferramentas desconectadas, resultando em perda de tempo, retrabalho e extrema dificuldade de crescimento escalável."
         />
 
-        {/* Problem Cards list Grid replicating Print 1 structure */}
-        <div className="flex overflow-x-auto pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 no-scrollbar snap-x snap-mandatory">
+        {/* Problem Cards list Grid replicating Print 1 structure with mobile horizontal swipe */}
+        <div className="mobile-carousel pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 no-scrollbar snap-x snap-mandatory scroll-reveal-up">
           {PROBLEMS.map((prob) => {
             const IconComponent = prob.icon;
             return (
-              <div
+              <Card
                 key={prob.title}
-                className="w-[88vw] max-w-[340px] shrink-0 sm:w-auto snap-start group relative rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl bg-white/[0.03] hover:border-brand-red/40 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                variant="glass"
+                isSnapItem
+                snapBreakpoint="sm"
+                className="shadow-2xl hover:border-brand-red/40"
               >
                 {/* Card Content Area */}
                 <div className="p-5 flex-1 flex flex-col justify-between gap-4">
@@ -105,9 +109,14 @@ function Problem() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             );
           })}
+        </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex sm:hidden items-center justify-center gap-1.5 pt-1 text-zinc-500 font-mono text-[10px]">
+          <span>← deslize lateralmente para ver os 4 gargalos →</span>
         </div>
 
       </div>

@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { PROCESS_STEPS } from '../data';
 import { Check, Clipboard, Calendar, Hammer, HelpCircle, Send } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
+import { Card } from './ui/Card';
 
 function Process() {
   // Simple helper to fetch representative step icons
@@ -42,35 +43,46 @@ function Process() {
           {/* Neon connecting pipe background indicator */}
           <div className="hidden lg:block absolute top-[44px] left-[5%] right-[5%] h-px bg-gradient-to-r from-zinc-800 via-brand-red/40 to-zinc-800 -z-10" />
 
-          <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
-            {PROCESS_STEPS.map((step, index) => (
-              <div
-                key={step.stepNumber}
-                className="w-[82vw] max-w-[300px] shrink-0 lg:w-auto snap-start group relative flex flex-col items-start lg:items-center text-left lg:text-center p-6 bg-white/[0.11] hover:bg-white/[0.03] rounded-2xl border border-white/5 transition-all duration-300"
-              >
-                {/* Step badge overlay */}
-                <div className="absolute top-4 right-4 font-mono font-bold text-xs text-brand-red/30 group-hover:text-brand-red transition-all">
-                  E{step.stepNumber}
-                </div>
+          {/* Steps with mobile horizontal swipe */}
+          <div className="mobile-carousel pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory scroll-reveal-up">
+            {PROCESS_STEPS.map((step) => {
+              return (
+                <Card
+                  key={step.stepNumber}
+                  variant="glass"
+                  isSnapItem
+                  snapBreakpoint="lg"
+                  className="p-6 items-start lg:items-center text-left lg:text-center"
+                >
+                  {/* Step badge overlay */}
+                  <div className="absolute top-4 right-4 font-mono font-bold text-xs text-brand-red/30 group-hover:text-brand-red transition-all">
+                    E{step.stepNumber}
+                  </div>
 
-                {/* Circular indicator node */}
-                <div className="relative z-10 w-14 h-14 rounded-full bg-[#121214] border border-white/10 group-hover:border-brand-red/50 text-white flex items-center justify-center mb-6 shadow-xl group-hover:scale-105 transition-all duration-300">
-                  {getStepIcon(step.stepNumber)}
-                  
-                  {/* Outer circle halo indicator */}
-                  <div className="absolute -inset-1 rounded-full border border-brand-red/20 opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 -z-10" />
-                </div>
+                  {/* Circular indicator node */}
+                  <div className="relative z-10 w-14 h-14 rounded-full bg-[#121214] border border-white/10 group-hover:border-brand-red/50 text-white flex items-center justify-center mb-6 shadow-xl group-hover:scale-105 transition-all duration-300">
+                    {getStepIcon(step.stepNumber)}
+                    
+                    {/* Outer circle halo indicator */}
+                    <div className="absolute -inset-1 rounded-full border border-brand-red/20 opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 -z-10" />
+                  </div>
 
-                {/* Step labels */}
-                <h3 className="font-display font-semibold text-lg text-white mb-2.5 tracking-tight">
-                  {step.title}
-                </h3>
+                  {/* Step labels */}
+                  <h3 className="font-display font-semibold text-lg text-white mb-2.5 tracking-tight">
+                    {step.title}
+                  </h3>
 
-                <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-xs">
-                  {step.description}
-                </p>
-              </div>
-            ))}
+                  <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-xs">
+                    {step.description}
+                  </p>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Mobile Swipe Cue */}
+          <div className="flex lg:hidden items-center justify-center gap-1.5 pt-3 text-zinc-500 font-mono text-[10px]">
+            <span>← deslize as 5 etapas do fluxo de entrega →</span>
           </div>
         </div>
 

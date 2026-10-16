@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Zap, TrendingUp, Shield, Gauge, MousePointerClick, Star } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
+import { Card, CardTitle, CardDescription } from './ui/Card';
 
 const BENEFITS = [
   {
@@ -64,44 +65,50 @@ function Benefits() {
           description="Nossos projetos são estruturados com as melhores práticas de desenvolvimento global. Unimos velocidade mercadológica a um rigor de desenvolvimento incomparável."
         />
 
-        {/* Benefits Grid */}
-        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
+        {/* Benefits Grid with mobile horizontal swipe */}
+        <div className="mobile-carousel pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory scroll-reveal-up">
           {BENEFITS.map((benefit, idx) => {
             const Icon = benefit.icon;
             const glowColor = BENEFITS_GLOW_COLORS[idx % BENEFITS_GLOW_COLORS.length];
             const borderColor = BENEFITS_BORDER_COLORS[idx % BENEFITS_BORDER_COLORS.length];
 
             return (
-              <div
+              <Card
                 key={benefit.title}
-                className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-[32px] p-8 md:p-10 transition-all duration-500 bg-zinc-950/80 border border-white/5 hover:scale-[1.03] shadow-2xl flex flex-col justify-between min-h-[300px] overflow-hidden card-dynamic"
+                variant="interactive"
+                isSnapItem
+                snapBreakpoint="md"
+                glowColor={glowColor}
+                borderColor={borderColor}
+                className="p-6 sm:p-8 md:p-10 min-h-[260px] sm:min-h-[300px]"
               >
-                {/* Glowing Bottom Effects based on the reference image */}
-                <div className={`absolute -bottom-[30%] left-0 right-0 h-[70%] ${glowColor} blur-[90px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />
-                <div className={`absolute bottom-0 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent ${borderColor} to-transparent opacity-20 group-hover:opacity-80 transition-opacity duration-700 z-0`} />
-
-                <div className="relative z-10">
+                <div>
                   {/* Icon */}
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 text-zinc-300 group-hover:text-white transition-colors duration-300 mb-8 shadow-inner">
-                    <Icon className="w-6 h-6" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-zinc-900 border border-white/10 text-zinc-300 group-hover:text-white transition-colors duration-300 mb-6 sm:mb-8 shadow-inner">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
 
-                  <h3 className="font-display font-medium text-xl text-white mb-3 tracking-tight">
+                  <CardTitle className="mb-3 font-medium text-lg sm:text-xl">
                     {benefit.title}
-                  </h3>
+                  </CardTitle>
 
-                  <p className="text-zinc-400 text-sm leading-relaxed">
+                  <CardDescription>
                     {benefit.desc}
-                  </p>
+                  </CardDescription>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
                   <span className="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Garantia Konoha</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-white transition-all" />
                 </div>
-              </div>
+              </Card>
             );
           })}
+        </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 pt-2 text-zinc-500 font-mono text-[10px]">
+          <span>← deslize as 6 vantagens competitivas →</span>
         </div>
 
       </div>

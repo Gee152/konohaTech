@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Compass, Layers, Code, ShieldCheck, Rocket, ChevronRight } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
+import { Card } from './ui/Card';
 
 const SOLUTION_STEPS = [
   {
@@ -72,23 +73,24 @@ function Solution() {
           {/* Connecting Base Line for Desktop */}
           <div className="hidden lg:block absolute top-[44px] left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-zinc-800 via-brand-red/50 to-zinc-800 -z-10" />
 
-          {/* Grid for Steps */}
-          <div className="flex overflow-x-auto pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory">
+          {/* Grid for Steps with mobile horizontal swipe */}
+          <div className="mobile-carousel pb-3 pt-1 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-5 gap-3.5 lg:gap-6 relative no-scrollbar snap-x snap-mandatory scroll-reveal-up">
             {SOLUTION_STEPS.map((step, idx) => {
               const Icon = step.icon;
               const glowColor = SOLUTION_GLOW_COLORS[idx % SOLUTION_GLOW_COLORS.length];
               const borderColor = SOLUTION_BORDER_COLORS[idx % SOLUTION_BORDER_COLORS.length];
 
               return (
-                <div
+                <Card
                   key={step.label}
-                  className="w-[90vw] max-w-[330px] shrink-0 lg:w-auto snap-start group flex flex-col items-start lg:items-center text-left lg:text-center p-7 lg:p-4 rounded-2xl bg-zinc-950/80 border border-white/5 hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
+                  variant="interactive"
+                  isSnapItem
+                  snapBreakpoint="lg"
+                  glowColor={glowColor}
+                  borderColor={borderColor}
+                  className="p-6 lg:p-4 hover:scale-[1.03] transition-all duration-300"
                 >
-                  {/* Glowing Bottom Effects based on the reference image */}
-                  <div className={`absolute -bottom-[40%] left-0 right-0 h-[80%] ${glowColor} blur-[70px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none z-0`} />
-                  <div className={`absolute bottom-0 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent ${borderColor} to-transparent opacity-20 group-hover:opacity-80 transition-opacity duration-700 z-0`} />
-
-                  <div className="relative z-10 w-full flex flex-col items-start lg:items-center">
+                  <div className="w-full flex flex-col items-start lg:items-center text-left lg:text-center">
                     {/* Step counter */}
                     <span className="absolute top-0 right-0 lg:static lg:mb-4 font-mono text-[10px] text-zinc-600 font-bold transition-colors">
                       0{idx + 1}
@@ -112,9 +114,14 @@ function Solution() {
                       {step.desc}
                     </p>
                   </div>
-                </div>
+                </Card>
               );
             })}
+          </div>
+
+          {/* Mobile Swipe Cue */}
+          <div className="flex lg:hidden items-center justify-center gap-1.5 pt-3 text-zinc-500 font-mono text-[10px]">
+            <span>← deslize as 5 etapas da solução →</span>
           </div>
         </div>
 

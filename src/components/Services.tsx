@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { SERVICES } from '../data';
 import { Layout, Sparkles, TrendingUp, Layers, Check, LucideIcon } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
+import { Card, CardTitle, CardDescription } from './ui/Card';
 
 const serviceIcons: Record<string, LucideIcon> = {
   Layout,
@@ -25,16 +26,19 @@ function Services() {
           description="Explorada ao extremo, nossa especialidade é moldar tecnologia em ferramentas escaláveis que geram economia, eficiência e resultados exponenciais para sua marca."
         />
 
-        {/* Services Grid (Product Style) */}
-        <div className="flex overflow-x-auto pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory">
-          {SERVICES.map((serv, idx) => {
+        {/* Services Grid (Product Style) with mobile horizontal swipe */}
+        <div className="mobile-carousel pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 no-scrollbar snap-x snap-mandatory scroll-reveal-up">
+          {SERVICES.map((serv) => {
             // Dynamically resolve icon
             const IconComponent = serviceIcons[serv.iconName] || Layers;
             
             return (
-              <div
+              <Card
                 key={serv.id}
-                className="w-[84vw] max-w-[340px] shrink-0 md:w-auto snap-start group relative rounded-2xl p-8 bg-[#121214]/40 border border-white/5 hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+                variant="default"
+                isSnapItem
+                snapBreakpoint="md"
+                className="p-6 sm:p-8"
               >
                 <div>
                   {/* Service Title with Icon directly alongside */}
@@ -42,15 +46,15 @@ function Services() {
                     <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-brand-red/15 group-hover:border-brand-red/40 transition-all">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <h3 className="font-display font-semibold text-xl text-white tracking-tight leading-snug">
+                    <CardTitle>
                       {serv.title}
-                    </h3>
+                    </CardTitle>
                   </div>
 
                   {/* Small description */}
-                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                  <CardDescription className="mb-6">
                     {serv.description}
-                  </p>
+                  </CardDescription>
 
                   <hr className="border-white/5 my-5" />
 
@@ -67,9 +71,14 @@ function Services() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </Card>
             );
           })}
+        </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 pt-2 text-zinc-500 font-mono text-[10px]">
+          <span>← deslize os serviços especializados →</span>
         </div>
 
       </div>

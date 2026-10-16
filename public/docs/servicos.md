@@ -7,15 +7,16 @@
 ---
 
 ## 1. Visão Geral dos Serviços
-A KonohaTech estrutura, desenvolve e escala operações digitais para empresas que demandam qualidade técnica superior. Todos os serviços incluem documentação de arquitetura, testes automatizados e esteiras de implantação contínua (CI/CD).
+A KonohaTech une engenharia de software de ponta, criação de sistemas web sob medida e marketing de performance com gestão de tráfego pago para estruturar, desenvolver e escalar operações digitais lucrativas. Todos os serviços integram criação de sistemas com administrador, páginas de alta conversão para geração de leads qualificados e esteiras blindadas de implantação contínua (CI/CD).
 
 ---
 
 ## 2. Verticais de Atuação
 
-### 2.1 Desenvolvimento Web & Aplicações Modernas (Web Apps)
-Construção de ecossistemas web sob medida, desde landing pages de conversão agressiva até plataformas corporativas complexas.
+### 2.1 Criação de Sistemas Web, Softwares sob Medida & Landing Pages de Vendas
+Construção de ecossistemas web sob medida, sistemas com administrador para gestão operacional, landing pages de alta conversão para vendas e plataformas corporativas complexas.
 - **Diferenciais:**
+  - Painéis administrativos robustos, seguros e intuitivos para gestão de negócios.
   - Carregamento instantâneo com otimização completa de Core Web Vitals.
   - Interfaces fluidas com animações a 60fps (micro-interações que elevam a percepção de valor).
   - Design responsivo adaptativo (Mobile-First de precisão).
@@ -48,6 +49,15 @@ Infraestrutura de ponta à prova de falhas com garantia total de funcionamento.
   - Containerização com Docker e orquestração em nuvem.
   - Monitoramento proativo de erros e telemetria em tempo real.
 - **Tecnologias:** Playwright, Cypress, Vitest, Docker, GitHub Actions, AWS, Cloudflare, Vercel.
+
+### 2.5 Gestão de Tráfego Pago & Geração de Leads
+Planejamento estratégico e execução de campanhas de tráfego pago orientadas a ROI, conectando diretamente os sistemas e landing pages aos canais de atração de clientes em potencial.
+- **Diferenciais:**
+  - Campanhas de alto impacto no Google Ads (Rede de Pesquisa, Performance Max) e Meta Ads (Instagram e Facebook).
+  - Gestão de tráfego especializada na geração de leads qualificados com menor custo por aquisição (CPA/CPL).
+  - Rastreamento analítico avançado de conversões (Google Tag Manager, Meta Pixel, API de Conversões do Facebook).
+  - Integração nativa com CRMs e automações de WhatsApp para atendimento em tempo real.
+- **Plataformas e Métricas:** Google Ads, Meta Ads Manager, GA4, GTM, CPL, ROAS, Taxa de Conversão.
 
 ---
 

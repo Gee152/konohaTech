@@ -23,7 +23,7 @@ export default function SectionHeader({
     <div
       className={`max-w-3xl ${
         isCenter ? 'mx-auto text-center' : 'text-left'
-      } mb-8 sm:mb-16 lg:mb-20 ${className}`}
+      } mb-8 sm:mb-16 lg:mb-20 scroll-reveal-up ${className}`}
     >
       {badgeStyle === 'pill' ? (
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 mb-4">

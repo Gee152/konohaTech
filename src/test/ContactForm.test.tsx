@@ -33,16 +33,16 @@ describe('ContactForm Wizard Modal', () => {
 
   it('shows step 1 by default with service options', () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
-    expect(screen.getByText('Desenvolvimento Web')).toBeInTheDocument()
-    expect(screen.getByText('APIs e Back-end')).toBeInTheDocument()
+    expect(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads')).toBeInTheDocument()
+    expect(screen.getByText('Sistemas com Administrador')).toBeInTheDocument()
     expect(screen.getByText('Automações de Processo')).toBeInTheDocument()
     expect(screen.getByText('Inteligência Artificial')).toBeInTheDocument()
-    expect(screen.getByText('QA e Testes Automatizados')).toBeInTheDocument()
+    expect(screen.getByText('Testes e Segurança')).toBeInTheDocument()
   })
 
   it('shows step 2 scale options with updated labels', async () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
-    fireEvent.click(screen.getByText('Desenvolvimento Web'))
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
     fireEvent.click(screen.getByText('Próxima etapa'))
     await screen.findByText('Qual o estágio operacional atual do projeto?')
     expect(screen.getByText('Iniciando meu negocio')).toBeInTheDocument()
@@ -53,7 +53,7 @@ describe('ContactForm Wizard Modal', () => {
   it('advances to step 2 when a service is selected and next is clicked', async () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
 
-    fireEvent.click(screen.getByText('Desenvolvimento Web'))
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
     fireEvent.click(screen.getByText('Próxima etapa'))
 
     await waitFor(() => {
@@ -74,7 +74,7 @@ describe('ContactForm Wizard Modal', () => {
   it('shows step 3 with contact form after selecting service and scale', async () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
 
-    fireEvent.click(screen.getByText('Desenvolvimento Web'))
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
     fireEvent.click(screen.getByText('Próxima etapa'))
 
     await waitFor(() => {
@@ -103,7 +103,7 @@ describe('ContactForm Wizard Budget Calculation', () => {
   it('shows non-zero estimate when services are selected on step 2', async () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
 
-    fireEvent.click(screen.getByText('Desenvolvimento Web'))
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
     fireEvent.click(screen.getByText('Próxima etapa'))
 
     await screen.findByText('Estimativa Operacional Referencial')
@@ -115,7 +115,7 @@ describe('ContactForm Wizard Budget Calculation', () => {
   it('shows estimate on step 3 summary', async () => {
     render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
 
-    fireEvent.click(screen.getByText('Desenvolvimento Web'))
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
     fireEvent.click(screen.getByText('Próxima etapa'))
 
     await screen.findByText('Qual o estágio operacional atual do projeto?')
@@ -124,5 +124,31 @@ describe('ContactForm Wizard Budget Calculation', () => {
 
     const estimate = await screen.findByText(/R\$ [\d.]+ - R\$ [\d.]+/)
     expect(estimate).toBeInTheDocument()
+  })
+
+  it('displays updated exact price ranges for sites and landing pages across all 3 project scales', async () => {
+    render(<ContactForm {...defaultProps} isBudgetModalOpen={true} />)
+
+    fireEvent.click(screen.getByText('Sites e Landing Pages para Vendas e Captação de Leads'))
+    fireEvent.click(screen.getByText('Próxima etapa'))
+
+    await screen.findByText('Qual o estágio operacional atual do projeto?')
+
+    const container = screen.getByText('Estimativa Operacional Referencial').parentElement;
+
+    // 1. Iniciando meu negócio -> 897 a 3497
+    fireEvent.click(screen.getByText('Iniciando meu negocio'));
+    expect(container?.textContent).toContain('897');
+    expect(container?.textContent).toContain('3.497');
+
+    // 2. Pequena empresa -> 4100 a 5297
+    fireEvent.click(screen.getByText('Pequena Empresa'));
+    expect(container?.textContent).toContain('4.100');
+    expect(container?.textContent).toContain('5.297');
+
+    // 3. Empresa em escala -> 6497 a 8280
+    fireEvent.click(screen.getByText('Empresa em Escala'));
+    expect(container?.textContent).toContain('6.497');
+    expect(container?.textContent).toContain('8.280');
   })
 })
