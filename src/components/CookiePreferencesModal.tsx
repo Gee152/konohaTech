@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sliders, ShieldCheck, Check, Info } from 'lucide-react';
 import { CookieConsentPreferences } from '../types';
 
@@ -44,32 +43,25 @@ export default function CookiePreferencesModal({
     onClose();
   };
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="cookie-preferences-title"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-        >
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-          />
+  if (!isOpen) return null;
 
-          {/* Modal Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 16 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="relative w-full max-w-2xl max-h-[85vh] bg-[#0c0c0e] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-10"
-          >
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cookie-preferences-title"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+    >
+      {/* Backdrop */}
+      <div
+        onClick={onClose}
+        className="absolute inset-0 bg-black/80 backdrop-blur-md animate-backdrop-enter"
+      />
+
+      {/* Modal Container */}
+      <div
+        className="relative w-full max-w-2xl max-h-[85vh] bg-[#0c0c0e] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-10 animate-modal-enter"
+      >
             {/* Header */}
             <div className="flex items-start justify-between p-5 sm:p-6 border-b border-white/5 bg-zinc-900/40">
               <div className="flex items-center gap-3">
@@ -190,9 +182,7 @@ export default function CookiePreferencesModal({
                 </button>
               </div>
             </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+      </div>
+    </div>
   );
 }

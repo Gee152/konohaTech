@@ -18,20 +18,12 @@ const PRESENTATION_PHRASES = [
 
 const TypewriterPresentation = memo(function TypewriterPresentation() {
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState(PRESENTATION_PHRASES[0]);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const currentPhrase = PRESENTATION_PHRASES[phraseIndex];
     let timeoutId: ReturnType<typeof setTimeout>;
-
-    // Initial pause to protect CPU on initial load (LCP)
-    if (phraseIndex === 0 && displayedText === '' && !isDeleting) {
-      timeoutId = setTimeout(() => {
-        setDisplayedText(currentPhrase.slice(0, 1));
-      }, 750);
-      return () => clearTimeout(timeoutId);
-    }
 
     if (!isDeleting) {
       if (displayedText.length < currentPhrase.length) {
@@ -41,7 +33,7 @@ const TypewriterPresentation = memo(function TypewriterPresentation() {
       } else {
         timeoutId = setTimeout(() => {
           setIsDeleting(true);
-        }, 2800);
+        }, 3800);
       }
     } else {
       if (displayedText.length > 0) {
@@ -193,24 +185,24 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               Estratégias para alta conversão de clientes e resultados para empresas com IA, marketing digital, sites, sistemas e automações inteligentes, em Recife-PE e todo o Brasil.
             </p>
 
-            {/* Micro proof figures / Contagem */}
+            {/* Micro proof figures / Contagem com largura mínima estável (zero CLS) */}
             <div className="flex items-center justify-between sm:justify-start gap-2.5 sm:gap-8 mt-1.5 sm:mt-4 border-t border-white/5 pt-2.5 sm:pt-4">
               <div>
-                <p className="font-display font-bold text-lg sm:text-2xl text-white">
+                <p className="font-display font-bold text-lg sm:text-2xl text-white tabular-nums inline-block min-w-[3.2ch]">
                   <SlowCounter target={45} duration={3400} />%
                 </p>
                 <p className="text-[9px] sm:text-xs text-zinc-300 sm:text-white leading-tight">Mais produtividade operacional</p>
               </div>
               <div className="w-px h-6 sm:h-8 bg-white/10" />
               <div>
-                <p className="font-display font-bold text-lg sm:text-2xl text-white">
+                <p className="font-display font-bold text-lg sm:text-2xl text-white tabular-nums inline-block min-w-[3.8ch]">
                   <SlowCounter target={100} duration={3600} />%
                 </p>
                 <p className="text-[9px] sm:text-xs text-zinc-300 sm:text-white leading-tight">Entregas no prazo acordado</p>
               </div>
               <div className="w-px h-6 sm:h-8 bg-white/10" />
               <div>
-                <p className="font-display font-bold text-lg sm:text-2xl text-white">
+                <p className="font-display font-bold text-lg sm:text-2xl text-white tabular-nums inline-block min-w-[2.8ch]">
                   <SlowCounter target={12} duration={2800} />+
                 </p>
                 <p className="text-[9px] sm:text-xs text-zinc-300 sm:text-white leading-tight">Projetos entregues</p>
@@ -281,7 +273,7 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
       {/* Scroll indicator with micro-animation (visível apenas em desktop) */}
       <div className="hidden lg:flex absolute bottom-6 inset-x-0 justify-center pointer-events-none">
         <div className="flex flex-col items-center gap-1 animate-bounce">
-          <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase">Rolar para descobrir</span>
+          <span className="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Rolar para descobrir</span>
           <div className="w-5 h-8 rounded-full border border-zinc-700 flex justify-center p-1">
             <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
           </div>

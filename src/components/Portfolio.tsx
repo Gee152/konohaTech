@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, memo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { DATA, PORTFOLIO } from '../data';
 import { PortfolioProject } from '../types';
 import {
@@ -63,6 +62,63 @@ function Portfolio() {
   const [isHovered, setIsHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth >= 768 : false);
   const isDraggingRef = useRef(false);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isMouseDown = useRef(false);
+  const mouseStartX = useRef(0);
+  const mouseDeltaX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDraggingRef.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    if (Math.abs(touchDeltaX.current) > 10) {
+      isDraggingRef.current = true;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 120);
+    if (touchDeltaX.current < -40) {
+      setActiveIndex((prev) => (prev + 1) % PORTFOLIO.length);
+    } else if (touchDeltaX.current > 40) {
+      setActiveIndex((prev) => (prev - 1 + PORTFOLIO.length) % PORTFOLIO.length);
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isMouseDown.current = true;
+    mouseStartX.current = e.clientX;
+    mouseDeltaX.current = 0;
+    isDraggingRef.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown.current) return;
+    mouseDeltaX.current = e.clientX - mouseStartX.current;
+    if (Math.abs(mouseDeltaX.current) > 8) {
+      isDraggingRef.current = true;
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (!isMouseDown.current) return;
+    isMouseDown.current = false;
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 120);
+    if (mouseDeltaX.current < -40) {
+      setActiveIndex((prev) => (prev + 1) % PORTFOLIO.length);
+    } else if (mouseDeltaX.current > 40) {
+      setActiveIndex((prev) => (prev - 1 + PORTFOLIO.length) % PORTFOLIO.length);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -188,28 +244,16 @@ function Portfolio() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <motion.div
-            className="flex w-full cursor-grab active:cursor-grabbing touch-pan-y select-none"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.15}
-            onDragStart={() => {
-              isDraggingRef.current = true;
-            }}
-            onDragEnd={(_, info) => {
-              setTimeout(() => {
-                isDraggingRef.current = false;
-              }, 120);
-              const swipeThreshold = 40;
-              const velocityThreshold = 250;
-              if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
-                setActiveIndex((prev) => (prev + 1) % PORTFOLIO.length);
-              } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
-                setActiveIndex((prev) => (prev - 1 + PORTFOLIO.length) % PORTFOLIO.length);
-              }
-            }}
-            animate={{ x: `-${activeIndex * 100}%` }}
-            transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
+          <div
+            className="flex w-full cursor-grab active:cursor-grabbing touch-pan-y select-none transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+            style={{ transform: `translate3d(-${activeIndex * 100}%, 0, 0)` }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
           >
             {PORTFOLIO.map((project, idx) => {
               const nextProject = PORTFOLIO[(idx + 1) % PORTFOLIO.length];
@@ -233,7 +277,7 @@ function Portfolio() {
                 </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
 
         {/* Indicadores de Slide com Barra de Progresso de 15s */}
@@ -252,15 +296,9 @@ function Portfolio() {
                 }`}
               >
                 {isActive && (
-                  <motion.div
+                  <div
                     key={`progress-${activeIndex}`}
-                    initial={{ width: '0%' }}
-                    animate={{ width: '100%' }}
-                    transition={{
-                      duration: 15,
-                      ease: 'linear'
-                    }}
-                    className="h-full bg-brand-red rounded-full"
+                    className="h-full bg-brand-red rounded-full animate-progress-15s"
                   />
                 )}
               </button>
@@ -276,25 +314,18 @@ function Portfolio() {
       </div>
 
       {/* PORTFOLIO CASE STUDY MODAL */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop filter blur */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            />
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop filter blur */}
+          <div
+            onClick={() => setSelectedProject(null)}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-backdrop-enter"
+          />
 
-            {/* Modal Box */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="relative w-full max-w-3xl rounded-3xl glass-panel border border-white/10 shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col bg-[#0c0c0e]"
-            >
+          {/* Modal Box */}
+          <div
+            className="relative w-full max-w-3xl rounded-3xl glass-panel border border-white/10 shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col bg-[#0c0c0e] animate-modal-enter"
+          >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-white/5 bg-white/[0.01]">
                 <div>
@@ -401,10 +432,9 @@ function Portfolio() {
                   Quero uma solução parecida
                 </a>
               </div>
-            </motion.div>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
 
     </section>
   );

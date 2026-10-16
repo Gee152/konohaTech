@@ -17,9 +17,9 @@ const variantStyles: Record<NonNullable<CardProps['variant']>, string> = {
 };
 
 const snapBreakpointMap: Record<NonNullable<CardProps['snapBreakpoint']>, string> = {
-  sm: 'sm:w-auto',
-  md: 'md:w-auto',
-  lg: 'lg:w-auto',
+  sm: 'sm:w-full sm:max-w-none sm:shrink',
+  md: 'md:w-full md:max-w-none md:shrink',
+  lg: 'lg:w-full lg:max-w-none lg:shrink',
 };
 
 export const Card = memo(

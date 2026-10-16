@@ -1,0 +1,50 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "identifier": "urn:air:konohatech.com.br:account:main",
+    "displayName": "KonohaTech Engenharia de Software & Soluções Digitais",
+    "documentationUrl": "https://www.konohatech.com.br/docs/servicos.md",
+    "logoUrl": "https://www.konohatech.com.br/assets/og-cover.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:konohatech.com.br:service:web-development",
+      "displayName": "Criação de Sistemas Web & Sites Sob Medida",
+      "description": "Desenvolvimento de sistemas web completos com painel administrativo, plataformas escaláveis e landing pages de alta conversão.",
+      "type": "text/markdown",
+      "url": "https://www.konohatech.com.br/docs/servicos.md",
+      "representativeQueries": [
+        "Criar sistema web sob medida",
+        "Desenvolvimento de software em Recife",
+        "Landing page de alta conversão para empresas"
+      ],
+      "tags": ["sistemas", "software", "web", "react", "typescript"]
+    },
+    {
+      "identifier": "urn:air:konohatech.com.br:service:traffic-leads",
+      "displayName": "Gestão de Tráfego Pago & Geração de Leads",
+      "description": "Gestão estratégica de anúncios no Google Ads e Meta Ads com rastreamento analítico e foco em ROI e aquisição contínua de clientes.",
+      "type": "text/markdown",
+      "url": "https://www.konohatech.com.br/docs/servicos.md",
+      "representativeQueries": [
+        "Gestão de tráfego pago em Recife",
+        "Geração de leads qualificados Google Ads",
+        "Campanhas de conversão Meta Ads Instagram"
+      ],
+      "tags": ["trafego-pago", "google-ads", "meta-ads", "leads", "marketing"]
+    },
+    {
+      "identifier": "urn:air:konohatech.com.br:service:ai-automations",
+      "displayName": "Automações de Vendas com Inteligência Artificial",
+      "description": "Assistentes virtuais inteligentes integrados ao WhatsApp para triagem, qualificação imediata de leads e automação de processos comerciais.",
+      "type": "text/markdown",
+      "url": "https://www.konohatech.com.br/docs/servicos.md",
+      "representativeQueries": [
+        "Automação de WhatsApp com IA",
+        "Assistente virtual para qualificar leads",
+        "Chatbot inteligente para empresas"
+      ],
+      "tags": ["ia", "inteligencia-artificial", "whatsapp", "automacao", "llm"]
+    }
+  ]
+}

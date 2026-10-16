@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import GlowBackground from './components/GlowBackground';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -22,10 +22,29 @@ const Portfolio = lazy(() => import('./components/Portfolio'));
 
 export default function App() {
   const [isBudgetModalOpen, setIsBudgetModalOpen] = useState(false);
+  const [showCookieConsent, setShowCookieConsent] = useState(false);
   const { currentView, openLanding } = useQueryRouting();
 
   const handleOpenBudgetModal = useCallback(() => setIsBudgetModalOpen(true), []);
   const handleCloseBudgetModal = useCallback(() => setIsBudgetModalOpen(false), []);
+
+  // Adia o carregamento do gerenciador de cookies para não disputar CPU no LCP inicial
+  useEffect(() => {
+    if ('requestIdleCallback' in window) {
+      const handle = (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => number }).requestIdleCallback(
+        () => setShowCookieConsent(true),
+        { timeout: 3500 }
+      );
+      return () => {
+        if ('cancelIdleCallback' in window) {
+          (window as unknown as { cancelIdleCallback: (h: number) => void }).cancelIdleCallback(handle);
+        }
+      };
+    } else {
+      const timer = setTimeout(() => setShowCookieConsent(true), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <div className="relative min-h-screen text-zinc-100 font-sans selection:bg-[#df2531]/30 selection:text-white bg-[#050505]">
@@ -108,10 +127,12 @@ export default function App() {
       {/* Botão Flutuante de Atendimento WhatsApp */}
       <WhatsAppFloatingButton />
 
-      {/* Sistema de Gestão de Cookies e LGPD (carregado assincronamente) */}
-      <Suspense fallback={null}>
-        <CookieConsentManager />
-      </Suspense>
+      {/* Sistema de Gestão de Cookies e LGPD (carregado sob demanda na ociosidade) */}
+      {showCookieConsent && (
+        <Suspense fallback={null}>
+          <CookieConsentManager />
+        </Suspense>
+      )}
     </div>
   );
 }

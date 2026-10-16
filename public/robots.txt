@@ -32,5 +32,7 @@ Disallow: /
 User-agent: CCBot
 Disallow: /
 
-# Localização do Sitemap
+# Localização do Sitemap e Catálogo de Recursos de IA (ARD / WebMCP)
 Sitemap: https://www.konohatech.com.br/sitemap.xml
+Agentmap: https://www.konohatech.com.br/.well-known/ai-catalog.json
+
