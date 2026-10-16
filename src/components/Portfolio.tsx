@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DATA, PORTFOLIO } from '../data';
 import { PortfolioProject } from '../types';
@@ -62,6 +62,7 @@ function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth >= 768 : false);
+  const isDraggingRef = useRef(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -89,7 +90,10 @@ function Portfolio() {
 
     return (
       <div
-        onClick={() => setSelectedProject(project)}
+        onClick={() => {
+          if (isDraggingRef.current) return;
+          setSelectedProject(project);
+        }}
         className="group cursor-pointer h-full px-1 py-1"
       >
         {/* Outer Wrapper: Formato quase losango (paralelepípedo inclinado) + Borda Glow Neon */}
@@ -189,7 +193,13 @@ function Portfolio() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.15}
+            onDragStart={() => {
+              isDraggingRef.current = true;
+            }}
             onDragEnd={(_, info) => {
+              setTimeout(() => {
+                isDraggingRef.current = false;
+              }, 120);
               const swipeThreshold = 40;
               const velocityThreshold = 250;
               if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {

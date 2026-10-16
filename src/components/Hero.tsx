@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef, memo } from 'react';
-import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import gabrielImg from '../assets/img/konoha_tech_seo_gabriel_recife.webp';
-import ImageWithSkeleton from './ui/ImageWithSkeleton';
 import Button from './ui/Button';
 import Badge from './ui/Badge';
+const gabrielImg = '/assets/konoha_tech_seo_gabriel_recife.webp';
 
 interface SlowCounterProps {
   target: number;
@@ -171,51 +169,32 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           {/* Copy & Call-To-Action: Abaixo da bio e foto no mobile (order-2 lg:order-1) */}
-          <div className="lg:col-span-7 flex flex-col gap-3.5 sm:gap-6 text-left order-2 lg:order-1">
-            
+          <div
+            className="lg:col-span-7 flex flex-col gap-3.5 sm:gap-6 text-left order-2 lg:order-1"
+          >
             {/* Tag/Badge de Destaque */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="hidden sm:inline-flex self-start"
-            >
+            <div className="hidden sm:inline-flex self-start">
               <Badge variant="red" pulse size="md">
                 Disponível para Novos Projetos
               </Badge>
-            </motion.div>
+            </div>
 
             {/* Title - Otimizado para SEO e GEO com palavras-chave primárias */}
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="font-display font-extrabold text-[28px] xs:text-[30px] sm:text-5xl lg:text-[58px] tracking-tight text-white leading-[1.1]"
-            >
+            <h1 className="font-display font-extrabold text-[28px] xs:text-[30px] sm:text-5xl lg:text-[58px] tracking-tight text-white leading-[1.1]">
               Criação de sites{' '}
               <span className="text-brand-red">
                 e soluções digitais
               </span>{' '}
               de alta performance
-            </motion.h1>
+            </h1>
 
             {/* Subtitle - Otimizado para intenção de busca regional e nacional */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut', delay: 0.04 }}
-              className="text-zinc-200 text-xs sm:text-base lg:text-lg max-w-xl leading-relaxed"
-            >
-              Estrategias para alta conversão de clientes e resultados para empresas com IA, marketing digital, sites, sistemas e automações inteligentes, em Recife-PE e todo o Brasil.
-            </motion.p>
+            <p className="text-zinc-200 text-xs sm:text-base lg:text-lg max-w-xl leading-relaxed">
+              Estratégias para alta conversão de clientes e resultados para empresas com IA, marketing digital, sites, sistemas e automações inteligentes, em Recife-PE e todo o Brasil.
+            </p>
 
             {/* Micro proof figures / Contagem */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.25, ease: 'easeOut', delay: 0.08 }}
-              className="flex items-center justify-between sm:justify-start gap-2.5 sm:gap-8 mt-1.5 sm:mt-4 border-t border-white/5 pt-2.5 sm:pt-4"
-            >
+            <div className="flex items-center justify-between sm:justify-start gap-2.5 sm:gap-8 mt-1.5 sm:mt-4 border-t border-white/5 pt-2.5 sm:pt-4">
               <div>
                 <p className="font-display font-bold text-lg sm:text-2xl text-white">
                   <SlowCounter target={45} duration={3400} />%
@@ -234,17 +213,12 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
                 <p className="font-display font-bold text-lg sm:text-2xl text-white">
                   <SlowCounter target={12} duration={2800} />+
                 </p>
-                <p className="text-[9px] sm:text-xs text-zinc-300 sm:text-white leading-tight">Tecnologias dominadas</p>
+                <p className="text-[9px] sm:text-xs text-zinc-300 sm:text-white leading-tight">Projetos entregues</p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Buttons: Abaixo da contagem */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-row items-center gap-2 sm:gap-4 mt-2 sm:mt-4"
-            >
+            <div className="flex flex-row items-center gap-2 sm:gap-4 mt-2 sm:mt-4">
               <Button
                 onClick={onOpenBudgetModal}
                 size="lg"
@@ -261,84 +235,58 @@ function Hero({ onOpenBudgetModal }: HeroProps) {
               >
                 Conhecer projetos
               </Button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Gabriel Campos Portrait with Typewriter Presentation: Acima do texto no mobile (order-1 lg:order-2) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <div
             className="lg:col-span-5 relative w-full flex justify-center order-1 lg:order-2"
           >
             {/* Ambient subtle warm glow behind card */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-brand-red/20 via-amber-500/15 to-transparent rounded-[2.5rem] blur-3xl -z-10 opacity-70" />
+            <div className="absolute -inset-4 bg-gradient-to-tr from-brand-red/20 via-amber-500/15 to-transparent rounded-[2.5rem] blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-            {/* Portrait Frame with Transparent Background & Print 2 Red Shadow - Bio no tamanho original do step anterior */}
+            {/* Portrait Frame with Transparent Background & Clean Red Glow */}
             <div className="relative rounded-[2rem] sm:rounded-3xl border border-white/10 shadow-2xl shadow-black/80 overflow-hidden w-full max-w-[420px] sm:max-w-[450px] aspect-[4/4.8] sm:aspect-[4/4.7] bg-black/40 backdrop-blur-md group">
               
-              {/* Atmospheric glowing red ambient halo matching Print 2 */}
+              {/* Atmospheric glowing red ambient halo */}
               <div className="absolute top-[20%] left-[10%] w-72 h-72 rounded-full bg-[#df2531]/30 blur-3xl pointer-events-none z-0" />
               <div className="absolute top-[10%] -right-[10%] w-60 h-60 rounded-full bg-orange-600/20 blur-3xl pointer-events-none z-0" />
 
-              {/* 2. DUPLICATED IMAGE: Perfectly aligned subtle silhouette shadow directly behind portrait */}
-              <div className="absolute inset-0 z-[1] pointer-events-none flex items-end justify-center opacity-25 filter blur-[4px]">
-                <img
-                  src={gabrielImg}
-                  alt=""
-                  aria-hidden="true"
-                  className="w-full h-full object-cover object-top filter sepia-[1] saturate-[8] hue-rotate-[320deg] brightness-[0.9] drop-shadow-[0_0_25px_rgba(223,37,49,0.8)]"
-                />
-              </div>
-
-
-              {/* FOREGROUND: Gabriel Portrait Image with background removed */}
+              {/* FOREGROUND: Gabriel Portrait Image (Immediate LCP paint without skeleton opacity delay) */}
               <div className="relative z-[2] w-full h-full flex items-end justify-center">
-                <ImageWithSkeleton
+                <img
                   src={gabrielImg}
                   alt="Gabriel Campos - Fundador & Desenvolvedor de Software na KonohaTech"
                   width={420}
                   height={500}
                   decoding="async"
-                  containerClassName="w-full h-full"
-                  className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.04]"
                   loading="eager"
                   fetchPriority="high"
+                  className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.04]"
                 />
               </div>
 
               {/* Subtle bottom vignette to blend shirt and crossed arms smoothly */}
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-[3] pointer-events-none" />
 
-              {/* Typewriter Presentation Overlay directly in front of the image (restaurado) */}
+              {/* Typewriter Presentation Overlay directly in front of the image */}
               <div className="absolute bottom-3.5 sm:bottom-4 inset-x-3.5 sm:inset-x-4 z-20">
                 <TypewriterPresentation />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Scroll indicator with micro-animation (visível apenas em desktop) */}
       <div className="hidden lg:flex absolute bottom-6 inset-x-0 justify-center pointer-events-none">
-        <motion.div
-          animate={{
-            y: [0, 8, 0],
-          }}
-          transition={{
-            duration: 1.8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="flex flex-col items-center gap-1"
-        >
+        <div className="flex flex-col items-center gap-1 animate-bounce">
           <span className="font-mono text-[9px] tracking-widest text-zinc-500 uppercase">Rolar para descobrir</span>
           <div className="w-5 h-8 rounded-full border border-zinc-700 flex justify-center p-1">
             <div className="w-1.5 h-1.5 rounded-full bg-brand-red" />
           </div>
-        </motion.div>
+        </div>
       </div>
-
     </section>
   );
 }

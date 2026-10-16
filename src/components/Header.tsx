@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect, memo } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import logoSrc from '../assets/img/logo_konoha_tech_recife.png';
 import { Button } from './ui/Button';
@@ -19,7 +18,7 @@ const NAV_LINKS = [
   { name: 'FAQ', href: '#faq' },
 ];
 
-export default function Header({ onOpenBudgetModal }: HeaderProps) {
+function Header({ onOpenBudgetModal }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -120,44 +119,40 @@ export default function Header({ onOpenBudgetModal }: HeaderProps) {
       </div>
 
       {/* Mobile Nav Overlay Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full inset-x-0 z-50 p-4 mx-4 mt-2 rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 shadow-2xl lg:hidden"
-          >
-            <div className="flex flex-col gap-3 py-2">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/5 transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <hr className="border-white/5 my-1" />
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBudgetModal();
-                }}
-                icon={<ArrowUpRight className="w-4 h-4" />}
-                className="w-full rounded-xl justify-center shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)]"
+      {mobileMenuOpen && (
+        <div
+          className="absolute top-full inset-x-0 z-50 p-4 mx-4 mt-2 rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 shadow-2xl lg:hidden transition-all duration-200"
+        >
+          <div className="flex flex-col gap-3 py-2">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/5 transition-colors"
               >
-                Solicitar orçamento
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {link.name}
+              </a>
+            ))}
+            <hr className="border-white/5 my-1" />
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBudgetModal();
+              }}
+              icon={<ArrowUpRight className="w-4 h-4" />}
+              className="w-full rounded-xl justify-center shadow-[0_0_20px_-3px_rgba(223,37,49,0.4)]"
+            >
+              Solicitar orçamento
+            </Button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
+
+export default memo(Header);
 

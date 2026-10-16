@@ -2,24 +2,29 @@
 <html lang="pt-BR">
 
 <head>
-  <!-- Google tag (gtag.js) — Non-blocking async load -->
+  <!-- Google tag (gtag.js) — Non-blocking deferred loading on interaction or idle -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     function loadGtag() {
+      if (window.__gtagLoaded) return;
+      window.__gtagLoaded = true;
+      ['scroll', 'touchstart', 'pointerdown', 'click'].forEach(function(e) {
+        window.removeEventListener(e, loadGtag, { passive: true });
+      });
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-537BF8944D';
       document.head.appendChild(s);
       gtag('config', 'G-537BF8944D');
     }
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadGtag, { timeout: 3000 });
-    } else {
-      window.addEventListener('load', loadGtag);
-    }
+    ['scroll', 'touchstart', 'pointerdown', 'click'].forEach(function(e) {
+      window.addEventListener(e, loadGtag, { once: true, passive: true });
+    });
+    // Fallback after 4.5s so analytics is captured even without early interaction
+    setTimeout(loadGtag, 4500);
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,20 +53,20 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
   <link rel="manifest" href="./site.webmanifest" />
   <!-- Preload Critical LCP Image for Mobile & Desktop (Zero Resource Load Delay) -->
-  <link rel="preload" as="image" href="./assets/konoha_tech_seo_gabriel_recife.webp" type="image/webp"
+  <link rel="preload" as="image" href="/assets/konoha_tech_seo_gabriel_recife.webp" type="image/webp"
     fetchpriority="high" />
 
   <!-- Google Fonts Non-Blocking Async Loading for Zero-FCP Delay -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" />
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   </noscript>
 
   <!-- Open Graph / Facebook / WhatsApp -->

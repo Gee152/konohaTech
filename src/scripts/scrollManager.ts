@@ -2,6 +2,127 @@
 // High-performance, 60fps animations with calibrated spring physics
 // 
 
+// ------------------------------------------------------------------------
+// MOUSE DRAG-TO-SCROLL FOR HORIZONTAL CAROUSELS
+// Enables fluid mouse drag across cards in all horizontal carousels with
+// velocity-based momentum glide, grab cursor feedback, and click protection
+// ------------------------------------------------------------------------
+export function setupMouseDragCarousels(container: Document | HTMLElement = document) {
+  if (typeof window === 'undefined') return;
+  const sliders = container.querySelectorAll<HTMLElement>('.mobile-carousel');
+
+  sliders.forEach((slider) => {
+    if ((slider as any).__mouseDragAttached) return;
+    (slider as any).__mouseDragAttached = true;
+
+    let isDown = false;
+    let isDragging = false;
+    let startX = 0;
+    let initialScrollLeft = 0;
+    let velocity = 0;
+    let lastX = 0;
+    let lastTime = 0;
+
+    // Check if carousel currently has horizontal overflow (swipeable mode)
+    const hasOverflow = () => slider.scrollWidth > slider.clientWidth + 6;
+
+    const updateCursor = () => {
+      if (hasOverflow()) {
+        if (!slider.classList.contains('cursor-grabbing')) {
+          slider.classList.add('cursor-grab');
+        }
+      } else {
+        slider.classList.remove('cursor-grab', 'cursor-grabbing');
+      }
+    };
+
+    slider.addEventListener('mouseenter', updateCursor, { passive: true });
+    window.addEventListener('resize', updateCursor, { passive: true });
+
+    // Prevent native HTML5 image/link drag-and-drop ghost so our carousel dragging takes priority
+    slider.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+    });
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      const currentX = e.pageX;
+      const dx = currentX - startX;
+
+      // Beyond 4px, activate drag state
+      if (!isDragging && Math.abs(dx) > 4) {
+        isDragging = true;
+        // Temporarily disable CSS snap during drag to prevent fighting mouse coordinates
+        slider.style.scrollSnapType = 'none';
+        slider.style.scrollBehavior = 'auto';
+        slider.classList.add('cursor-grabbing');
+        slider.classList.remove('cursor-grab');
+      }
+
+      if (isDragging) {
+        e.preventDefault();
+        const now = Date.now();
+        const dt = Math.max(now - lastTime, 1);
+        velocity = (currentX - lastX) / dt;
+        lastX = currentX;
+        lastTime = now;
+        slider.scrollLeft = initialScrollLeft - dx;
+      }
+    };
+
+    const onMouseUp = () => {
+      if (!isDown) return;
+      isDown = false;
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+
+      if (isDragging) {
+        slider.classList.remove('cursor-grabbing');
+        updateCursor();
+
+        // Restore smooth snap alignment so the card locks into place
+        slider.style.scrollBehavior = 'smooth';
+        slider.style.scrollSnapType = '';
+
+        // If flicked with velocity, glide towards next card
+        if (Math.abs(velocity) > 0.25) {
+          slider.scrollLeft -= velocity * 150;
+        }
+
+        // Intercept and prevent accidental clicks on cards during a drag
+        const preventClick = (ev: MouseEvent) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+        };
+        window.addEventListener('click', preventClick, { capture: true, once: true });
+        setTimeout(() => {
+          window.removeEventListener('click', preventClick, { capture: true });
+          slider.style.scrollBehavior = '';
+        }, 120);
+      }
+    };
+
+    const onMouseDown = (e: MouseEvent) => {
+      // Only trigger on primary left mouse click
+      if (e.button !== 0) return;
+      if (!hasOverflow()) return;
+
+      isDown = true;
+      isDragging = false;
+      startX = e.pageX;
+      lastX = e.pageX;
+      lastTime = Date.now();
+      initialScrollLeft = slider.scrollLeft;
+      velocity = 0;
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    };
+
+    slider.addEventListener('mousedown', onMouseDown);
+  });
+}
+
 export function initScrollSystem() {
   if (typeof window === 'undefined') return;
 
@@ -37,13 +158,7 @@ export function initScrollSystem() {
         el.classList.add('is-revealed');
         return;
       }
-      // If already within initial viewport on load, reveal immediately
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
-        el.classList.add('is-revealed');
-      } else {
-        revealObserver.observe(el);
-      }
+      revealObserver.observe(el);
     });
   };
 
@@ -63,6 +178,12 @@ export function initScrollSystem() {
             if (hasReveals) {
               observeElements(element);
             }
+          }
+
+          if (element.matches && element.matches('.mobile-carousel')) {
+            setupMouseDragCarousels(element.parentElement || document);
+          } else if (element.querySelectorAll && element.querySelectorAll('.mobile-carousel').length > 0) {
+            setupMouseDragCarousels(element);
           }
         }
       });
@@ -132,12 +253,7 @@ export function initScrollSystem() {
     );
 
     counterElements.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 30 && rect.bottom > 30) {
-        setTimeout(() => startCounter(el), 350);
-      } else {
-        counterInViewObserver.observe(el);
-      }
+      counterInViewObserver.observe(el);
     });
   }
 
@@ -324,6 +440,11 @@ export function initScrollSystem() {
       }
     });
   });
+
+  // ------------------------------------------------------------------------
+  // 6. INITIALIZE MOUSE DRAG-TO-SCROLL FOR HORIZONTAL CAROUSELS
+  // ------------------------------------------------------------------------
+  setupMouseDragCarousels(document);
 }
 
 // Auto-initialize when loaded in browser

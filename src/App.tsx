@@ -6,7 +6,6 @@ import Problem from './components/Problem';
 import Solution from './components/Solution';
 import Benefits from './components/Benefits';
 import Services from './components/Services';
-import Portfolio from './components/Portfolio';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -19,6 +18,7 @@ import BioLinksSkeleton from './components/skeletons/BioLinksSkeleton';
 const BioLinks = lazy(() => import('./components/BioLinks'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const CookieConsentManager = lazy(() => import('./components/CookieConsentManager'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
 
 export default function App() {
   const [isBudgetModalOpen, setIsBudgetModalOpen] = useState(false);
@@ -64,7 +64,9 @@ export default function App() {
             <Services />
 
             {/* Portfolio Section featuring dynamic case modals */}
-            <Portfolio />
+            <Suspense fallback={null}>
+              <Portfolio />
+            </Suspense>
 
             {/* Elegant Horizontal workflow process */}
             <Process />
